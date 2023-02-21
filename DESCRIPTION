@@ -1,0 +1,14 @@
+Package: spiroview
+Type: Package
+Title: An R Package for Exploration and Visualization of Demographic Spirometry Data
+Version: 0.1.0
+Authors@R: person("Annie", "Liu", 
+                  email = "anni.liu@mail.utoronto.ca", 
+                  role = c("aut", "cre"))
+Maintainer: Annie Liu <anni.liu@mail.utoronto.ca>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
