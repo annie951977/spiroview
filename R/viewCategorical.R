@@ -2,7 +2,6 @@
 #' @param
 #' @return
 #' @examples
-#' @import
 viewCategorical <- function() {
 
   # takes the data frames with the categorical data and the value that you want to see
