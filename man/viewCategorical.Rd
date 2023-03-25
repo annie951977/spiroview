@@ -4,7 +4,7 @@
 \alias{viewCategorical}
 \title{Produces a number of categorical plots based on the categorical demographic inputted}
 \usage{
-viewCategorical()
+viewCategorical(df, demParam, spiroParam, type = "box")
 }
 \description{
 Produces a number of categorical plots based on the categorical demographic inputted

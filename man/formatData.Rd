@@ -6,6 +6,9 @@
 \usage{
 formatData(path)
 }
+\value{
+dataframe containing reformated data
+}
 \description{
 Reads a file in as a dataframe and formats the columns of commonly used demographic parameters
 }

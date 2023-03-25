@@ -4,7 +4,7 @@
 \alias{viewNumerical}
 \title{Produces a number of numerical plots based on the numerical demographic inputted}
 \usage{
-viewNumerical()
+viewNumerical(df, demParam, spiroParam, export = FALSE)
 }
 \description{
 Produces a number of numerical plots based on the numerical demographic inputted

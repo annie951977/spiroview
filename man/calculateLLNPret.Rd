@@ -10,6 +10,6 @@ calculateLLNPret(df, param = "FEV1", ref = "GLI")
 \item{df}{A dataframe with colnames at the minimum age and height}
 }
 \description{
-Assumes that df is a dataframe that contains at least the age and the height
+Assumes that df is a dataframe row that contains at least the age and the height
 of the patient
 }
