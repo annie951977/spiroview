@@ -62,9 +62,9 @@ segregateBy <- function(df,
       containsDF <- (df[which(df$demParam > numBy)])
       otherDF <- (df[which(df$demParam <= numBy)])
 
-    } else if(op == "=>") {
+    } else if(op == ">=") {
 
-      containsDF <- (df[which(df$demParam => numBy)])
+      containsDF <- (df[which(df$demParam >= numBy)])
       otherDF <- (df[which(df$demParam < numBy)])
 
     } else if(op == "==") {
