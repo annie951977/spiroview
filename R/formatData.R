@@ -9,9 +9,9 @@ formatData <- function(path) {
   results <- data.frame()
   # check if the file is tsv or csv
 
-  if(grep("\.csv$", path)) {
+  if(grep("\\.csv$", path)) {
       df <- readr::read.csv2(path, col_names = TRUE)
-    } else if(grep("\.tsv$", path)) {
+    } else if(grep("\\.tsv$", path)) {
      df <- readr::read_tsv(path, col_names = TRUE)
     } else {
     stop("Input file type not supported")
