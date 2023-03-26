@@ -32,47 +32,6 @@ viewCategorical <- function(df,
 }
 
 
-
-#' Produces a number of categorical plots based on the categorical demographic inputted and a certain delination
-#' @param
-#' @return
-#' @examples
-
-compareCategorical <- function(df,
-                               demParam,
-                               spiroParam,
-                               delim = NULL,
-                               type = "box") {
-
-  if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)) {
-    stop("Please provide the proper parameters for compareCategorical")
-  }
-
-
-  # takes the data frames with the categorical data and the value that you want to see
-  plotData <- df %>%
-    dpylr::select(demParam, spiroParam)
-
-  outputGraph <- ggplot(plotData, aes(x=demParam, y=spiroParam))
-
-  # makes ggplot graph based on the type of distribution graph you're looking for
-
-  if (type == "box") {
-    outputGraph <- outputGraph + geom_boxplot()
-  } else if (type == "violin") {
-    outputGraph <- outputGraph + geom_violin()
-  } else if (type == "strip") {
-    outputGraph <- outputGraph + geom_jitter()
-  }
-
-  if (delim) {
-
-  }
-
-  return(outputGraph)
-
-}
-
 #' Produces graphs that show the number of samples per demographic category
 #' @param df Data that is being analyzed
 #' @param demParam A categorical demographic variable
