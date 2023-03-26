@@ -18,6 +18,7 @@
 #' by an inequality operator is expected. For example ">16".
 #'
 #' @param segIsNumeric Declaring if segBy is a numeric value. Default is FALSE.
+#' @import stringr
 #' @return a list of resulting dataset:
 #' - dataset meeting segBy condition
 #' - dataset that does not meet segBy condition
