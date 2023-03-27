@@ -2,7 +2,7 @@
 % Please edit documentation in R/segregateBy.R
 \name{segregateBy}
 \alias{segregateBy}
-\title{Segregates dataframes by a demographic deliminter}
+\title{Segregates dataframes by a demographic delimiter}
 \usage{
 segregateBy(df, demParam, segBy, segIsNumeric = FALSE)
 }
@@ -12,9 +12,9 @@ segregateBy(df, demParam, segBy, segIsNumeric = FALSE)
 \item{demParam}{The demographic factor in question}
 
 \item{segBy}{The demographic delimiter in question. For categorical variables,
-simply some categorical term is expected. For numerical variables, a string
-consisting of a numeric value preceded by an inequality operator is expected.
-For example ">16".}
+simply some categorical term or a vector of terms is expected. For numerical variables,
+a singlestring consisting of a numeric value preceded
+by an inequality operator is expected. For example ">16".}
 
 \item{segIsNumeric}{Declaring if segBy is a numeric value. Default is FALSE.}
 }

@@ -1,4 +1,4 @@
-#' Segregates dataframes by a demographic deliminter
+#' Segregates dataframes by a demographic delimiter
 #'
 #' A function that takes a demographic parameter and divides the dataframe based
 #' off of the relationship to said parameter. For example, if demParam is sex

@@ -2,12 +2,22 @@
 % Please edit documentation in R/viewNumerical.R
 \name{compareNumerical}
 \alias{compareNumerical}
-\title{Produces numerical plots that are segregated based off of certain delinations of a
-parameter}
+\title{Produces numerical plot that is segregated based off of certain delinations of a
+numerical or categorical parameter}
 \usage{
-compareNumerical()
+compareNumerical(
+  df,
+  demParam,
+  spiroParam,
+  delim = NULL,
+  demColor = "red",
+  secondParm = NULL,
+  secondDelim = NULL,
+  secondColor = "purple",
+  includeBestFit = FALSE
+)
 }
 \description{
-Produces numerical plots that are segregated based off of certain delinations of a
-parameter
+Produces numerical plot that is segregated based off of certain delinations of a
+numerical or categorical parameter
 }

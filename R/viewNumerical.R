@@ -2,7 +2,7 @@
 #' @param
 #' @return
 #' @examples
-#' @imports ggplot
+#' @import ggplot
 viewNumerical <- function(df,
                           demParam,
                           spiroParam,
@@ -34,7 +34,7 @@ viewNumerical <- function(df,
 #' @param
 #' @return
 #' @examples
-#' @imports ggplot
+#' @import ggplot
 compareNumerical <- function(df,
                              demParam,
                              spiroParam,
