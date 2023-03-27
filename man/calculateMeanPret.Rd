@@ -6,6 +6,9 @@
 \usage{
 calculateMeanPret(df, param = "FEV1", ref = "GLI")
 }
+\arguments{
+\item{df}{A dataframe containing colnames age and height at the minimum}
+}
 \description{
 Calculates the predicted mean predicted based on inputed paramters
 }

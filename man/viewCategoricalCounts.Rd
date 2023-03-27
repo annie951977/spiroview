@@ -2,7 +2,7 @@
 % Please edit documentation in R/viewCategorical.R
 \name{viewCategoricalCounts}
 \alias{viewCategoricalCounts}
-\title{Produces graphs that show the number of samples per demographic category}
+\title{Produces graphs that show the number of samples per demographic category.}
 \usage{
 viewCategoricalCounts(df, demParam, secondParam = NULL, type = "pie")
 }
@@ -11,7 +11,8 @@ viewCategoricalCounts(df, demParam, secondParam = NULL, type = "pie")
 
 \item{demParam}{A categorical demographic variable}
 
-\item{secondParam}{A second categorical demographic variable}
+\item{secondParam}{A second categorical demographic variable to further
+stratify the plot}
 
 \item{type}{The type of graph desired, options include: pie, doughnut, bar.
 Default is pie}
@@ -20,5 +21,6 @@ Default is pie}
 an output graph
 }
 \description{
-Produces graphs that show the number of samples per demographic category
+A function that produces graphs visualizing the number of samples per a
+categorical demographic variable.
 }

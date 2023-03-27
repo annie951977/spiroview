@@ -2,22 +2,53 @@
 % Please edit documentation in R/viewNumerical.R
 \name{compareNumerical}
 \alias{compareNumerical}
-\title{Produces numerical plot that is segregated based off of certain delinations of a
-numerical or categorical parameter}
+\title{Produces scatterplot with values meeting certain thresholds marked}
 \usage{
 compareNumerical(
   df,
   demParam,
   spiroParam,
   delim = NULL,
-  demColor = "red",
+  delimColor = "red",
   secondParm = NULL,
   secondDelim = NULL,
   secondColor = "purple",
   includeBestFit = FALSE
 )
 }
+\arguments{
+\item{df}{A dataframe containing each patient demographic data and at least
+one mean spirometric value}
+
+\item{demParam}{Demographic category of interest}
+
+\item{spiroParam}{The spirometric parameter of interest as a string}
+
+\item{delim}{An delineation of demParam, must follow
+the convention of "operator numeric" for example "<10".
+Default is NULL}
+
+\item{delimColor}{The color to color the points meeting delim on the graph.
+Default is "red"}
+
+\item{secondColor}{The color to color the points meeting secondDelim
+on the graph. Default is "purple"}
+
+\item{includeBestFit}{A boolean stating if a the line of best fit should be
+included in the plot}
+
+\item{secondParam}{An additional demographic variable of interest that can be
+either a numeric or categorical value.}
+}
+\value{
+A basic ggplot scatterplot that can be built upon as needed
+}
 \description{
-Produces numerical plot that is segregated based off of certain delinations of a
-numerical or categorical parameter
+A function that produces numerical plot that is segregated based off of certain
+delineations of a numerical or categorical parameter. Up to two delineations
+can be added.
+}
+\details{
+Assumption: delim exists within the domain of demParam and secondDelim
+exists within the domain of secondParam
 }

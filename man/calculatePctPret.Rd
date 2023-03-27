@@ -2,10 +2,13 @@
 % Please edit documentation in R/calculatedPredicted.R
 \name{calculatePctPret}
 \alias{calculatePctPret}
-\title{Calculates the predicted lower limit of normal based off of inputed parameters}
+\title{Calculates the predicted lower limit of normal based off of inputted parameters}
 \usage{
 calculatePctPret(df, param = "FEV1", ref = "GLI")
 }
+\arguments{
+\item{df}{A dataframe containing colnames age and height at the minimum}
+}
 \description{
-Calculates the predicted lower limit of normal based off of inputed parameters
+Calculates the predicted lower limit of normal based off of inputted parameters
 }

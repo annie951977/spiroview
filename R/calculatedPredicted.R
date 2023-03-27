@@ -2,7 +2,7 @@
 #'
 #' Assumes that df is a dataframe row that contains at least the age and the height
 #' of the patient
-#' @param df A dataframe with colnames at the minimum age and height
+#' @param df A dataframe containing colnames age and height at the minimum
 #' @return
 #' @examples
 #' @import rspiro
@@ -36,8 +36,8 @@ calculateLLNPret <- function(df,
 
 }
 
-#' Calculates the predicted lower limit of normal based off of inputed parameters
-#' @param
+#' Calculates the predicted lower limit of normal based off of inputted parameters
+#' @param df A dataframe containing colnames age and height at the minimum
 #' @return
 #' @examples
 #' @import rspiro
@@ -63,7 +63,7 @@ calculatePctPret <- function(df, param = "FEV1", ref = "GLI") {
 }
 
 #' Calculates the predicted mean predicted based on inputed paramters
-#' @param
+#' @param df A dataframe containing colnames age and height at the minimum
 #' @return
 #' @examples
 #' @import rspiro

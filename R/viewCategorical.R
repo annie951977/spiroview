@@ -1,7 +1,18 @@
-#' Produces a number of categorical plots based on the categorical demographic inputted
-#' @param
-#' @return
+#' Produces a categorical plot based off of parameters given
+#'
+#' A function a basic ggplot plot visualizing the relationship between a
+#' categorical variable to a spirometric value of interest.
+#'
+#' @param df Data that is being analyzed
+#' @param demParam A categorical demographic variable
+#' @param spiroParam The spirometric parameter of interest as a string
+#' @param type The type of graph desired, options include: box, strip, violin.
+#'             Default is box.
+#' @return A basic ggplot plot that can be built upon as needed
 #' @examples
+#' @import ggplot2
+#' @import dpylr
+
 viewCategorical <- function(df,
                             demParam,
                             spiroParam,
@@ -32,14 +43,20 @@ viewCategorical <- function(df,
 }
 
 
-#' Produces graphs that show the number of samples per demographic category
+#' Produces graphs that show the number of samples per demographic category.
+#'
+#' A function that produces graphs visualizing the number of samples per a
+#' categorical demographic variable.
+#'
 #' @param df Data that is being analyzed
 #' @param demParam A categorical demographic variable
-#' @param secondParam A second categorical demographic variable
+#' @param secondParam A second categorical demographic variable to further
+#' stratify the plot
 #' @param type The type of graph desired, options include: pie, doughnut, bar.
 #'             Default is pie
 #' @return an output graph
 #' @examples
+#' @import ggplot2
 
 viewCategoricalCounts <- function(df,
                                   demParam,

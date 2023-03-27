@@ -2,10 +2,25 @@
 % Please edit documentation in R/viewNumerical.R
 \name{viewNumerical}
 \alias{viewNumerical}
-\title{Produces a number of numerical plots based on the numerical demographic inputted}
+\title{Produces a scatterplot visualizing a numeric variable to spirometric variable}
 \usage{
 viewNumerical(df, demParam, spiroParam, includeBestFit = FALSE)
 }
+\arguments{
+\item{df}{A dataframe containing each patient demographic data and at least
+one mean spirometric value}
+
+\item{demParam}{Demographic category of interest}
+
+\item{spiroParam}{The spirometric parameter of interest as a string}
+
+\item{includeBestFit}{A boolean stating if a the line of best fit should be
+included in the plot}
+}
+\value{
+A basic ggplot scatterplot that can be built upon as needed
+}
 \description{
-Produces a number of numerical plots based on the numerical demographic inputted
+A function a basic ggplot scatter plot visualizing the relationship between a
+numeric variable to a spirometric value of interest.
 }

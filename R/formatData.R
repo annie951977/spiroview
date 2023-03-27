@@ -4,7 +4,11 @@
 #' @examples
 #' @import readr
 
+# TODO: Add more parameters
+
 formatData <- function(path) {
+
+  # check if path exists
 
   results <- data.frame()
   # check if the file is tsv or csv

@@ -2,10 +2,24 @@
 % Please edit documentation in R/viewCategorical.R
 \name{viewCategorical}
 \alias{viewCategorical}
-\title{Produces a number of categorical plots based on the categorical demographic inputted}
+\title{Produces a categorical plot based off of parameters given}
 \usage{
 viewCategorical(df, demParam, spiroParam, type = "box")
 }
+\arguments{
+\item{df}{Data that is being analyzed}
+
+\item{demParam}{A categorical demographic variable}
+
+\item{spiroParam}{The spirometric parameter of interest as a string}
+
+\item{type}{The type of graph desired, options include: box, strip, violin.
+Default is box.}
+}
+\value{
+A basic ggplot plot that can be built upon as needed
+}
 \description{
-Produces a number of categorical plots based on the categorical demographic inputted
+A function a basic ggplot plot visualizing the relationship between a
+categorical variable to a spirometric value of interest.
 }

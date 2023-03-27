@@ -1,8 +1,18 @@
-#' Produces a number of numerical plots based on the numerical demographic inputted
-#' @param
-#' @return
+#' Produces a scatterplot visualizing a numeric variable to spirometric variable
+#'
+#' A function a basic ggplot scatter plot visualizing the relationship between a
+#' numeric variable to a spirometric value of interest.
+#'
+#' @param df A dataframe containing each patient demographic data and at least
+#'  one mean spirometric value
+#' @param demParam Demographic category of interest
+#' @param spiroParam The spirometric parameter of interest as a string
+#' @param includeBestFit A boolean stating if a the line of best fit should be
+#' included in the plot
+#' @return A basic ggplot scatterplot that can be built upon as needed
 #' @examples
-#' @import ggplot
+#' @import ggplot2
+#' @import dpylr
 viewNumerical <- function(df,
                           demParam,
                           spiroParam,
@@ -27,19 +37,40 @@ viewNumerical <- function(df,
   return(outputGraph)
 }
 
-#' Produces numerical plot that is segregated based off of certain delinations of a
-#' numerical or categorical parameter
+#' Produces scatterplot with values meeting certain thresholds marked
 #'
+#' A function that produces numerical plot that is segregated based off of certain
+#' delineations of a numerical or categorical parameter. Up to two delineations
+#' can be added.
 #'
-#' @param
-#' @return
+#' Assumption: delim exists within the domain of demParam and secondDelim
+#' exists within the domain of secondParam
+#'
+#' @param df A dataframe containing each patient demographic data and at least
+#'  one mean spirometric value
+#' @param demParam Demographic category of interest
+#' @param spiroParam The spirometric parameter of interest as a string
+#' @param delim An delineation of demParam, must follow
+#' the convention of "operator numeric" for example "<10".
+#' Default is NULL
+#' @param delimColor The color to color the points meeting delim on the graph.
+#' Default is "red"
+#' @param secondParam An additional demographic variable of interest that can be
+#' either a numeric or categorical value.
+#' @param secondDelim
+#' @param secondColor The color to color the points meeting secondDelim
+#' on the graph. Default is "purple"
+#' @param includeBestFit A boolean stating if a the line of best fit should be
+#' included in the plot
+#' @return A basic ggplot scatterplot that can be built upon as needed
 #' @examples
-#' @import ggplot
+#' @import ggplot2
+#' @import dpylr
 compareNumerical <- function(df,
                              demParam,
                              spiroParam,
                              delim=NULL,
-                             demColor= "red",
+                             delimColor= "red",
                              secondParm = NULL,
                              secondDelim= NULL,
                              secondColor= "purple",
@@ -48,7 +79,6 @@ compareNumerical <- function(df,
   if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)) {
     stop("Please provide the proper parameters for compareNumerical")
   }
-
 
   # makes ggplot graph (mostly a scatterplot)
 
@@ -69,28 +99,31 @@ compareNumerical <- function(df,
     # filter for the param
     if (op == "<") {
       outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam < numBy),
-                                            color=demColor)
+                                            color=delimColor)
     } else if(op == "<=") {
       outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam <= numBy),
-                                              color=demColor)
+                                              color=delimColor)
     } else if(op == ">") {
       outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam > numBy),
-                                              color=demColor)
+                                              color=delimColor)
 
     } else if(op == ">=") {
       outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam >= numBy),
-                                              color=demColor)
+                                              color=delimColor)
 
     } else if(op == "==") {
       outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam == numBy),
-                                              color=demColor)
+                                              color=delimColor)
 
     } else if(op == "!="){
       outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam != numBy),
-                                              color=demColor)
+                                              color=delimColor)
     }
 
   }
+
+
+  # defensive programming for second dem
 
   if (!is.null(secondDem) & is.character(secondDem)) {
     outputGraph <- outputGraph + geom_point(aes(shape = factor(df$secondDem)))
@@ -100,7 +133,7 @@ compareNumerical <- function(df,
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
 
-    opIndices <- str_locate(delim, operators)
+    opIndices <- str_locate(secondDelim, operators)
 
     # get the ending index
     opIndex <- opIndices[1,2]

@@ -10,9 +10,17 @@
 #'@param df A dataframe containing each patient demographic data and at least
 #'  one mean spirometric value
 #'@param demParam Demographic category of interest
-#'@param delim
-#'@param delimIsNumeric
-#'@param spiroParam
+#'@param delim A value to segregate the data by. If the delimiter is numeric,
+#'that is, it contains a number, it must follow the convention of
+#'an inequality operator followed by a number, for example "<10"
+#'@param delimIsNumeric Boolean stating if the delimiter contains a numeric
+#'numeric value
+#'@param spiroParam Vector containing the spirometric parameter of interest
+#'as a string
+#'@return Returns a dataframe that contains summary statistics as columns and
+#'spirometry parameters of interest as rows
+#'@example
+#'@import stringr
 
 
 summarizeAllByCategory <- function(df,
@@ -26,10 +34,10 @@ summarizeAllByCategory <- function(df,
     stop("Missing inputs for summarizeAllByCategory")
   }
 
-  if(grep("\\d", delim) & !delimIsNumeric){
+  if(grepl("\\d", delim) & !delimIsNumeric){
     stop("delim parameter and delimIsNumeric parameter in summarizeAllByCategory does not match up")
 
-  } else if(!grep("\\d", delim) & delimIsNumeric){
+  } else if(!grepl("\\d", delim) & delimIsNumeric){
     stop("delim parameter and delimIsNumeric parameter in summarizeAllByCategory does not match up")
   }
 
