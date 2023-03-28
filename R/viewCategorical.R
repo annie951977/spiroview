@@ -11,7 +11,7 @@
 #' @return A basic ggplot plot that can be built upon as needed
 #' @examples
 #' @import ggplot2
-#' @import dpylr
+#' @import dplyr
 
 viewCategorical <- function(df,
                             demParam,

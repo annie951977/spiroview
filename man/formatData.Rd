@@ -4,7 +4,13 @@
 \alias{formatData}
 \title{Reads a file in as a dataframe and formats the columns of commonly used demographic parameters}
 \usage{
-formatData(path)
+formatData(
+  path,
+  heightLabel = NULL,
+  sexLabel = NULL,
+  ageLabel = NULL,
+  ethLabel = NULL
+)
 }
 \value{
 dataframe containing reformated data

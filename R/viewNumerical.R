@@ -12,7 +12,7 @@
 #' @return A basic ggplot scatterplot that can be built upon as needed
 #' @examples
 #' @import ggplot2
-#' @import dpylr
+#' @import dplyr
 viewNumerical <- function(df,
                           demParam,
                           spiroParam,
@@ -51,15 +51,17 @@ viewNumerical <- function(df,
 #' @param demParam Demographic category of interest
 #' @param spiroParam The spirometric parameter of interest as a string
 #' @param delim An delineation of demParam, must follow
-#' the convention of "operator numeric" for example "<10".
-#' Default is NULL
+#'  the convention of "operator numeric" for example "<10".
+#'  Default is NULL
 #' @param delimColor The color to color the points meeting delim on the graph.
-#' Default is "red"
+#'  Default is "red"
 #' @param secondParam An additional demographic variable of interest that can be
-#' either a numeric or categorical value.
-#' @param secondDelim
+#'  either a numeric or categorical value.
+#' @param secondDelim A delineation of secondParam. If it is a numerical variable
+#'  it must follow the convention of "operator numeric" for example "<10".
+#'  Default is NULL
 #' @param secondColor The color to color the points meeting secondDelim
-#' on the graph. Default is "purple"
+#'  on the graph. Default is "purple"
 #' @param includeBestFit A boolean stating if a the line of best fit should be
 #' included in the plot
 #' @return A basic ggplot scatterplot that can be built upon as needed

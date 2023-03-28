@@ -33,5 +33,5 @@ expects a dataframe
 }
 \details{
 Assumption: the delimiter is a value that exists within the the domain of
-demParam
+demParam. One patient per row.
 }

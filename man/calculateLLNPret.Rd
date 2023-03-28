@@ -8,8 +8,26 @@ calculateLLNPret(df, param = "FEV1", ref = "GLI")
 }
 \arguments{
 \item{df}{A dataframe containing colnames age and height at the minimum}
+
+\item{param}{The spirometric metric of interest: "FEV1", "FVC", "FEV1FVC",
+"PEF", "FEF2575", "FEV6", "FEV1FEV6. Default is "FEV1"}
+
+\item{ref}{The reference equation to be used}
+}
+\value{
+A numeric vector or data.frame containing length(param) columns with
+rows equal to the number of rows in df
 }
 \description{
-Assumes that df is a dataframe row that contains at least the age and the height
+A function that calculates the predicted lower limit of normal (LLN) for an
+inputted spirometric value and a dataframe.
+}
+\details{
+Assumptions:
+\itemize{
+\item df is a dataframe row that contains at least the age and the height
 of the patient
+\item gender is denoted as 1 or 2 for male or female respectively
+\item ethnicity is denoted as a value between 1 to 5
+}
 }

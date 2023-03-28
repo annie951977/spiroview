@@ -31,6 +31,10 @@ Default is NULL}
 \item{delimColor}{The color to color the points meeting delim on the graph.
 Default is "red"}
 
+\item{secondDelim}{A delineation of secondParam. If it is a numerical variable
+it must follow the convention of "operator numeric" for example "<10".
+Default is NULL}
+
 \item{secondColor}{The color to color the points meeting secondDelim
 on the graph. Default is "purple"}
 

@@ -2,13 +2,32 @@
 % Please edit documentation in R/calculatedPredicted.R
 \name{calculateMeanPret}
 \alias{calculateMeanPret}
-\title{Calculates the predicted mean predicted based on inputed paramters}
+\title{Calculates the predicted mean predicted based on inputted parameters.}
 \usage{
 calculateMeanPret(df, param = "FEV1", ref = "GLI")
 }
 \arguments{
 \item{df}{A dataframe containing colnames age and height at the minimum}
+
+\item{param}{The spirometric metric of interest: "FEV1", "FVC", "FEV1FVC",
+"PEF", "FEF2575", "FEV6", "FEV1FEV6. Default is "FEV1"}
+
+\item{ref}{The desired reference equation. Can be NHANES3 or GLI.
+Default is GLI}
+}
+\value{
+A numeric vector or data.frame containing length(param) columns
 }
 \description{
-Calculates the predicted mean predicted based on inputed paramters
+A function that takes a dataframe and calculates the predicted value of an
+inputted spirometric value.
+}
+\details{
+Assumptions:
+\itemize{
+\item df is a dataframe row that contains at least the age and the height
+of the patient
+\item gender is denoted as 1 or 2 for male or female respectively
+\item ethnicity is denoted as a value between 1 to 5
+}
 }
