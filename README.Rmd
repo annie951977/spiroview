@@ -18,7 +18,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of spiroview is to ...
+# Description
+
+`spiroview` is an R package that provides the tools to visualize and explore spirometry data in demographic studies. This package is targeted for the healthcare focused researcher who may not have an extensive coding background but wishes to use R for their research study. The `spiroview` package was developed using `R version 4.2.1 (2022-06-23)`, `Platform: x86_64-apple-darwin17.0 (64-bit)`, and `Running under: macOS Big Sur 11.7.4`.
 
 ## Installation
 
@@ -29,7 +31,7 @@ You can install the development version of spiroview from [GitHub](https://githu
 devtools::install_github("annie951977/spiroview")
 ```
 
-## Example
+Overview
 
 This is a basic example which shows you how to solve a common problem:
 
@@ -53,3 +55,9 @@ plot(pressure)
 ```
 
 In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+
+# Contributions 
+
+# References
+
+# Acknowledgements
