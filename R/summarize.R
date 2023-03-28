@@ -5,7 +5,7 @@
 #' expects a dataframe
 #'
 #' Assumption: the delimiter is a value that exists within the the domain of
-#' demParam
+#' demParam. One patient per row.
 #'
 #'@param df A dataframe containing each patient demographic data and at least
 #'  one mean spirometric value
@@ -21,6 +21,7 @@
 #'spirometry parameters of interest as rows
 #'@example
 #'@import stringr
+#'@import dplyr
 
 
 summarizeAllByCategory <- function(df,
@@ -42,6 +43,7 @@ summarizeAllByCategory <- function(df,
   }
 
   results <- data.frame()
+  colnames(results) <- c("Count", "Mean", "Standard Deviation", "Min", "Max")
 
   if(delimIsNumeric) {
 
@@ -63,117 +65,160 @@ summarizeAllByCategory <- function(df,
     if (op == "<") {
 
       # filter for the specific parameter using dplyr
+      sel <- df %>% filter(df$demParam < delim)
 
       # count
+      count <- nrow(df$spiroParam)
 
       # calculate mean
+      spiroMean <- mean(sel$spiroParam)
 
       # standard deviation
-
-      # mode
+      spiroSD <- sd(sel$spiroParam)
 
       # min
+      spiroMin <- min(sel$spiroParam)
 
       # max
+      spiroMax <- max(sel$spiroParam)
+
+      results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
     } else if(op == "<=") {
 
+
       # filter for the specific parameter using dplyr
+      sel <- df %>% filter(df$demParam <= delim)
 
       # count
+      count <- nrow(df$spiroParam)
 
       # calculate mean
+      spiroMean <- mean(sel$spiroParam)
 
       # standard deviation
-
-      # mode
+      spiroSD <- sd(sel$spiroParam)
 
       # min
+      spiroMin <- min(sel$spiroParam)
 
       # max
+      spiroMax <- max(sel$spiroParam)
+
+      results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
     } else if(op == ">") {
 
       # filter for the specific parameter using dplyr
+      sel <- df %>% filter(df$demParam > delim)
 
       # count
+      count <- nrow(df$spiroParam)
 
       # calculate mean
+      spiroMean <- mean(sel$spiroParam)
 
       # standard deviation
-
-      # mode
+      spiroSD <- sd(sel$spiroParam)
 
       # min
+      spiroMin <- min(sel$spiroParam)
 
       # max
+      spiroMax <- max(sel$spiroParam)
+
+      results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
     } else if(op == ">=") {
 
       # filter for the specific parameter using dplyr
+      sel <- df %>% filter(df$demParam >= delim)
 
       # count
+      count <- nrow(df$spiroParam)
 
       # calculate mean
+      spiroMean <- mean(sel$spiroParam)
 
       # standard deviation
-
-      # mode
+      spiroSD <- sd(sel$spiroParam)
 
       # min
+      spiroMin <- min(sel$spiroParam)
 
       # max
+      spiroMax <- max(sel$spiroParam)
+
+      results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
 
     } else if(op == "==") {
 
       # filter for the specific parameter using dplyr
+      sel <- df %>% filter(df$demParam == delim)
 
       # count
+      count <- nrow(df$spiroParam)
 
       # calculate mean
+      spiroMean <- mean(sel$spiroParam)
 
       # standard deviation
-
-      # mode
+      spiroSD <- sd(sel$spiroParam)
 
       # min
+      spiroMin <- min(sel$spiroParam)
 
       # max
+      spiroMax <- max(sel$spiroParam)
+
+      results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
     } else if(op == "!="){
 
       # filter for the specific parameter using dplyr
+      sel <- df %>% filter(df$demParam != delim)
 
       # count
+      count <- nrow(df$spiroParam)
 
       # calculate mean
+      spiroMean <- mean(sel$spiroParam)
 
       # standard deviation
-
-      # mode
+      spiroSD <- sd(sel$spiroParam)
 
       # min
+      spiroMin <- min(sel$spiroParam)
 
       # max
+      spiroMax <- max(sel$spiroParam)
+
+      results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
     }
 
   } else {
 
     # filter for the specific parameter using dplyr
+    sel <- df %>% filter(df$demParam == delim)
 
     # count
+    count <- nrow(df$spiroParam)
 
     # calculate mean
+    spiroMean <- mean(sel$spiroParam)
 
     # standard deviation
-
-    # mode
+    spiroSD <- sd(sel$spiroParam)
 
     # min
+    spiroMin <- min(sel$spiroParam)
 
     # max
+    spiroMax <- max(sel$spiroParam)
+
+    results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
   }
 
