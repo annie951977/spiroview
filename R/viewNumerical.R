@@ -24,7 +24,7 @@ viewNumerical <- function(df,
 
   # takes the data frames with the numerical data and the value that you want to see
   plotData <- df %>%
-    dpylr::select(demParam, spiroParam)
+    dplyr::select(demParam, spiroParam)
 
   # makes ggplot graph
 
@@ -67,7 +67,7 @@ viewNumerical <- function(df,
 #' @return A basic ggplot scatterplot that can be built upon as needed
 #' @examples
 #' @import ggplot2
-#' @import dpylr
+#' @import dplyr
 compareNumerical <- function(df,
                              demParam,
                              spiroParam,

@@ -25,7 +25,7 @@ viewCategorical <- function(df,
 
   # takes the data frames with the categorical data and the value that you want to see
   plotData <- df %>%
-    dpylr::select(demParam, spiroParam)
+    dplyr::select(demParam, spiroParam)
 
   outputGraph <- ggplot(plotData, aes(x=demParam, y=spiroParam))
 
