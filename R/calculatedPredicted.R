@@ -73,7 +73,7 @@ calculateLLNPret <- function(df,
 #' @param df A dataframe containing colnames age and height and a spirometric column
 #' matching param at the minimum
 #' @param param The spirometric metric of interest: "FEV1", "FVC", "FEV1FVC",
-#' "PEF", "FEF2575", "FEV6", "FEV1FEV6. Default is "FEV1"
+#' "PEF", "FEF2575", "FEV6", "FEV1FEV6".
 #' @param ref The reference equation to be used
 #' @return A numeric vector or data.frame containing length(param) columns with
 #'  rows equal to the number of rows in df
@@ -86,6 +86,15 @@ calculatePctPret <- function(df, param = "FEV1", ref = "GLI") {
     stop("Please input a dataframe into calculatePctPret")
   }
 
+  spiroOptions <- c("FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6")
+
+  if(!(param %in% spiroOptions)){
+    stop("Please enter a valid spirometry metric in calculatePctPret")
+  }
+
+  if(is.na(df$param)){
+    stop("Dataframe must contain spirometry parameter in calculatePctPret")
+  }
 
   # if the df has age, height, gender
   if(is.null(df$age) || is.null(df$height)){
