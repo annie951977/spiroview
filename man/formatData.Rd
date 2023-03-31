@@ -12,9 +12,20 @@ formatData(
   ethLabel = NULL
 )
 }
+\arguments{
+\item{path}{path to the dataframe}
+
+\item{heightLabel}{height label}
+
+\item{sexLabel}{sex label}
+
+\item{ageLabel}{age label}
+
+\item{ethLabel}{ethnicity label}
+}
 \value{
 dataframe containing reformated data
 }
 \description{
-Reads a file in as a dataframe and formats the columns of commonly used demographic parameters
+A helper function that
 }

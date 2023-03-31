@@ -10,7 +10,7 @@ compareNumerical(
   spiroParam,
   delim = NULL,
   delimColor = "red",
-  secondParm = NULL,
+  secondParam = NULL,
   secondDelim = NULL,
   secondColor = "purple",
   includeBestFit = FALSE
@@ -31,6 +31,9 @@ Default is NULL}
 \item{delimColor}{The color to color the points meeting delim on the graph.
 Default is "red"}
 
+\item{secondParam}{An additional demographic variable of interest that can be
+either a numeric or categorical value.}
+
 \item{secondDelim}{A delineation of secondParam. If it is a numerical variable
 it must follow the convention of "operator numeric" for example "<10".
 Default is NULL}
@@ -40,9 +43,6 @@ on the graph. Default is "purple"}
 
 \item{includeBestFit}{A boolean stating if a the line of best fit should be
 included in the plot}
-
-\item{secondParam}{An additional demographic variable of interest that can be
-either a numeric or categorical value.}
 }
 \value{
 A basic ggplot scatterplot that can be built upon as needed

@@ -36,3 +36,12 @@ of the patient
 \item ethnicity is denoted as a value between 1 to 5
 }
 }
+\examples{
+
+# Example 1: Calculate LLN of FEV1 from the GLI equations
+
+# Example 2: Calculate LLN of FEV1 from NHANES3
+
+# Example 3: Calculate LLN from a dataframe of more than one sample
+
+}
