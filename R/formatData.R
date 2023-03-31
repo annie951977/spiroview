@@ -1,10 +1,15 @@
 #' Reads a file in as a dataframe and formats the columns of commonly used demographic parameters
-#' @param path
+#'
+#' A helper function that
+#'
+#' @param path path to the dataframe
+#' @param heightLabel height label
+#' @param sexLabel sex label
+#' @param ageLabel age label
+#' @param ethLabel ethnicity label
 #' @return dataframe containing reformated data
 #' @examples
 #' @import readr
-
-# TODO: Add more parameters
 
 formatData <- function(path,
                        heightLabel=NULL,
@@ -21,7 +26,7 @@ formatData <- function(path,
   # check if the file is tsv or csv
 
   if(grepl("\\.csv$", path)) {
-      df <- readr::read.csv2(path, col_names = TRUE)
+      df <- readr::read_csv2(path, col_names = TRUE)
     } else if(grepl("\\.tsv$", path)) {
      df <- readr::read_tsv(path, col_names = TRUE)
     } else {

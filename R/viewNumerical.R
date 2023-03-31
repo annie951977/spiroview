@@ -12,7 +12,7 @@
 #' @return A basic ggplot scatterplot that can be built upon as needed
 #' @examples
 #' @import ggplot2
-#' @import dplyr
+
 viewNumerical <- function(df,
                           demParam,
                           spiroParam,
@@ -22,13 +22,9 @@ viewNumerical <- function(df,
     stop("Please provide the proper parameters for viewNumerical")
   }
 
-  # takes the data frames with the numerical data and the value that you want to see
-  plotData <- df %>%
-    dplyr::select(demParam, spiroParam)
-
   # makes ggplot graph
 
-  outputGraph <- ggplot(plotData, aes(x=demParam, y=spiroParam)) + geom_point()
+  outputGraph <- ggplot(df, aes(x=demParam, y=spiroParam)) + geom_point()
 
   if (includeBestFit) {
     outputGraph = outputGraph + geom_smooth(method = "lm")
@@ -73,7 +69,7 @@ compareNumerical <- function(df,
                              spiroParam,
                              delim=NULL,
                              delimColor= "red",
-                             secondParm = NULL,
+                             secondParam = NULL,
                              secondDelim= NULL,
                              secondColor= "purple",
                              includeBestFit=FALSE) {
@@ -127,11 +123,11 @@ compareNumerical <- function(df,
 
   # defensive programming for second dem
 
-  if (!is.null(secondDem) & is.character(secondDem)) {
-    outputGraph <- outputGraph + geom_point(aes(shape = factor(df$secondDem)))
+  if (!is.null(secondParam) & is.character(secondParam)) {
+    outputGraph <- outputGraph + geom_point(aes(shape = factor(df$secondParam)))
   }
 
-  if(!is.null(secondDem) & !is.character(secondDem)) {
+  if(!is.null(secondParam) & !is.character(secondParam)) {
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
 

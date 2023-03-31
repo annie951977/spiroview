@@ -16,6 +16,17 @@
 #' @return A numeric vector or data.frame containing length(param) columns with
 #'  rows equal to the number of rows in df
 #' @examples
+#'
+#' # Example 1: Calculate LLN of FEV1 from the GLI equations
+#'
+#' example_df <- data.frame(age=c(77), height=c(1.78), gender=c(1))
+#'
+#' # Example 2: Calculate LLN of FEV1 from NHANES3
+#'
+#' # Example 3: Calculate LLN from a dataframe of more than one sample
+#'
+#'
+#'
 #' @import rspiro
 calculateLLNPret <- function(df,
                              param = "FEV1",
@@ -26,22 +37,28 @@ calculateLLNPret <- function(df,
     stop("Please input a dataframe into calculateLLNPret")
   }
 
+  spiroOptions <- c("FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6")
+
+  if(!(param %in% spiroOptions)){
+    stop("Please enter a valid spirometry metric in calculatePctPret")
+  }
+
   # if the df has age, height, gender
   if(is.null(df$age) || is.null(df$height)){
     stop("Not enough demographic parameters to calculate mean predicted")
   }
 
-  age <- df$age
-  height <- df$height
+  age <- as.numeric(df$age)
+  height <- as.numeric(df$height)
 
   if(!is.null(df$gender)){
-    gender <- df$gender
+    gender <- as.numeric(df$gender)
   } else {
     gender <- 1
   }
 
   if(!is.null(df$ethnicity)){
-    ethnicity <- df$ethnicity
+    ethnicity <- as.numeric(df$ethnicity)
     if (ethnicity > 5) {
       ethnicity <- 1
       warning("Ethnicity value not valid for spriometry equations, setting ethnicity to default of 1")
@@ -78,6 +95,13 @@ calculateLLNPret <- function(df,
 #' @return A numeric vector or data.frame containing length(param) columns with
 #'  rows equal to the number of rows in df
 #' @examples
+#'
+#' # Example 1: Calculate LLN of FEV1 from the GLI equations
+#'
+#' # Example 2: Calculate LLN of FEV1 from NHANES3
+#'
+#' # Example 3: Calculate LLN from a dataframe of more than one sample
+#'
 #' @import rspiro
 
 calculatePctPret <- function(df, param = "FEV1", ref = "GLI") {
@@ -101,8 +125,8 @@ calculatePctPret <- function(df, param = "FEV1", ref = "GLI") {
     stop("Not enough demographic parameters to calculate percent predicted")
   }
 
-  age <- df$age
-  height <- df$height
+  age <- as.numeric(df$age)
+  height <- as.numeric(df$height)
 
   if(!is.null(df$gender)){
     gender <- df$gender
@@ -111,7 +135,7 @@ calculatePctPret <- function(df, param = "FEV1", ref = "GLI") {
   }
 
   if(!is.null(df$ethnicity)){
-    ethnicity <- df$ethnicity
+    ethnicity <- as.numeric(df$ethnicity)
     if (ethnicity > 5) {
       ethnicity <- 1
       warning("Ethnicity value not valid for spriometry equations, setting ethnicity to default of 1")
@@ -254,13 +278,19 @@ calculateMeanPret <- function(df,
     stop("Please input a dataframe into calculateMeanPret")
   }
 
+  spiroOptions <- c("FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6")
+
+  if(!(param %in% spiroOptions)){
+    stop("Please enter a valid spirometry metric in calculatePctPret")
+  }
+
   # if the df has age, height, gender
   if(is.null(df$age) || is.null(df$height)){
     stop("Not enough demographic parameters to calculate mean predicted")
   }
 
-  age <- df$age
-  height <- df$height
+  age <- as.numeric(df$age)
+  height <- as.numeric(df$height)
 
   if(!is.null(df$gender)){
     gender <- df$gender
@@ -290,5 +320,6 @@ calculateMeanPret <- function(df,
     stop("Please select NHANES3 or GLI")
   }
 }
+
 
 # [END]
