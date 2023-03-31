@@ -4,9 +4,9 @@ citEntry(
   entry    = "Unpublished",
   title    = "spiroview: An R Package for the Exploration and Visualization of Demographic Spirometry Data",
   author   = "Annie Liu",
-  journal  = "Unpublished",
+  note  = "Unpublished",
   year     =  "2023",
   textVersion = paste("Liu, A. (2023) spiroview: An R Package for the Exploration and Visualization of Demographic Spirometry Data.
   Unpublished. URL https://github.com/annie951977/spiroview")
   )
-)
+
