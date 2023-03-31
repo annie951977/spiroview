@@ -67,3 +67,8 @@ files, so they display on GitHub and CRAN.
 # References
 
 # Acknowledgements
+
+This package was developed as part of an assessment for 2022 BCB410H:
+Applied Bioinformatics course at the University of Toronto, Toronto,
+CANADA. `spiroview` welcomes issues, enhancement requests, and other
+contributions. To submit an issue, use the GitHub issues.
