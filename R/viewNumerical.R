@@ -44,7 +44,7 @@ viewNumerical <- function(df,
 #'
 #' @param df A dataframe containing each patient demographic data and at least
 #'  one mean spirometric value
-#' @param demParam Demographic category of interest
+#' @param demParam Demographic numeric category of interest
 #' @param spiroParam The spirometric parameter of interest as a string
 #' @param delim An delineation of demParam, must follow
 #'  the convention of "operator numeric" for example "<10".
@@ -56,6 +56,8 @@ viewNumerical <- function(df,
 #' @param secondDelim A delineation of secondParam. If it is a numerical variable
 #'  it must follow the convention of "operator numeric" for example "<10".
 #'  Default is NULL
+#'  @param secondParamIsNumeric States whether secondParam is a numeric or
+#'  categorical variable
 #' @param secondColor The color to color the points meeting secondDelim
 #'  on the graph. Default is "purple"
 #' @param includeBestFit A boolean stating if a the line of best fit should be
@@ -71,12 +73,20 @@ compareNumerical <- function(df,
                              delimColor= "red",
                              secondParam = NULL,
                              secondDelim= NULL,
+                             secondParamIsNumeric=FALSE,
                              secondColor= "purple",
                              includeBestFit=FALSE) {
 
-  if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)) {
+  if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)){
     stop("Please provide the proper parameters for compareNumerical")
   }
+
+  if(!is.null(delim)){
+    if(!(grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim))){
+      stop("delim parameter in compareNumerical is expected to be numeric")
+    }
+  }
+
 
   # makes ggplot graph (mostly a scatterplot)
 
@@ -122,12 +132,24 @@ compareNumerical <- function(df,
 
 
   # defensive programming for second dem
-
-  if (!is.null(secondParam) & is.character(secondParam)) {
+  if (!is.null(secondParam) & !is.null(secondDelim) & !secondParamIsNumeric) {
     outputGraph <- outputGraph + geom_point(aes(shape = factor(df$secondParam)))
   }
 
-  if(!is.null(secondParam) & !is.character(secondParam)) {
+  # if there is a secondDelim but its category doesn't match secondParamIsNumeric
+  if(!is.null(secondDelim)) {
+    if((grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d", secondDelim)) & !secondParamIsNumeric){
+      stop("secondDelim parameter and secondParamIsNumeric
+         parameter in compareNumerical does not match up")
+
+    } else if(!(grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d", secondDelim)) & secondParamIsNumeric){
+      stop("secondDelim parameter and secondParamIsNumeric
+         parameter in compareNumerical does not match up
+         or invalid formatting of secondDelim")
+    }
+  }
+
+  if(!is.null(secondParam) & !is.null(secondDelim) & secondParamIsNumeric) {
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
 
