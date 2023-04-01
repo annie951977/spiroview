@@ -13,8 +13,8 @@
 #' @param df The dataframe containing the data you want to clean
 #' @param demParam The demographic factor in question
 #' @param segBy The demographic delimiter in question. For categorical variables,
-#' simply some categorical term or a vector of terms is expected. For numerical variables,
-#' a singlestring consisting of a numeric value preceded
+#' simply some categorical term or a vector of terms is expected.
+#' For numerical variables,a singlestring consisting of a numeric value preceded
 #' by an inequality operator is expected. For example ">16".
 #'
 #' @param segIsNumeric Declaring if segBy is a numeric value. Default is FALSE.
@@ -32,6 +32,17 @@ segregateBy <- function(df,
   if(!is.data.frame(df) || !is.character(demParam) || !is.character(segBy)){
     stop("Missing necessary parameters in segregateBy function")
   }
+
+  if((grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy)) & !segIsNumeric){
+    stop("segBy parameter and delimIsNumeric
+         parameter in segregateBy does not match up")
+
+  } else if(!(grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy)) & segIsNumeric){
+    stop("segBy parameter and delimIsNumeric
+         parameter in segregateBy does not match up
+         or invalid formatting of segBy")
+  }
+
 
   if(segIsNumeric == TRUE) {
     # grep for inequality operator

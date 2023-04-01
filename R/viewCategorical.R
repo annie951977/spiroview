@@ -22,6 +22,11 @@ viewCategorical <- function(df,
     stop("Please provide the proper parameters for compareNumerical")
   }
 
+  graphTypes <- c("box", "strip", "violin")
+
+  if(!(type %in% graphTypes)) {
+    stop("Requested graph type not supported")
+  }
 
   # takes the data frames with the categorical data and the value that you want to see
   plotData <- df %>%
@@ -63,7 +68,13 @@ viewCategoricalCounts <- function(df,
                                   secondParam=NULL,
                                   type="pie") {
   if (!is.data.frame(df) || !is.character(demParam)) {
-    stop("Please provide the proper parameters for viewCaategoricalCounts")
+    stop("Please provide the proper parameters for viewCategoricalCounts")
+  }
+
+  graphTypes <- c("pie", "bar", "doughnut")
+
+  if(!(type %in% graphTypes)) {
+    stop("Requested graph type not supported")
   }
 
   outputGraph <- ggplot(plotData)
