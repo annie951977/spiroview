@@ -19,7 +19,7 @@
 #'
 #' # Example 1: Calculate LLN of FEV1 from the GLI equations
 #'
-#' example_df <- data.frame(age=c(77), height=c(1.78), gender=c(1))
+#'  example_df <- data.frame(age=c(77), height=c(1.78), gender=c(1))
 #'
 #' # Example 2: Calculate LLN of FEV1 from NHANES3
 #'
@@ -48,33 +48,42 @@ calculateLLNPret <- function(df,
     stop("Not enough demographic parameters to calculate mean predicted")
   }
 
-  age <- as.numeric(df$age)
-  height <- as.numeric(df$height)
+  age <- sapply(df$age, as.numeric)
+  height <- sapply(df$height, as.numeric)
 
   if(!is.null(df$gender)){
-    gender <- as.numeric(df$gender)
+    gender <- sapply(df$gender, as.numeric)
   } else {
-    gender <- 1
+    gender <- rep(1, length(df$age))
   }
 
   if(!is.null(df$ethnicity)){
-    ethnicity <- as.numeric(df$ethnicity)
-    if (ethnicity > 5) {
-      ethnicity <- 1
-      warning("Ethnicity value not valid for spriometry equations, setting ethnicity to default of 1")
+    ethnicity <- sapply(df$ethnicity, as.numeric)
+    if (any(ethnicity>5)) {
+      ethnicity[which(ethnicity>5)] <- 1
+      warning("Ethnicity value not valid for spriometry equations, setting some ethnicity values to default of 1")
     }
   } else {
-    ethinicity <- 1
+    ethinicity <- rep(1, length(df$age))
   }
   if (ref == "NHANES3") {
-    if (ethnicity > 3) {
-      ethnicity <- 1
-      warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
+    ethnicity <- sapply(df$ethnicity, as.numeric)
+    if (any(ethnicity>3)) {
+      ethnicity[which(ethnicity>3)] <- 1
+      warning("Ethnicity value not valid for NHANES3 equations, setting some ethnicity value to default of 1")
     }
-    return(rspiro::LLN_NHANES3(age, height, gender, ethinicity, param))
+    return(rspiro::LLN_NHANES3(age=age,
+                               height=height,
+                               gender=gender,
+                               ethnicity=ethnicity,
+                               param=param))
   } else if (ref == "GLI"){
 
-    return(rspiro::LLN_GLI(age, height, gender, param))
+    return(rspiro::LLN_GLI(age=age,
+                           height=height,
+                           gender=gender,
+                           ethnicity=ethnicity,
+                           param=param))
   } else {
     stop("Please select NHANES3 or GLI")
   }
@@ -104,7 +113,9 @@ calculateLLNPret <- function(df,
 #'
 #' @import rspiro
 
-calculatePctPret <- function(df, param = "FEV1", ref = "GLI") {
+calculatePctPret <- function(df,
+                             param = "FEV1",
+                             ref = "GLI") {
   # check that there's a dataframe
   if(!is.data.frame(df)) {
     stop("Please input a dataframe into calculatePctPret")
@@ -116,7 +127,7 @@ calculatePctPret <- function(df, param = "FEV1", ref = "GLI") {
     stop("Please enter a valid spirometry metric in calculatePctPret")
   }
 
-  if(is.na(df$param)){
+  if(is.null(df[[param]])){
     stop("Dataframe must contain spirometry parameter in calculatePctPret")
   }
 
@@ -129,115 +140,171 @@ calculatePctPret <- function(df, param = "FEV1", ref = "GLI") {
   height <- as.numeric(df$height)
 
   if(!is.null(df$gender)){
-    gender <- df$gender
+    gender <- sapply(df$gender, as.numeric)
   } else {
-    gender <- 1
+    gender <- rep(1, length(df$age))
   }
 
   if(!is.null(df$ethnicity)){
     ethnicity <- as.numeric(df$ethnicity)
-    if (ethnicity > 5) {
-      ethnicity <- 1
-      warning("Ethnicity value not valid for spriometry equations, setting ethnicity to default of 1")
+    if (any(ethnicity>5)) {
+      ethnicity[which(ethnicity>5)] <- 1
+      warning("Ethnicity value not valid for spriometry equations, setting some
+              ethnicity values to default of 1")
     }
   } else {
-    ethinicity <- 1
+    ethinicity <- rep(1, length(df$age))
   }
 
   if(param == "FEV1") {
 
-    if (ref == "NHANESS3") {
-      if (ethnicity > 3) {
-        ethnicity <- 1
-        warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
+    if (ref == "NHANES3") {
+      if (any(ethnicity>3)) {
+        ethnicity[which(ethnicity>3)] <- 1
+        warning("Ethnicity value not valid for NHANES3 equations,
+                setting ethnicity to default of 1")
       }
-      return(rspiro::pctpred_NHANES3(age, height, gender, ethnicity, FEV1=df$param))
+      return(rspiro::pctpred_NHANES3(age=age,
+                                     height=height,
+                                     gender=gender,
+                                     ethnicity=ethnicity,
+                                     FEV1=df[[param]]))
     } else if (ref == "GLI") {
-      return(rspiro::LLN_GLI(age, height, gender, ethnicity, FEV1=df$param))
+      return(rspiro::pctpred_GLI(age=age,
+                                 height=height,
+                                 gender=gender,
+                                 ethnicity=ethnicity,
+                                 FEV1=df[[param]]))
     } else {
       stop("Please select NHANES3 or GLI")
     }
 
   } else if(param == "FVC") {
 
-    if (ref == "NHANESS3") {
-      if (ethnicity > 3) {
-        ethnicity <- 1
-        warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
+    if (ref == "NHANES3") {
+      if (any(ethnicity>3)) {
+        ethnicity[which(ethnicity>3)] <- 1
+        warning("Ethnicity value not valid for NHANES3 equations,
+                setting ethnicity to default of 1")
       }
-      return(rspiro::pctpred_NHANES3(age, height, gender, ethnicity, FVC=df$param))
+      return(rspiro::pctpred_NHANES3(age=age,
+                                     height=height,
+                                     gender=gender,
+                                     ethnicity=ethnicity,
+                                     FVC=df[[param]]))
     } else if (ref == "GLI") {
-      return(rspiro::LLN_GLI(age, height, gender, ethnicity, FVC=df$param))
+      return(rspiro::pctpred_GLI(age=age,
+                                 height=height,
+                                 gender=gender,
+                                 ethnicity=ethnicity,
+                                 FVC=df[[param]]))
     } else {
       stop("Please select NHANES3 or GLI")
     }
 
   } else if(param == "FEV1FVC") {
 
-    if (ref == "NHANESS3") {
-      if (ethnicity > 3) {
-        ethnicity <- 1
-        warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
+    if (ref == "NHANES3") {
+      if (any(ethnicity>3)) {
+        ethnicity[which(ethnicity>3)] <- 1
+        warning("Ethnicity value not valid for NHANES3 equations,
+                setting ethnicity to default of 1")
       }
-      return(rspiro::pctpred_NHANES3(age, height, gender, ethnicity, FEV1FVC=df$param))
+      return(rspiro::pctpred_NHANES3(age=age,
+                                     height=height,
+                                     gender=gender,
+                                     ethnicity=ethnicity,
+                                     FEV1FVC=df[[param]]))
     } else if (ref == "GLI") {
-      return(rspiro::LLN_GLI(age, height, gender, ethnicity, FEV1FVC=df$param))
+      return(rspiro::pctpred_GLI(age=age,
+                                 height=height,
+                                 gender=gender,
+                                 ethnicity=ethnicity,
+                                 FEV1FVC=df[[param]]))
     } else {
       stop("Please select NHANES3 or GLI")
     }
 
   } else if(param == "PEF") {
 
-    if (ref == "NHANESS3") {
-      if (ethnicity > 3) {
-        ethnicity <- 1
+    if (ref == "NHANES3") {
+      if (any(ethnicity>3)) {
+        ethnicity[which(ethnicity>3)] <- 1
         warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
       }
-      return(rspiro::pctpred_NHANES3(age, height, gender, ethnicity, PEF=df$param))
+      return(rspiro::pctpred_NHANES3(age, height, gender, ethnicity, PEF=df[[param]]))
     } else if (ref == "GLI") {
-      return(rspiro::LLN_GLI(age, height, gender, ethnicity, PEF=df$param))
+      return(rspiro::pctpred_GLI(age=age,
+                                 height=height,
+                                 gender=gender,
+                                 ethnicity=ethnicity,
+                                 PEF=df[[param]]))
     } else {
       stop("Please select NHANES3 or GLI")
     }
 
   } else if(param == "FEF2575") {
 
-    if (ref == "NHANESS3") {
-      if (ethnicity > 3) {
-        ethnicity <- 1
+    if (ref == "NHANES3") {
+      if (any(ethnicity>3)) {
+        ethnicity[which(ethnicity>3)] <- 1
         warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
       }
-      return(rspiro::pctpred_NHANES3(age, height, gender, ethnicity, FEF2575=df$param))
+      return(rspiro::pctpred_NHANES3(age=age,
+                                     height=height,
+                                     gender=gender,
+                                     ethnicity=ethnicity,
+                                     FEF2575=df[[param]]))
     } else if (ref == "GLI") {
-      return(rspiro::LLN_GLI(age, height, gender, ethnicity, FEF2575=df$param))
+      return(rspiro::pctpred_GLI(age=age,
+                                 height=height,
+                                 gender=gender,
+                                 ethnicity=ethnicity,
+                                 FEF2575=df[[param]]))
     } else {
       stop("Please select NHANES3 or GLI")
     }
 
   } else if(param == "FEV6") {
 
-    if (ref == "NHANESS3") {
-      if (ethnicity > 3) {
-        ethnicity <- 1
+    if (ref == "NHANES3") {
+      if (any(ethnicity>3)) {
+        ethnicity[which(ethnicity>3)] <- 1
         warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
       }
-      return(rspiro::pctpred_NHANES3(age, height, gender, ethnicity, FEV6=df$param))
+      return(rspiro::pctpred_NHANES3(age=age,
+                                     height=height,
+                                     gender=gender,
+                                     ethnicity=ethnicity,
+                                     FEV6=df[[param]]))
     } else if (ref == "GLI") {
-      return(rspiro::LLN_GLI(age, height, gender, ethnicity, FEV6=df$param))
+      return(rspiro::pctpred_GLI(age=age,
+                                 height=height,
+                                 gender=gender,
+                                 ethnicity=ethnicity,
+                                 FEV6=df[[param]]))
     } else {
       stop("Please select NHANES3 or GLI")
     }
 
   } else if(param == "FEV1FEV6") {
 
-    if (ref == "NHANESS3") {
-      if (ethnicity > 3) {
-        ethnicity <- 1
+    if (ref == "NHANES3") {
+      if (any(ethnicity>3)) {
+        ethnicity[which(ethnicity>3)] <- 1
         warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
       }
-      return(rspiro::pctpred_NHANES3(age, height, gender, ethnicity, FEV1FEV6=df$param))
+      return(rspiro::pctpred_NHANES3(age=age,
+                                     height=height,
+                                     gender=gender,
+                                     ethnicity=ethnicity,
+                                     FEV1FEV6=df[[param]]))
     } else if (ref == "GLI") {
-      return(rspiro::LLN_GLI(age, height, gender, ethnicity, FEV1FEV6=df$param))
+      return(rspiro::pctpred_NHANES3(age=age,
+                              height=height,
+                              gender=gender,
+                              ethnicity=ethnicity,
+                              FEV1FEV6=df[[param]]))
     } else {
       stop("Please select NHANES3 or GLI")
     }
@@ -245,10 +312,6 @@ calculatePctPret <- function(df, param = "FEV1", ref = "GLI") {
   } else {
     stop("Please enter a valid spirometry metric")
   }
-
-
-
-
 }
 
 #' Calculates the predicted mean predicted based on inputted parameters.
@@ -295,27 +358,35 @@ calculateMeanPret <- function(df,
   if(!is.null(df$gender)){
     gender <- df$gender
   } else {
-    gender <- 1
+    gender <- rep(1, length(df$age))
   }
 
   if(!is.null(df$ethnicity)){
     ethnicity <- df$ethnicity
-    if (ethnicity > 5) {
-      ethnicity <- 1
-      warning("Ethnicity value not valid for spriometry equations, setting ethnicity to default of 1")
+    if (any(ethnicity>5)) {
+      ethnicity[which(ethnicity>5)] <- 1
+      warning("Ethnicity value not valid for spriometry equations, setting some ethnicity values to default of 1")
     }
   } else {
-    ethinicity <- 1
+    ethinicity <- rep(1, length(df$age))
   }
 
   if (ref == "NHANES3") {
-    if (ethnicity > 3) {
-      ethnicity <- 1
+    if (any(ethnicity>3)) {
+      ethnicity[which(ethnicity>3)] <- 1
       warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
     }
-    return(rspiro::pred_NHANES3(age, height, gender, ethnicity, param))
+    return(rspiro::pred_NHANES3(age=age,
+                                height=height,
+                                gender=gender,
+                                ethnicity=ethnicity,
+                                param=param))
   } else if (ref == "GLI") {
-    return(rspiro::pred_GLI(age, height, gender, ethnicity, param))
+    return(rspiro::pred_GLI(age=age,
+                            height=height,
+                            gender=gender,
+                            ethnicity=ethnicity,
+                            param=param))
   } else {
     stop("Please select NHANES3 or GLI")
   }

@@ -2,8 +2,7 @@ library(spiroview)
 
 # calculateLLNPret
 
-test_that("tests calculateLLNPret invalid inputs for calculateLLNPret"){
-
+test_that("tests calculateLLNPret invalid inputs for calculateLLNPret", {
   emptyList <- list()
   emptyDF <- data.frame()
   noDemDF <- data.frame(id=c(0000),
@@ -32,9 +31,12 @@ test_that("tests calculateLLNPret invalid inputs for calculateLLNPret"){
   # invalid reference equation
   expect_error(calculateLLNPret(df=testDF,
                                 ref="ABC"))
-}
 
-test_that("tests calculateLLNPret single GLI"){
+
+})
+
+
+test_that("tests calculateLLNPret single GLI", {
   testDF <- data.frame(id=c(0000),
                        gender=c(1),
                        height=c(1.52),
@@ -53,14 +55,14 @@ test_that("tests calculateLLNPret single GLI"){
                                        param="FEV1",
                                        ref="GLI")), 1)
 
-}
+})
 
 
-test_that("tests calculateLLNPret multiple GLI"){
+test_that("tests calculateLLNPret multiple GLI",{
   testDF <- GLIData
 
   # expect a result
-  expect_false(is.na(calculateLLNPret(df=testDF,
+  expect_false(is.null(calculateLLNPret(df=testDF,
                                       param="FEV1",
                                       ref="GLI")))
 
@@ -70,20 +72,20 @@ test_that("tests calculateLLNPret multiple GLI"){
                                        ref="GLI")), 50)
 
 
-}
+})
 
-test_that("tests calculateLLNPret single NHANES3"){
+test_that("tests calculateLLNPret single NHANES3", {
 
   testDF <- data.frame(id=c(0000),
                        gender=c(1),
                        height=c(1.52),
                        age=c(22),
-                       ethnicity=c(5),
+                       ethnicity=c(3),
                        FEV1=c(2.581),
                        FVC=c(2.924))
 
   # expect a result
-  expect_false(is.na(calculateLLNPret(df=testDF,
+  expect_false(is.null(calculateLLNPret(df=testDF,
                                       param="FEV1",
                                       ref="NHANES3")))
 
@@ -91,12 +93,12 @@ test_that("tests calculateLLNPret single NHANES3"){
   expect_equal(length(calculateLLNPret(df=testDF,
                                        param="FEV1",
                                        ref="NHANES3")), 1)
-}
+})
 
 
 # calculatePctPret
 
-test_that("tests calculatePctPret invalid inputs for calculatePctPret"){
+test_that("tests calculatePctPret invalid inputs for calculatePctPret", {
 
   emptyList <- list()
   emptyDF <- data.frame()
@@ -136,9 +138,9 @@ test_that("tests calculatePctPret invalid inputs for calculatePctPret"){
   expect_error(calculatePctPret(df=testDF,
                                 ref="ABC"))
 
-}
+})
 
-test_that("tests calculatePctPret single GLI"){
+test_that("tests calculatePctPret single GLI", {
   testDF <- data.frame(id=c(0000),
                        gender=c(1),
                        height=c(1.52),
@@ -161,14 +163,14 @@ test_that("tests calculatePctPret single GLI"){
                                        param="FVC",
                                        ref="GLI")), 1)
 
-}
+})
 
 
-test_that("tests calculatePctPret multiple GLI"){
+test_that("tests calculatePctPret multiple GLI", {
   testDF <- GLIData
 
   # expect a result
-  expect_false(is.na(calculatePctPret(df=testDF,
+  expect_false(is.null(calculatePctPret(df=testDF,
                                       param="FEV1",
                                       ref="GLI")))
 
@@ -178,20 +180,20 @@ test_that("tests calculatePctPret multiple GLI"){
                                        ref="GLI")), 50)
 
 
-}
+})
 
-test_that("tests calculatePctPret single NHANES3"){
+test_that("tests calculatePctPret single NHANES3",{
 
   testDF <- data.frame(id=c(0000),
                        gender=c(1),
                        height=c(1.52),
                        age=c(22),
-                       ethnicity=c(5),
+                       ethnicity=c(3),
                        FEV1=c(2.581),
                        FVC=c(2.924))
 
   # expect a result
-  expect_false(is.na(calculatePctPret(df=testDF,
+  expect_false(is.null(calculatePctPret(df=testDF,
                                        param="FEV1",
                                        ref="NHANES3")))
 
@@ -199,14 +201,12 @@ test_that("tests calculatePctPret single NHANES3"){
   expect_equal(length(calculatePctPret(df=testDF,
                                         param="FEV1",
                                         ref="NHANES3")), 1)
-
-
-}
+})
 
 
 # calculateMeanPret
 
-test_that("tests invalid inputs for calculateMeanPret"){
+test_that("tests invalid inputs for calculateMeanPret", {
   emptyList <- list()
   emptyDF <- data.frame()
   noDemDF <- data.frame(id=c(0000),
@@ -236,9 +236,9 @@ test_that("tests invalid inputs for calculateMeanPret"){
   expect_error(calculateMeanPret(df=testDF,
                                 ref="ABC"))
 
-}
+})
 
-test_that("tests calculateMeanPret single GLI"){
+test_that("tests calculateMeanPret single GLI", {
   testDF <- data.frame(id=c(0000),
                        gender=c(1),
                        height=c(1.52),
@@ -247,15 +247,26 @@ test_that("tests calculateMeanPret single GLI"){
                        FEV1=c(2.581),
                        FVC=c(2.924))
 
+  # expect a result
+  expect_false(is.null(calculateMeanPret(df=testDF,
+                                       param="FEV1",
+                                       ref="GLI")))
 
-}
+  # expect a vector of length 1 as a result
+  expect_equal(length(calculateMeanPret(df=testDF,
+                                        param="FEV1",
+                                        ref="GLI")), 1)
 
 
-test_that("tests calculateMeanPret multiple GLI"){
+
+})
+
+
+test_that("tests calculateMeanPret multiple GLI", {
   testDF <- GLIData
 
   # expect a result
-  expect_false(is.na(calculateMeanPret(df=testDF,
+  expect_false(is.null(calculateMeanPret(df=testDF,
                                       param="FEV1",
                                       ref="GLI")))
 
@@ -265,19 +276,19 @@ test_that("tests calculateMeanPret multiple GLI"){
                                        ref="GLI")), 50)
 
 
-}
+})
 
-test_that("tests calculateMeanPret single NHANES3"){
+test_that("tests calculateMeanPret single NHANES3", {
 
   testDF <- data.frame(id=c(0000),
                        gender=c(1),
                        height=c(1.52),
                        age=c(22),
-                       ethnicity=c(5),
+                       ethnicity=c(3),
                        FEV1=c(2.581),
                        FVC=c(2.924))
   # expect a result
-  expect_false(is.na(calculateMeanPret(df=testDF,
+  expect_false(is.null(calculateMeanPret(df=testDF,
                                       param="FEV1",
                                       ref="NHANES3")))
 
@@ -287,5 +298,5 @@ test_that("tests calculateMeanPret single NHANES3"){
                                        ref="NHANES3")), 1)
 
 
-}
+})
 
