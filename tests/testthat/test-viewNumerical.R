@@ -1,7 +1,7 @@
 library(spiroview)
 
 # viewNumerical
-test_that("tests invalid inputs for viewNumerical"){
+test_that("tests invalid inputs for viewNumerical", {
 
   emptyDF <- data.frame()
 
@@ -23,10 +23,10 @@ test_that("tests invalid inputs for viewNumerical"){
                            demParam=123,
                            spiroParam=123))
 
-}
+})
 
 # compareNumerical
-test_that("tests invalid inputs for compareNumerical"){
+test_that("tests invalid inputs for compareNumerical", {
 
   emptyDF <- data.frame()
   testDFThreeValue <- data.frame(id=c(0000, 1111, 2222),
@@ -73,4 +73,4 @@ test_that("tests invalid inputs for compareNumerical"){
                                 secondParam="age",
                                 secondDelim=">70",
                                 secondParamIsNumeric=FALSE))
-}
+})

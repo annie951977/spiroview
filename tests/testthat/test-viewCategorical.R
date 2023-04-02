@@ -2,7 +2,7 @@ library(spiroview)
 
 # viewCategorical
 
-test_that("tests invalid inputs viewCategorical"){
+test_that("tests invalid inputs viewCategorical", {
 
   emptyDF <- data.frame()
 
@@ -25,11 +25,11 @@ test_that("tests invalid inputs viewCategorical"){
                              demParam=123,
                              segBy=123))
 
-}
+})
 
 
 # viewCategoricalCounts
-test_that("tests invalid inputs for viewCategoricalCounts"){
+test_that("tests invalid inputs for viewCategoricalCounts", {
   emptyDF <- data.frame()
 
   testDF <- data.frame(id=c(0000),
@@ -51,4 +51,4 @@ test_that("tests invalid inputs for viewCategoricalCounts"){
                                      demParam="gender",
                                      type="potato"))
 
-}
+})
