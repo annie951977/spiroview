@@ -23,23 +23,24 @@
 #' # Example dataset
 #' exampleDF <- data.frame(id=c(0000, 1111, 2222),
 #'                         gender=c(1, 2, 1),
+#'                         age=c(22, 75, 74),
 #'                         height=c(1.52, 1.83, 1.96),
 #'                         ethnicity=c(1, 2, 1),
 #'                         FEV1=c(2.581, 2.2768045, 0.4895280 ),
 #'                         FVC=c(2.924, 3.0208665, 0.6688253))
 #'
-#' Example 1: Summary statistics for a categorical variable
+#' # Example 1: Summary statistics for a categorical variable
 #'
-#' catResults <- summarizeAllByCategory(df=testDF,
+#' catResults <- summarizeAllByCategory(df=exampleDF,
 #'                                      demParam="gender",
 #'                                      delim="1",
 #'                                      delimIsNumeric = FALSE,
 #'                                      spiroParam="FEV1")
 #' catResults
 #'
-#' Example 2: Summary statistics for a numeric variable
+#' # Example 2: Summary statistics for a numeric variable
 #'
-#' numResults <- summarizeAllByCategory(df=testDF,
+#' numResults <- summarizeAllByCategory(df=exampleDF,
 #'                                      demParam="age",
 #'                                      delim=">70",
 #'                                      delimIsNumeric = TRUE,

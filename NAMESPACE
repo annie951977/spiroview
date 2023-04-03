@@ -3,6 +3,7 @@
 export(calculateLLNPret)
 export(calculateMeanPret)
 export(calculatePctPret)
+export(formatData)
 export(segregateBy)
 export(summarizeAllByCategory)
 import(dplyr)

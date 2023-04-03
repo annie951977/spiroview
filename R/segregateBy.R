@@ -17,17 +17,21 @@
 #'                         FEV1=c(2.581, 2.2768045, 0.4895280 ),
 #'                         FVC=c(2.924, 3.0208665, 0.6688253))
 #'
-#' Example 1: Using a categorical delimiter
+#' # Example 1: Using a categorical delimiter
+#' \dontrun{
 #' results <- segregateBy(df=exampleDF,
 #'             demParam = "gender",
 #'             segBy = "1",
 #'             segIsNumeric = FALSE)
+#' }
 #'
-#' Example 2: Using a numeric delimiter
+#' # Example 2: Using a numeric delimiter
+#' \dontrun{
 #' results <- segregateBy(df=exampleDF,
 #'             demParam = "height",
 #'             segBy = ">1.80",
 #'             segIsNumeric = FALSE)
+#' }
 #'
 #' @param df The dataframe containing the data you want to clean
 #' @param demParam The demographic factor in question

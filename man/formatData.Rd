@@ -7,25 +7,56 @@
 formatData(
   path,
   heightLabel = NULL,
-  sexLabel = NULL,
+  genderLabel = NULL,
   ageLabel = NULL,
   ethLabel = NULL
 )
 }
 \arguments{
-\item{path}{path to the dataframe}
+\item{path}{The character path to the dataframe. Expects a csv or tsv file}
 
-\item{heightLabel}{height label}
+\item{heightLabel}{A character string that represents the height column name
+in the dataset. Default is NULL}
 
-\item{sexLabel}{sex label}
+\item{genderLabel}{A character string that represents the gender column name
+in the dataset. Default is NULL}
 
-\item{ageLabel}{age label}
+\item{ageLabel}{A character string that represents the age column name
+in the dataset. Default is NULL}
 
-\item{ethLabel}{ethnicity label}
+\item{ethLabel}{A character string that represents the ethnicity column name
+in the dataset. Default is NULL}
 }
 \value{
 dataframe containing reformated data
 }
 \description{
-A helper function that
+A helper function that reads in a csv or tsv and reformats it to be easily
+used with the other functions in this package.
+}
+\examples{
+\dontrun{
+# Example 1: Read in a file
+examplePath <- system.file("extdata",
+                            "example_dataset_1.csv",
+                            package="spiroview)
+resultDB <- formatData(path=examplePath)
+
+resultDB
+}
+
+# Example 2: Read in a file with a different label
+\dontrun{
+examplePath <- system.file("extdata",
+                            "example_dataset_1.csv",
+                            package="spiroview)
+resultDB <- formatData(path=examplePath,
+                       ageLabel= "A")
+resultDB
+}
+
+}
+\references{
+Wickham H, Hester J, Bryan J (2023). readr: Read Rectangular Text Data.
+https://readr.tidyverse.org, https://github.com/tidyverse/readr.
 }

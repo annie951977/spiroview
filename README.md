@@ -88,6 +88,10 @@ example workflow can be found here:
   Grammar of Data Manipulation. <https://dplyr.tidyverse.org>,
   <https://github.com/tidyverse/dplyr>.
 
+- Wickham H, Hester J, Bryan J (2023). readr: Read Rectangular Text
+  Data. <https://readr.tidyverse.org>,
+  <https://github.com/tidyverse/readr>.
+
 - Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
   Springer-Verlag New York. ISBN 978-3-319-24277-4,
   <https://ggplot2.tidyverse.org>.

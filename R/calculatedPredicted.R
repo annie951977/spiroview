@@ -17,14 +17,17 @@
 #'  rows equal to the number of rows in df
 #' @examples
 #' # Example 1: Calculate LLN of FEV1 from the GLI equations
+#' \dontrun{
 #'  exampleDF <- GLIData
 #'  output <- calculateLLNPret(
 #'                df=exampleDF,
 #'                param="FEV1",
 #'                ref="GLI")
 #'  output
+#' }
 #'
 #' # Example 2: Calculate LLN of FEV1 from NHANES3
+#' \dontrun{
 #'  exampleDF <- NHANES3Data
 #'
 #'  output <- calculateLLNPret(
@@ -32,6 +35,7 @@
 #'                 param="FEV1",
 #'                 ref="NHANES3")
 #' output
+#' }
 #'
 #' @references
 #' Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
@@ -127,14 +131,16 @@ calculateLLNPret <- function(df,
 #'  rows equal to the number of rows in df
 #' @examples
 #' # Example 1: Calculate LLN of FEV1 from the GLI equations
+#' \dontrun{
 #'  exampleDF <- GLIData
 #'  output <- calculatePctPret(
 #'                df=exampleDF,
 #'                param="FEV1",
 #'                ref="GLI")
 #'  output
-#'
+#' }
 #' # Example 2: Calculate LLN of FEV1 from NHANES3
+#' \dontrun{
 #'  exampleDF <- NHANES3Data
 #'
 #'  output <- calculatePctPret(
@@ -142,6 +148,7 @@ calculateLLNPret <- function(df,
 #'                 param="FEV1",
 #'                 ref="NHANES3")
 #' output
+#' }
 #'
 #' @references
 #' Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
@@ -380,20 +387,23 @@ calculatePctPret <- function(df,
 #' @return A numeric vector or data.frame containing length(param) columns
 #' @examples
 #' # Example 1: Calculate LLN of FEV1 from the GLI equations
+#' \dontrun{
 #'  exampleDF <- GLIData
 #'  output <- calculateMeanPret(
 #'                df=exampleDF,
 #'                param="FEV1",
 #'                ref="GLI")
+#' }
 #'
 #' # Example 2: Calculate LLN of FEV1 from NHANES3
+#' \dontrun{
 #'  exampleDF <- NHANES3Data
 #'
 #'  output <- calculateMeanPret(
 #'                 df=exampleDF,
 #'                 param="FEV1",
 #'                 ref="NHANES3")
-#'
+#' }
 #' @references
 #' Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
 #' Carter, K. W., Thompson, B. R., Graham, B. L., Miller, M. R., Ruppel, G.,

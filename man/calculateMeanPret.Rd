@@ -33,20 +33,23 @@ of the patient
 }
 \examples{
 # Example 1: Calculate LLN of FEV1 from the GLI equations
+\dontrun{
  exampleDF <- GLIData
  output <- calculateMeanPret(
                df=exampleDF,
                param="FEV1",
                ref="GLI")
+}
 
 # Example 2: Calculate LLN of FEV1 from NHANES3
+\dontrun{
  exampleDF <- NHANES3Data
 
  output <- calculateMeanPret(
                 df=exampleDF,
                 param="FEV1",
                 ref="NHANES3")
-
+}
 }
 \references{
 Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
