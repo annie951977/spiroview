@@ -22,7 +22,6 @@ formatData <- function(path,
     stop("Path passed into formatData does not exist")
   }
 
-  results <- data.frame()
   # check if the file is tsv or csv
 
   if(grepl("\\.csv$", path)) {
@@ -98,5 +97,7 @@ formatData <- function(path,
   } else {
     warning("Ethnicity data not found")
   }
+
+  return(df)
 
 }
