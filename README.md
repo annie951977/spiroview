@@ -55,16 +55,46 @@ use GitHub Actions to re-render `README.Rmd` every time you push. An
 example workflow can be found here:
 <https://github.com/r-lib/actions/tree/v1/examples>.
 
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
-
 # Contributions
 
 # References
+
+- Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
+  Carter, K. W., Thompson, B. R., Graham, B. L., Miller, M. R., Ruppel,
+  G., Henderson, J., Vaz Fragoso, C. A., & Stanojevic, S. (2017).The
+  Global Lung Function Initiative (GLI) Network: bringing the world’s
+  respiratory reference values together. Breathe (Sheffield, England),
+  13(3), e56–e64. <https://doi.org/10.1183/20734735.012717>
+
+- Hankinson, J. L., Odencrantz, J. R., & Fedan, K. B. (1999).
+  Spirometric reference values from a sample of the general U.S.
+  population. American journal of respiratory and critical care
+  medicine, 159(1), 179–187.https://doi.org/10.1164/ajrccm.159.1.9712108
+
+- Lytras T (2020). *rspiro: Implementation of Spirometry Equations*. R
+  package version 0.2, <https://CRAN.R-project.org/package=rspiro>.
+
+- R Core Team (2021). R: A language and environment for statistical
+  computing. R Foundation for Statistical Computing, Vienna, Austria.
+  URL <https://www.R-project.org/>.
+
+- Silva, A. (2022) TestingPackage: An Example R Package For BCB410H.
+  Unpublished. URL <https://github.com/anjalisilva/TestingPackage>.”
+
+- Wickham, H. and Bryan, J. (2019). *R Packages* (2nd edition). Newton,
+  Massachusetts: O’Reilly Media. <https://r-pkgs.org/>
+
+- Wickham H, François R, Henry L, Müller K, Vaughan D (2023). dplyr: A
+  Grammar of Data Manipulation. <https://dplyr.tidyverse.org>,
+  <https://github.com/tidyverse/dplyr>.
+
+- Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
+  Springer-Verlag New York. ISBN 978-3-319-24277-4,
+  <https://ggplot2.tidyverse.org>.
+
+- Wickham H (2022). *stringr: Simple, Consistent Wrappers for Common
+  String Operations*. R package version 1.5.0,
+  <https://CRAN.R-project.org/package=stringr>.
 
 # Acknowledgements
 

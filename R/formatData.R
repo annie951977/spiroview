@@ -4,16 +4,22 @@
 #'
 #' @param path path to the dataframe
 #' @param heightLabel height label
-#' @param sexLabel sex label
+#' @param genderLabel gender label
 #' @param ageLabel age label
 #' @param ethLabel ethnicity label
 #' @return dataframe containing reformated data
 #' @examples
+#' # Example 1: Read in a file
+#'
+#'
+#'
+#' # Example 2: Read in a file with a different label
+#' @export
 #' @import readr
 
 formatData <- function(path,
                        heightLabel=NULL,
-                       sexLabel=NULL,
+                       genderLabel=NULL,
                        ageLabel=NULL,
                        ethLabel=NULL) {
 
@@ -49,8 +55,8 @@ formatData <- function(path,
 
   ## Assumption: sex is either denoted as a binary (1, 2 for a MALE column) where 1 is male
   # or in descriptive terms ("female", "male")
-  if(!is.null(sexLabel)) {
-    colnames(df)[colnames(df) == heightLabel] <- "height"
+  if(!is.null(genderLabel)) {
+    colnames(df)[colnames(df) == genderLabel] <- "gender"
 
   } else if(grepl("m | M | male | MALE", colnames(df))) {
     # rename column to male
