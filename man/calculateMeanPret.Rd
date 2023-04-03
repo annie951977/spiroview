@@ -47,6 +47,7 @@ of the patient
                 df=example_df,
                 param="FEV1",
                 ref="NHANES3")
+
 }
 \references{
 Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,

@@ -54,6 +54,7 @@ of the patient
                 param="FEV1",
                 ref="NHANES3")
 output
+
 }
 \references{
 Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,

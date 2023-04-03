@@ -34,8 +34,6 @@
 #'                 ref="NHANES3")
 #' output
 #'
-#' @import rspiro
-#'
 #' @references
 #' Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
 #' Carter, K. W., Thompson, B. R., Graham, B. L., Miller, M. R., Ruppel, G.,
@@ -51,7 +49,8 @@
 #'
 #' Lytras T (2020). _rspiro: Implementation of Spirometry Equations_.
 #' R package version 0.2, <https://CRAN.R-project.org/package=rspiro>.
-
+#' @export
+#' @import rspiro
 calculateLLNPret <- function(df,
                              param = "FEV1",
                              ref = "GLI") {
@@ -145,7 +144,6 @@ calculateLLNPret <- function(df,
 #'                 param="FEV1",
 #'                 ref="NHANES3")
 #' output
-#' @import rspiro
 #'
 #' @references
 #' Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
@@ -162,8 +160,8 @@ calculateLLNPret <- function(df,
 #'
 #' Lytras T (2020). _rspiro: Implementation of Spirometry Equations_.
 #' R package version 0.2, <https://CRAN.R-project.org/package=rspiro>.
-
-
+#' @export
+#' @import rspiro
 calculatePctPret <- function(df,
                              param = "FEV1",
                              ref = "GLI") {
@@ -398,7 +396,6 @@ calculatePctPret <- function(df,
 #'                 df=example_df,
 #'                 param="FEV1",
 #'                 ref="NHANES3")
-#' @import rspiro
 #'
 #' @references
 #' Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
@@ -415,7 +412,8 @@ calculatePctPret <- function(df,
 #'
 #' Lytras T (2020). _rspiro: Implementation of Spirometry Equations_.
 #' R package version 0.2, <https://CRAN.R-project.org/package=rspiro>.
-
+#' @export
+#' @import rspiro
 calculateMeanPret <- function(df,
                               param = "FEV1",
                               ref = "GLI") {
