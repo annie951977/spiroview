@@ -1,6 +1,6 @@
 library(spiroview)
 
-test_that("tests invalid inputs"){
+test_that("tests invalid inputs", {
   emptyDF <- data.frame()
 
   testDF <- data.frame(id=c(0000),
@@ -30,10 +30,10 @@ test_that("tests invalid inputs"){
                            spiroParam="FEV1"))
 
 
-}
+})
 
 
-test_that("tests categorical delimiter"){
+test_that("tests categorical delimiter", {
   testDF <- data.frame(id=c(0000, 1111, 2222),
                        gender=c(1, 2, 1),
                        age=c(22, 75, 74),
@@ -42,7 +42,7 @@ test_that("tests categorical delimiter"){
                        FEV1=c(2.581, 2.2768045, 0.4895280 ),
                        FVC=c(2.924, 3.0208665, 0.6688253))
 
-  expect_equal(is.dataframe(summarizeAllByCategory(df=testDF,
+  expect_equal(is.data.frame(summarizeAllByCategory(df=testDF,
                                                   demParam="gender",
                                                   delim="1",
                                                   delimIsNumeric = FALSE,
@@ -53,11 +53,11 @@ test_that("tests categorical delimiter"){
                                                    demParam="gender",
                                                    delim="1",
                                                    delimIsNumeric = FALSE,
-                                                   spiroParam="FEV1")), 2)
-}
+                                                   spiroParam="FEV1")), 1)
+})
 
 
-test_that("tests numerical delimiter"){
+test_that("tests numerical delimiter", {
 
   testDF <- data.frame(id=c(0000, 1111, 2222),
                        gender=c(1, 2, 1),
@@ -67,7 +67,7 @@ test_that("tests numerical delimiter"){
                        FEV1=c(2.581, 2.2768045, 0.4895280 ),
                        FVC=c(2.924, 3.0208665, 0.6688253))
 
-  expect_equal(is.dataframe(summarizeAllByCategory(df=testDF,
+  expect_equal(is.data.frame(summarizeAllByCategory(df=testDF,
                                                    demParam="age",
                                                    delim=">70",
                                                    delimIsNumeric = TRUE,
@@ -78,6 +78,6 @@ test_that("tests numerical delimiter"){
                                                    demParam="age",
                                                    delim=">70",
                                                    delimIsNumeric = TRUE,
-                                                   spiroParam="FEV1")), 2)
+                                                   spiroParam="FEV1")), 1)
 
-}
+})
