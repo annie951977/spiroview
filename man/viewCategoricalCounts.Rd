@@ -24,3 +24,20 @@ an output graph
 A function that produces graphs visualizing the number of samples per a
 categorical demographic variable.
 }
+\examples{
+plotData <- GLIData
+# Example 1: One categorical variable
+\dontrun{
+plot <- viewCategorical(df=plotData,
+                        demParam="ethnicity",
+                        secondParam=NULL,
+                        type="pie")
+}
+# Example 2: Two categorical variables
+\dontrun{
+plot <- viewCategorical(df=plotData,
+                        demParam="ethnicity",
+                        secondParam="gender",
+                        type="pie")
+}
+}

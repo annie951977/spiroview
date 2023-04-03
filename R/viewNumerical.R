@@ -11,6 +11,14 @@
 #' included in the plot
 #' @return A basic ggplot scatterplot that can be built upon as needed
 #' @examples
+#' # Example 1: Basic numeric plot with viewNumerical
+#' \dontrun{
+#' plotData <- GLIData
+#' plot <- viewNumerical(df=plotdata,
+#'                       demParam="height",
+#'                       spiroParam="FEV1",
+#'                       includeBestFit=FALSE)
+#' }
 #' @import ggplot2
 
 viewNumerical <- function(df,
@@ -64,6 +72,28 @@ viewNumerical <- function(df,
 #' included in the plot
 #' @return A basic ggplot scatterplot that can be built upon as needed
 #' @examples
+#' plotData <- GLIData
+#' # Example 1: compareNumerical with one numeric variable
+#' \dontrun{
+#' plot <- compareNumerical(df=plotdata,
+#'                         demParam="height",
+#'                         delim=">1.40",
+#'                         spiroParam="FEV1",
+#'                         includeBestFit=FALSE)
+#' plot
+#' }
+#' # Example 2: compareNumerical with a categorical variable
+#' \dontrun{
+#' plot <- compareNumerical(df=plotdata,
+#'                         demParam="height",
+#'                         delim=">1.40",
+#'                         secondParam= "smoking",
+#'                         secondDlim="1",
+#'                         secondParamIsNumeric=FALSE,
+#'                         spiroParam="FEV1",
+#'                         includeBestFit=FALSE)
+#' plot
+#' }
 #' @import ggplot2
 #' @import dplyr
 compareNumerical <- function(df,

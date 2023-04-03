@@ -24,3 +24,13 @@ A basic ggplot scatterplot that can be built upon as needed
 A function a basic ggplot scatter plot visualizing the relationship between a
 numeric variable to a spirometric value of interest.
 }
+\examples{
+# Example 1: Basic numeric plot with viewNumerical
+\dontrun{
+plotData <- GLIData
+plot <- viewNumerical(df=plotdata,
+                      demParam="height",
+                      spiroParam="FEV1",
+                      includeBestFit=FALSE)
+}
+}

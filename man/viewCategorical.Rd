@@ -23,3 +23,13 @@ A basic ggplot plot that can be built upon as needed
 A function a basic ggplot plot visualizing the relationship between a
 categorical variable to a spirometric value of interest.
 }
+\examples{
+plotData <- GLIData
+# Example 1: Basic categorical plot
+\dontrun{
+plot <- viewCategorical(df=plotdata,
+                        demParam="ethnicity",
+                        spiroParam="FEV1",
+                        type="box")
+}
+}

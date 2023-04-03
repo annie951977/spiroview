@@ -60,3 +60,27 @@ can be added.
 Assumption: delim exists within the domain of demParam and secondDelim
 exists within the domain of secondParam
 }
+\examples{
+plotData <- GLIData
+# Example 1: compareNumerical with one numeric variable
+\dontrun{
+plot <- compareNumerical(df=plotdata,
+                        demParam="height",
+                        delim=">1.40",
+                        spiroParam="FEV1",
+                        includeBestFit=FALSE)
+plot
+}
+# Example 2: compareNumerical with a categorical variable
+\dontrun{
+plot <- compareNumerical(df=plotdata,
+                        demParam="height",
+                        delim=">1.40",
+                        secondParam= "smoking",
+                        secondDlim="1",
+                        secondParamIsNumeric=FALSE,
+                        spiroParam="FEV1",
+                        includeBestFit=FALSE)
+plot
+}
+}

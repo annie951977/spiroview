@@ -10,6 +10,14 @@
 #'             Default is box.
 #' @return A basic ggplot plot that can be built upon as needed
 #' @examples
+#' plotData <- GLIData
+#' # Example 1: Basic categorical plot
+#' \dontrun{
+#' plot <- viewCategorical(df=plotdata,
+#'                         demParam="ethnicity",
+#'                         spiroParam="FEV1",
+#'                         type="box")
+#' }
 #' @import ggplot2
 #' @import dplyr
 
@@ -61,6 +69,21 @@ viewCategorical <- function(df,
 #'             Default is pie
 #' @return an output graph
 #' @examples
+#' plotData <- GLIData
+#' # Example 1: One categorical variable
+#' \dontrun{
+#' plot <- viewCategorical(df=plotData,
+#'                         demParam="ethnicity",
+#'                         secondParam=NULL,
+#'                         type="pie")
+#' }
+#' # Example 2: Two categorical variables
+#' \dontrun{
+#' plot <- viewCategorical(df=plotData,
+#'                         demParam="ethnicity",
+#'                         secondParam="gender",
+#'                         type="pie")
+#' }
 #' @import ggplot2
 
 viewCategoricalCounts <- function(df,
