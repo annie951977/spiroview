@@ -7,8 +7,27 @@
 #'
 #' Assumptions:
 #' - the provided parameters and delimiters exist in your dataset.
-#' - the segBy deliminter exists in your dataset under the inputted demParam
+#' - the segBy delimiter exists in your dataset under the inputted demParam
 #'
+#' @examples
+#' exampleDF <- data.frame(id=c(0000, 1111, 2222),
+#'                         gender=c(1, 2, 1),
+#'                         height=c(1.52, 1.83, 1.96),
+#'                         ethnicity=c(1, 2, 1),
+#'                         FEV1=c(2.581, 2.2768045, 0.4895280 ),
+#'                         FVC=c(2.924, 3.0208665, 0.6688253))
+#'
+#' Example 1: Using a categorical delimiter
+#' results <- segregateBy(df=exampleDF,
+#'             demParam = "gender",
+#'             segBy = "1",
+#'             segIsNumeric = FALSE)
+#'
+#' Example 2: Using a numeric delimiter
+#' results <- segregateBy(df=exampleDF,
+#'             demParam = "height",
+#'             segBy = ">1.80",
+#'             segIsNumeric = FALSE)
 #'
 #' @param df The dataframe containing the data you want to clean
 #' @param demParam The demographic factor in question
@@ -16,14 +35,17 @@
 #' simply some categorical term or a vector of terms is expected.
 #' For numerical variables,a singlestring consisting of a numeric value preceded
 #' by an inequality operator is expected. For example ">16".
-#'
 #' @param segIsNumeric Declaring if segBy is a numeric value. Default is FALSE.
-#' @import stringr
 #' @return a list of resulting dataset:
 #' - dataset meeting segBy condition
 #' - dataset that does not meet segBy condition
-
-
+#' @references
+#' Wickham H (2022). _stringr:
+#' Simple, Consistent Wrappers for Common String Operations_.
+#' R package version 1.5.0, <https://CRAN.R-project.org/package=stringr>.
+#'
+#' @export
+#' @import stringr
 segregateBy <- function(df,
                         demParam,
                         segBy,
@@ -61,34 +83,34 @@ segregateBy <- function(df,
     # filter for the param
     if (op == "<") {
 
-      containsDF <- (df[which(df[demParam] < numBy)])
-      otherDF <- (df[which(df[demParam] >= numBy)])
+      containsDF <- (df[which(df[demParam] < numBy),])
+      otherDF <- (df[which(df[demParam] >= numBy),])
 
 
     } else if(op == "<=") {
 
-      containsDF <- (df[which(df[demParam] < numBy)])
-      otherDF <- (df[which(df[demParam] >= numBy)])
+      containsDF <- (df[which(df[demParam] < numBy),])
+      otherDF <- (df[which(df[demParam] >= numBy),])
 
     } else if(op == ">") {
 
-      containsDF <- (df[which(df[demParam] > numBy)])
-      otherDF <- (df[which(df[demParam] <= numBy)])
+      containsDF <- (df[which(df[demParam] > numBy),])
+      otherDF <- (df[which(df[demParam] <= numBy),])
 
     } else if(op == ">=") {
 
-      containsDF <- (df[which(df[demParam] >= numBy)])
-      otherDF <- (df[which(df[demParam] < numBy)])
+      containsDF <- (df[which(df[demParam] >= numBy,)])
+      otherDF <- (df[which(df[demParam] < numBy),])
 
     } else if(op == "==") {
 
-      containsDF <- (df[which(df[demParam] == numBy)])
-      otherDF <- (df[which(df[demParam] != numBy)])
+      containsDF <- (df[which(df[demParam] == numBy),])
+      otherDF <- (df[which(df[demParam] != numBy),])
 
     } else if(op == "!="){
 
-      containsDF <- (df[which(df[demParam] != numBy)])
-      otherDF <- (df[which(df[demParam] == numBy)])
+      containsDF <- (df[which(df[demParam] != numBy),])
+      otherDF <- (df[which(df[demParam] == numBy),])
 
     }
     return(list(
@@ -101,8 +123,8 @@ segregateBy <- function(df,
     if (!is.vector(segBy)) {
       segBy = c(segBy)
     }
-    containsDF <- (df[df[demParam] %in% segBy])
-    otherDF <- (df[!(df[demParam] %in% segBy)])
+    containsDF <- (df[which(df[demParam] %in% segBy),])
+    otherDF <- (df[!(df[demParam] %in% segBy),])
 
     return(list(
       contains = containsDF,

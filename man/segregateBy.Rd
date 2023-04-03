@@ -35,6 +35,32 @@ only female samples will be created.
 Assumptions:
 \itemize{
 \item the provided parameters and delimiters exist in your dataset.
-\item the segBy deliminter exists in your dataset under the inputted demParam
+\item the segBy delimiter exists in your dataset under the inputted demParam
 }
+}
+\examples{
+exampleDF <- data.frame(id=c(0000, 1111, 2222),
+                        gender=c(1, 2, 1),
+                        height=c(1.52, 1.83, 1.96),
+                        ethnicity=c(1, 2, 1),
+                        FEV1=c(2.581, 2.2768045, 0.4895280 ),
+                        FVC=c(2.924, 3.0208665, 0.6688253))
+
+Example 1: Using a categorical delimiter
+results <- segregateBy(df=exampleDF,
+            demParam = "gender",
+            segBy = "1",
+            segIsNumeric = FALSE)
+
+Example 2: Using a numeric delimiter
+results <- segregateBy(df=exampleDF,
+            demParam = "height",
+            segBy = ">1.80",
+            segIsNumeric = FALSE)
+
+}
+\references{
+Wickham H (2022). \emph{stringr:
+Simple, Consistent Wrappers for Common String Operations}.
+R package version 1.5.0, \url{https://CRAN.R-project.org/package=stringr}.
 }

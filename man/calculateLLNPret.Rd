@@ -32,20 +32,19 @@ of the patient
 }
 }
 \examples{
-
 # Example 1: Calculate LLN of FEV1 from the GLI equations
- example_df <- GLIData
+ exampleDF <- GLIData
  output <- calculateLLNPret(
-               df=example_df,
+               df=exampleDF,
                param="FEV1",
                ref="GLI")
  output
 
 # Example 2: Calculate LLN of FEV1 from NHANES3
- example_df <- NHANES3Data
+ exampleDF <- NHANES3Data
 
  output <- calculateLLNPret(
-                df=example_df,
+                df=exampleDF,
                 param="FEV1",
                 ref="NHANES3")
 output
@@ -58,6 +57,7 @@ Henderson, J., Vaz Fragoso, C. A., & Stanojevic, S. (2017).
 The Global Lung Function Initiative (GLI) Network: bringing the world's
 respiratory reference values together. Breathe (Sheffield, England), 13(3),
 e56–e64. https://doi.org/10.1183/20734735.012717
+
 Hankinson, J. L., Odencrantz, J. R., & Fedan, K. B. (1999).
 Spirometric reference values from a sample of the general U.S. population.
 American journal of respiratory and critical care medicine, 159(1), 179–187.

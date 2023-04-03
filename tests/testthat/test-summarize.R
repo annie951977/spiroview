@@ -48,7 +48,7 @@ test_that("tests categorical delimiter", {
                                                   delimIsNumeric = FALSE,
                                                   spiroParam="FEV1")), TRUE)
 
-  # check to see if the output has 2 rows
+  # check to see if the output has 1 row
   expect_equal(nrow(summarizeAllByCategory(df=testDF,
                                                    demParam="gender",
                                                    delim="1",
@@ -73,7 +73,7 @@ test_that("tests numerical delimiter", {
                                                    delimIsNumeric = TRUE,
                                                    spiroParam="FEV1")), TRUE)
 
-  # check to see if the output has 2 rows
+  # check to see if the output has 1 row
   expect_equal(nrow(summarizeAllByCategory(df=testDF,
                                                    demParam="age",
                                                    delim=">70",

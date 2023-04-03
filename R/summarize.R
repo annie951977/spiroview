@@ -5,7 +5,7 @@
 #' expects a dataframe
 #'
 #' Assumption: the delimiter is a value that exists within the the domain of
-#' demParam. One patient per row.
+#' demParam.
 #'
 #'@param df A dataframe containing each patient demographic data and at least
 #'  one mean spirometric value
@@ -19,7 +19,43 @@
 #'as a string
 #'@return Returns a dataframe that contains summary statistics as columns and
 #'spirometry parameters of interest as rows
-#'@example
+#'@examples
+#' # Example dataset
+#' exampleDF <- data.frame(id=c(0000, 1111, 2222),
+#'                         gender=c(1, 2, 1),
+#'                         height=c(1.52, 1.83, 1.96),
+#'                         ethnicity=c(1, 2, 1),
+#'                         FEV1=c(2.581, 2.2768045, 0.4895280 ),
+#'                         FVC=c(2.924, 3.0208665, 0.6688253))
+#'
+#' Example 1: Summary statistics for a categorical variable
+#'
+#' catResults <- summarizeAllByCategory(df=testDF,
+#'                                      demParam="gender",
+#'                                      delim="1",
+#'                                      delimIsNumeric = FALSE,
+#'                                      spiroParam="FEV1")
+#' catResults
+#'
+#' Example 2: Summary statistics for a numeric variable
+#'
+#' numResults <- summarizeAllByCategory(df=testDF,
+#'                                      demParam="age",
+#'                                      delim=">70",
+#'                                      delimIsNumeric = TRUE,
+#'                                      spiroParam="FEV1")
+#' numResults
+#'
+#'@references
+#'Wickham H, François R, Henry L, Müller K, Vaughan D (2023).
+#'dplyr: A Grammar of Data Manipulation. https://dplyr.tidyverse.org,
+#'https://github.com/tidyverse/dplyr.
+#'
+#'Wickham H (2022). stringr: Simple, Consistent Wrappers for
+#'Common String Operations. https://stringr.tidyverse.org,
+#'https://github.com/tidyverse/stringr.
+#'
+#'@export
 #'@import stringr
 #'@import dplyr
 
@@ -46,7 +82,7 @@ summarizeAllByCategory <- function(df,
 
   if(delimIsNumeric == TRUE) {
 
-    # obtain the <= value
+    # obtain the operator value
 
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
@@ -217,7 +253,6 @@ summarizeAllByCategory <- function(df,
   colnames(results) <- c("Count", "Mean", "Standard Deviation", "Min", "Max")
 
   return(results)
-
 }
 
 # [END]

@@ -3,6 +3,8 @@
 export(calculateLLNPret)
 export(calculateMeanPret)
 export(calculatePctPret)
+export(segregateBy)
+export(summarizeAllByCategory)
 import(dplyr)
 import(ggplot2)
 import(readr)
