@@ -37,8 +37,9 @@ either a numeric or categorical value.}
 
 \item{secondDelim}{A delineation of secondParam. If it is a numerical variable
 it must follow the convention of "operator numeric" for example "<10".
-Default is NULL
-@param secondParamIsNumeric States whether secondParam is a numeric or
+Default is NULL}
+
+\item{secondParamIsNumeric}{States whether secondParam is a numeric or
 categorical variable}
 
 \item{secondColor}{The color to color the points meeting secondDelim

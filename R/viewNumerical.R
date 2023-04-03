@@ -56,7 +56,7 @@ viewNumerical <- function(df,
 #' @param secondDelim A delineation of secondParam. If it is a numerical variable
 #'  it must follow the convention of "operator numeric" for example "<10".
 #'  Default is NULL
-#'  @param secondParamIsNumeric States whether secondParam is a numeric or
+#' @param secondParamIsNumeric States whether secondParam is a numeric or
 #'  categorical variable
 #' @param secondColor The color to color the points meeting secondDelim
 #'  on the graph. Default is "purple"
