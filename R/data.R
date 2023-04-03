@@ -20,9 +20,9 @@
 #'   2 = African-American, 3 = NE Asian, 4 = SE Asian, 5 = Other/mixed}
 #'  \item{smoking}{Whether or not patient is a smoker, denoted by 1 for
 #'   yes and 0 for no}
-#'  \item{FEV1}{Simulated FEV1 value using GLI equations multipled by
+#'  \item{FEV1}{Simulated FEV1 value using GLI equations multiplied by
 #'   a random permutation between 0.2 and 1.2}
-#'  \item{FVC}{Simulated FEV1 value using GLI equations multipled by
+#'  \item{FVC}{Simulated FEV1 value using GLI equations multiplied by
 #'   a random permutation between 0.2 and 1.2}
 #' }
 #' @examples
@@ -50,9 +50,9 @@
 #'  \item{ethnicity}{Ethnicity of patient, denoted by 1 = Caucasian,
 #'   2 = African-American, 3 = Mexican-American}
 #'  \item{smoking}{Whether or not patient is a smoker, denoted by 1 for yes and 0 for no}
-#'  \item{FEV1}{Simulated FEV1 value using NHANES3 equations multipled by
+#'  \item{FEV1}{Simulated FEV1 value using NHANES3 equations multiplied by
 #'   a random permutation between 0.2 and 1.2}
-#'  \item{FVC}{Simulated FEV1 value using NHANES3 equations multipled by
+#'  \item{FVC}{Simulated FEV1 value using NHANES3 equations multiplied by
 #'   a random permutation between 0.2 and 1.2}
 #' }
 #' @examples
