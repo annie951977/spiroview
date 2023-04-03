@@ -48,46 +48,47 @@ segregateBy <- function(df,
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
 
-    opIndices <- str_locate(segBy, operators)
+    opIndices <- as.data.frame(stringr::str_locate(segBy, operators))
 
     # get the ending index
-    opIndex <- opIndices[1,2]
+    opRow <- dplyr::filter(opIndices, start == 1)
+    opIndex <- opRow[,"end"]
     # get the numeric value
     op <- substring(segBy, 1, opIndex)
-    numBy <- as.numeric(substring(segBy, opIndex + 1, length(segBy)))
+    numBy <- as.numeric(substring(segBy, opIndex + 1, nchar(segBy)))
 
 
     # filter for the param
     if (op == "<") {
 
-      containsDF <- (df[which(df$demParam < numBy)])
-      otherDF <- (df[which(df$demParam >= numBy)])
+      containsDF <- (df[which(df[demParam] < numBy)])
+      otherDF <- (df[which(df[demParam] >= numBy)])
 
 
     } else if(op == "<=") {
 
-      containsDF <- (df[which(df$demParam < numBy)])
-      otherDF <- (df[which(df$demParam >= numBy)])
+      containsDF <- (df[which(df[demParam] < numBy)])
+      otherDF <- (df[which(df[demParam] >= numBy)])
 
     } else if(op == ">") {
 
-      containsDF <- (df[which(df$demParam > numBy)])
-      otherDF <- (df[which(df$demParam <= numBy)])
+      containsDF <- (df[which(df[demParam] > numBy)])
+      otherDF <- (df[which(df[demParam] <= numBy)])
 
     } else if(op == ">=") {
 
-      containsDF <- (df[which(df$demParam >= numBy)])
-      otherDF <- (df[which(df$demParam < numBy)])
+      containsDF <- (df[which(df[demParam] >= numBy)])
+      otherDF <- (df[which(df[demParam] < numBy)])
 
     } else if(op == "==") {
 
-      containsDF <- (df[which(df$demParam == numBy)])
-      otherDF <- (df[which(df$demParam != numBy)])
+      containsDF <- (df[which(df[demParam] == numBy)])
+      otherDF <- (df[which(df[demParam] != numBy)])
 
     } else if(op == "!="){
 
-      containsDF <- (df[which(df$demParam != numBy)])
-      otherDF <- (df[which(df$demParam == numBy)])
+      containsDF <- (df[which(df[demParam] != numBy)])
+      otherDF <- (df[which(df[demParam] == numBy)])
 
     }
     return(list(
@@ -100,8 +101,8 @@ segregateBy <- function(df,
     if (!is.vector(segBy)) {
       segBy = c(segBy)
     }
-    containsDF <- (df[df$demParm %in% segBy])
-    otherDF <- (df[!(df$demParam %in% segBy)])
+    containsDF <- (df[df[demParam] %in% segBy])
+    otherDF <- (df[!(df[demParam] %in% segBy)])
 
     return(list(
       contains = containsDF,

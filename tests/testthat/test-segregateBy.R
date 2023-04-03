@@ -1,6 +1,6 @@
 library(spiroview)
 
-test_that("tests invalid inputs"){
+test_that("tests invalid inputs", {
   emptyDF <- data.frame()
 
   testDF <- data.frame(id=c(0000),
@@ -23,9 +23,9 @@ test_that("tests invalid inputs"){
 
 
 
-}
+})
 
-test_that("tests numeric deliminter"){
+test_that("tests numeric deliminter", {
   testDF <- data.frame(id=c(0000, 1111, 2222),
                        gender=c(1, 2, 1),
                        height=c(1.52, 1.83, 1.96),
@@ -52,10 +52,10 @@ test_that("tests numeric deliminter"){
                                  segIsNumeric = TRUE)[[1]]), TRUE)
 
 
-}
+})
 
 
-test_that("tests categorical deliminter"){
+test_that("tests categorical deliminter", {
   testDF <- data.frame(id=c(0000, 1111, 2222),
                        gender=c(1, 2, 1),
                        height=c(1.52, 1.83, 1.96),
@@ -82,5 +82,5 @@ test_that("tests categorical deliminter"){
                                         segIsNumeric = FALSE)[[1]]), TRUE)
 
 
-}
+})
 
