@@ -19,6 +19,11 @@
 #'                       spiroParam="FEV1",
 #'                       includeBestFit=FALSE)
 #' }
+#' @references
+#' Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
+#' Springer-Verlag New York. ISBN 978-3-319-24277-4,
+#' https://ggplot2.tidyverse.org.
+#' @export
 #' @import ggplot2
 
 viewNumerical <- function(df,
@@ -94,6 +99,15 @@ viewNumerical <- function(df,
 #'                         includeBestFit=FALSE)
 #' plot
 #' }
+#' @references
+#' Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
+#' Springer-Verlag New York. ISBN 978-3-319-24277-4,
+#' https://ggplot2.tidyverse.org.
+#'
+#' Wickham H, François R, Henry L, Müller K, Vaughan D (2023).
+#' dplyr: A Grammar of Data Manipulation. https://dplyr.tidyverse.org,
+#' https://github.com/tidyverse/dplyr.
+#' @export
 #' @import ggplot2
 #' @import dplyr
 compareNumerical <- function(df,
