@@ -36,4 +36,7 @@ GLIData
 A dataset containing simulated patient demographic and spirometry data using
 Global Lung Initiative Reference equations.
 }
+\examples{
+GLIData
+}
 \keyword{datasets}

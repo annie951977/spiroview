@@ -18,16 +18,40 @@
 #' @examples
 #'
 #' # Example 1: Calculate LLN of FEV1 from the GLI equations
-#'
-#'  example_df <- data.frame(age=c(77), height=c(1.78), gender=c(1))
+#'  example_df <- GLIData
+#'  output <- calculateLLNPret(
+#'                df=example_df,
+#'                param="FEV1",
+#'                ref="GLI")
+#'  output
 #'
 #' # Example 2: Calculate LLN of FEV1 from NHANES3
+#'  example_df <- NHANES3Data
 #'
-#' # Example 3: Calculate LLN from a dataframe of more than one sample
-#'
-#'
+#'  output <- calculateLLNPret(
+#'                 df=example_df,
+#'                 param="FEV1",
+#'                 ref="NHANES3")
+#' output
 #'
 #' @import rspiro
+#'
+#' @references
+#' Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
+#' Carter, K. W., Thompson, B. R., Graham, B. L., Miller, M. R., Ruppel, G.,
+#' Henderson, J., Vaz Fragoso, C. A., & Stanojevic, S. (2017).
+#' The Global Lung Function Initiative (GLI) Network: bringing the world's
+#' respiratory reference values together. Breathe (Sheffield, England), 13(3),
+#' e56–e64. https://doi.org/10.1183/20734735.012717
+
+#' Hankinson, J. L., Odencrantz, J. R., & Fedan, K. B. (1999).
+#' Spirometric reference values from a sample of the general U.S. population.
+#' American journal of respiratory and critical care medicine, 159(1), 179–187.
+#' https://doi.org/10.1164/ajrccm.159.1.9712108
+#'
+#' Lytras T (2020). _rspiro: Implementation of Spirometry Equations_.
+#' R package version 0.2, <https://CRAN.R-project.org/package=rspiro>.
+
 calculateLLNPret <- function(df,
                              param = "FEV1",
                              ref = "GLI") {
@@ -106,12 +130,39 @@ calculateLLNPret <- function(df,
 #' @examples
 #'
 #' # Example 1: Calculate LLN of FEV1 from the GLI equations
+#'  example_df <- GLIData
+#'  output <- calculatePctPret(
+#'                df=example_df,
+#'                param="FEV1",
+#'                ref="GLI")
+#'  output
 #'
 #' # Example 2: Calculate LLN of FEV1 from NHANES3
+#'  example_df <- NHANES3Data
 #'
-#' # Example 3: Calculate LLN from a dataframe of more than one sample
-#'
+#'  output <- calculatePctPret(
+#'                 df=example_df,
+#'                 param="FEV1",
+#'                 ref="NHANES3")
+#' output
 #' @import rspiro
+#'
+#' @references
+#' Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
+#' Carter, K. W., Thompson, B. R., Graham, B. L., Miller, M. R., Ruppel, G.,
+#' Henderson, J., Vaz Fragoso, C. A., & Stanojevic, S. (2017).
+#' The Global Lung Function Initiative (GLI) Network: bringing the world's
+#' respiratory reference values together. Breathe (Sheffield, England), 13(3),
+#' e56–e64. https://doi.org/10.1183/20734735.012717
+
+#' Hankinson, J. L., Odencrantz, J. R., & Fedan, K. B. (1999).
+#' Spirometric reference values from a sample of the general U.S. population.
+#' American journal of respiratory and critical care medicine, 159(1), 179–187.
+#' https://doi.org/10.1164/ajrccm.159.1.9712108
+#'
+#' Lytras T (2020). _rspiro: Implementation of Spirometry Equations_.
+#' R package version 0.2, <https://CRAN.R-project.org/package=rspiro>.
+
 
 calculatePctPret <- function(df,
                              param = "FEV1",
@@ -332,7 +383,39 @@ calculatePctPret <- function(df,
 #' Default is GLI
 #' @return A numeric vector or data.frame containing length(param) columns
 #' @examples
+#'
+#' # Example 1: Calculate LLN of FEV1 from the GLI equations
+#'  example_df <- GLIData
+#'  output <- calculateMeanPret(
+#'                df=example_df,
+#'                param="FEV1",
+#'                ref="GLI")
+#'
+#' # Example 2: Calculate LLN of FEV1 from NHANES3
+#'  example_df <- NHANES3Data
+#'
+#'  output <- calculateMeanPret(
+#'                 df=example_df,
+#'                 param="FEV1",
+#'                 ref="NHANES3")
 #' @import rspiro
+#'
+#' @references
+#' Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
+#' Carter, K. W., Thompson, B. R., Graham, B. L., Miller, M. R., Ruppel, G.,
+#' Henderson, J., Vaz Fragoso, C. A., & Stanojevic, S. (2017).
+#' The Global Lung Function Initiative (GLI) Network: bringing the world's
+#' respiratory reference values together. Breathe (Sheffield, England), 13(3),
+#' e56–e64. https://doi.org/10.1183/20734735.012717
+
+#' Hankinson, J. L., Odencrantz, J. R., & Fedan, K. B. (1999).
+#' Spirometric reference values from a sample of the general U.S. population.
+#' American journal of respiratory and critical care medicine, 159(1), 179–187.
+#' https://doi.org/10.1164/ajrccm.159.1.9712108
+#'
+#' Lytras T (2020). _rspiro: Implementation of Spirometry Equations_.
+#' R package version 0.2, <https://CRAN.R-project.org/package=rspiro>.
+
 calculateMeanPret <- function(df,
                               param = "FEV1",
                               ref = "GLI") {
