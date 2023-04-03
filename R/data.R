@@ -4,7 +4,7 @@
 #' A dataset containing simulated patient demographic and spirometry data using
 #' Global Lung Initiative Reference equations.
 #'
-#' @source Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
+#'@source Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
 #'Carter, K. W., Thompson, B. R., Graham, B. L., Miller, M. R., Ruppel, G.,
 #'Henderson, J., Vaz Fragoso, C. A., & Stanojevic, S. (2017).
 #'The Global Lung Function Initiative (GLI) Network: bringing the world's
@@ -25,10 +25,8 @@
 #'  \item{FVC}{Simulated FEV1 value using GLI equations multiplied by
 #'   a random permutation between 0.2 and 1.2}
 #' }
-#' @examples
-#' \dontrun{
-#  GLIData
-#' }
+#'@examples
+#   GLIData
 "GLIData"
 
 #' Simulated demographic spirometry data using the third National Health and
@@ -37,7 +35,7 @@
 #' A dataset containing simulated patient demographic and spirometry data using
 #' Nutrition Examination Survey (NHANES III) equations
 #'
-#' @source Hankinson, J. L., Odencrantz, J. R., & Fedan, K. B. (1999).
+#'@source Hankinson, J. L., Odencrantz, J. R., & Fedan, K. B. (1999).
 #' Spirometric reference values from a sample of the general U.S. population.
 #' American journal of respiratory and critical care medicine, 159(1), 179–187.
 #' https://doi.org/10.1164/ajrccm.159.1.9712108
@@ -55,8 +53,8 @@
 #'  \item{FVC}{Simulated FEV1 value using NHANES3 equations multiplied by
 #'   a random permutation between 0.2 and 1.2}
 #' }
-#' @examples
-#' \dontrun{
+#'@examples
 #  NHANES3Data
-#' }
 "NHANES3Data"
+
+# [END]

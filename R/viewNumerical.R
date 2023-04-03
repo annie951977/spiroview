@@ -153,13 +153,14 @@ compareNumerical <- function(df,
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
 
-    opIndices <- str_locate(secondDelim, operators)
+    opIndices <- as.data.frame(stringr::str_locate(secondDelim, operators))
 
     # get the ending index
-    opIndex <- opIndices[1,2]
+    opRow <- dplyr::filter(opIndices, .data$start == 1)
+    opIndex <- opRow[,"end"]
     # get the numeric value
-    op <- substring(delim, 1, opIndex)
-    numBy <- as.numeric(substring(delim, opIndex + 1, length(secondDelim)))
+    op <- substring(secondDelim, 1, opIndex)
+    numBy <- as.numeric(substring(secondDelim, opIndex + 1, nchar(secondDelim)))
 
     # filter for the param
     if (op == "<") {
@@ -198,3 +199,5 @@ compareNumerical <- function(df,
 
   return(outputGraph)
 }
+
+# [END]

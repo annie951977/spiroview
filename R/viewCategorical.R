@@ -77,7 +77,7 @@ viewCategoricalCounts <- function(df,
     stop("Requested graph type not supported")
   }
 
-  outputGraph <- ggplot(plotData)
+  outputGraph <- ggplot(df)
 
   if(type == "bar") {
     outputGraph <- outputGraph + geom_bar(aes(x=demParam))
@@ -101,4 +101,5 @@ viewCategoricalCounts <- function(df,
 
 }
 
+# [END]
 

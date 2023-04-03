@@ -51,7 +51,7 @@ segregateBy <- function(df,
     opIndices <- as.data.frame(stringr::str_locate(segBy, operators))
 
     # get the ending index
-    opRow <- dplyr::filter(opIndices, start == 1)
+    opRow <- dplyr::filter(opIndices, .data$start == 1)
     opIndex <- opRow[,"end"]
     # get the numeric value
     op <- substring(segBy, 1, opIndex)
