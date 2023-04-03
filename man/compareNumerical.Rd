@@ -12,6 +12,7 @@ compareNumerical(
   delimColor = "red",
   secondParam = NULL,
   secondDelim = NULL,
+  secondParamIsNumeric = FALSE,
   secondColor = "purple",
   includeBestFit = FALSE
 )
@@ -20,7 +21,7 @@ compareNumerical(
 \item{df}{A dataframe containing each patient demographic data and at least
 one mean spirometric value}
 
-\item{demParam}{Demographic category of interest}
+\item{demParam}{Demographic numeric category of interest}
 
 \item{spiroParam}{The spirometric parameter of interest as a string}
 
@@ -36,7 +37,9 @@ either a numeric or categorical value.}
 
 \item{secondDelim}{A delineation of secondParam. If it is a numerical variable
 it must follow the convention of "operator numeric" for example "<10".
-Default is NULL}
+Default is NULL
+@param secondParamIsNumeric States whether secondParam is a numeric or
+categorical variable}
 
 \item{secondColor}{The color to color the points meeting secondDelim
 on the graph. Default is "purple"}

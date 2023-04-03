@@ -12,8 +12,8 @@ segregateBy(df, demParam, segBy, segIsNumeric = FALSE)
 \item{demParam}{The demographic factor in question}
 
 \item{segBy}{The demographic delimiter in question. For categorical variables,
-simply some categorical term or a vector of terms is expected. For numerical variables,
-a singlestring consisting of a numeric value preceded
+simply some categorical term or a vector of terms is expected.
+For numerical variables,a singlestring consisting of a numeric value preceded
 by an inequality operator is expected. For example ">16".}
 
 \item{segIsNumeric}{Declaring if segBy is a numeric value. Default is FALSE.}

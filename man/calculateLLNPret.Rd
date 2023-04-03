@@ -35,7 +35,7 @@ of the patient
 
 # Example 1: Calculate LLN of FEV1 from the GLI equations
 
-example_df <- data.frame(age=c(77), height=c(1.78), gender=c(1))
+ example_df <- data.frame(age=c(77), height=c(1.78), gender=c(1))
 
 # Example 2: Calculate LLN of FEV1 from NHANES3
 
