@@ -18,7 +18,7 @@
 #' # Example 1: Read in a file
 #' examplePath <- system.file("extdata",
 #'                             "example_dataset_1.csv",
-#'                             package="spiroview)
+#'                             package="spiroview")
 #' resultDB <- formatData(path=examplePath)
 #'
 #' resultDB
@@ -28,7 +28,7 @@
 #' \dontrun{
 #' examplePath <- system.file("extdata",
 #'                             "example_dataset_1.csv",
-#'                             package="spiroview)
+#'                             package="spiroview")
 #' resultDB <- formatData(path=examplePath,
 #'                        ageLabel= "A")
 #' resultDB
@@ -36,6 +36,7 @@
 #'
 #' @export
 #' @import readr
+#' @import utils
 #' @references
 #' Wickham H, Hester J, Bryan J (2023). readr: Read Rectangular Text Data.
 #' https://readr.tidyverse.org, https://github.com/tidyverse/readr.
@@ -54,7 +55,7 @@ formatData <- function(path,
   # check if the file is tsv or csv
 
   if(grepl("\\.csv$", path)) {
-      df <- readr::read_csv2(path, col_names = TRUE)
+      df <- read.csv(path, col.names = TRUE)
     } else if(grepl("\\.tsv$", path)) {
      df <- readr::read_tsv(path, col_names = TRUE)
     } else {

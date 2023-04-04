@@ -25,7 +25,10 @@
 #'  \item{FVC}{Simulated FEV1 value using GLI equations multiplied by
 #'   a random permutation between 0.2 and 1.2}
 #' }
-#'@examples GLIData
+#'@examples
+#'\dontrun{
+#' GLIData
+#' }
 "GLIData"
 
 #' Simulated demographic spirometry data using the third National Health and
@@ -52,7 +55,10 @@
 #'  \item{FVC}{Simulated FEV1 value using NHANES3 equations multiplied by
 #'   a random permutation between 0.2 and 1.2}
 #' }
-#'@examples NHANES3Data
+#'@examples
+#'\dontrun{
+#' NHANES3Data
+#' }
 "NHANES3Data"
 
 # [END]

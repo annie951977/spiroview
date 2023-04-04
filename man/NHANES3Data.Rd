@@ -34,6 +34,8 @@ A dataset containing simulated patient demographic and spirometry data using
 Nutrition Examination Survey (NHANES III) equations
 }
 \examples{
+\dontrun{
 NHANES3Data
+}
 }
 \keyword{datasets}

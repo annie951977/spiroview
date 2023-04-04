@@ -39,7 +39,7 @@ used with the other functions in this package.
 # Example 1: Read in a file
 examplePath <- system.file("extdata",
                             "example_dataset_1.csv",
-                            package="spiroview)
+                            package="spiroview")
 resultDB <- formatData(path=examplePath)
 
 resultDB
@@ -49,7 +49,7 @@ resultDB
 \dontrun{
 examplePath <- system.file("extdata",
                             "example_dataset_1.csv",
-                            package="spiroview)
+                            package="spiroview")
 resultDB <- formatData(path=examplePath,
                        ageLabel= "A")
 resultDB
