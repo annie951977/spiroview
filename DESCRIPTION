@@ -17,6 +17,7 @@ Imports:
     ggplot2,
     readr,
     rspiro,
+    shiny,
     stringr
 Suggests: 
     knitr,
