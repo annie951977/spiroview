@@ -59,11 +59,13 @@ segregateBy <- function(df,
     stop("Missing necessary parameters in segregateBy function")
   }
 
-  if((grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy)) & !segIsNumeric){
+  if((grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy)) &
+     !segIsNumeric){
     stop("segBy parameter and delimIsNumeric
          parameter in segregateBy does not match up")
 
-  } else if(!(grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy)) & segIsNumeric){
+  } else if(!(grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy))
+            & segIsNumeric){
     stop("segBy parameter and delimIsNumeric
          parameter in segregateBy does not match up
          or invalid formatting of segBy")

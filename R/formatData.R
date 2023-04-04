@@ -89,7 +89,8 @@ formatData <- function(path,
     # if all the values in gender are numeric values then we just need to rename,
     # suppress warnings because if the values aren't numeric, then we know this
     # check wasn't passed
-    if(suppressWarnings(any(!is.na(sapply(df[[grep("sex|SEX|gender|GENDER", colnames(df))]], as.numeric))))){
+    if(suppressWarnings(any(!is.na(sapply(df[[grep("sex|SEX|gender|GENDER",
+                                              colnames(df))]], as.numeric))))){
       colnames(df)[grep("sex|SEX|gender|GENDER", colnames(df))] <- "gender"
     } else {
       sex_options <- unique(df[,grep("sex|SEX|gender|GENDER", colnames(df))])
@@ -137,7 +138,6 @@ formatData <- function(path,
   } else {
     warning("Ethnicity data not found")
   }
-
   return(df)
 
 }

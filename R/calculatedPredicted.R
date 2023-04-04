@@ -87,7 +87,8 @@ calculateLLNPret <- function(df,
     ethnicity <- sapply(df$ethnicity, as.numeric)
     if (any(ethnicity>5)) {
       ethnicity[which(ethnicity>5)] <- 1
-      warning("Ethnicity value not valid for spriometry equations, setting some ethnicity values to default of 1")
+      warning("Ethnicity value not valid for spriometry equations,
+              setting some ethnicity values to default of 1")
     }
   } else {
     ethinicity <- rep(1, length(df$age))
@@ -96,7 +97,8 @@ calculateLLNPret <- function(df,
     ethnicity <- sapply(df$ethnicity, as.numeric)
     if (any(ethnicity>3)) {
       ethnicity[which(ethnicity>3)] <- 1
-      warning("Ethnicity value not valid for NHANES3 equations, setting some ethnicity value to default of 1")
+      warning("Ethnicity value not valid for NHANES3 equations,
+              setting some ethnicity values to default of 1")
     }
     return(rspiro::LLN_NHANES3(age=age,
                                height=height,
@@ -284,7 +286,8 @@ calculatePctPret <- function(df,
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
         ethnicity[which(ethnicity>3)] <- 1
-        warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
+        warning("Ethnicity value not valid for NHANES3 equations,
+                setting some ethnicity values to default of 1")
       }
       return(rspiro::pctpred_NHANES3(age, height, gender, ethnicity, PEF=df[[param]]))
     } else if (ref == "GLI") {
@@ -302,7 +305,8 @@ calculatePctPret <- function(df,
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
         ethnicity[which(ethnicity>3)] <- 1
-        warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
+        warning("Ethnicity value not valid for NHANES3 equations,
+                setting some ethnicity values to default of 1")
       }
       return(rspiro::pctpred_NHANES3(age=age,
                                      height=height,
@@ -324,7 +328,8 @@ calculatePctPret <- function(df,
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
         ethnicity[which(ethnicity>3)] <- 1
-        warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
+        warning("Ethnicity value not valid for NHANES3 equations,
+                setting some ethnicity values to default of 1")
       }
       return(rspiro::pctpred_NHANES3(age=age,
                                      height=height,
@@ -346,7 +351,8 @@ calculatePctPret <- function(df,
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
         ethnicity[which(ethnicity>3)] <- 1
-        warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
+        warning("Ethnicity value not valid for NHANES3 equations,
+                setting some ethnicity values to default of 1")
       }
       return(rspiro::pctpred_NHANES3(age=age,
                                      height=height,
@@ -453,7 +459,8 @@ calculateMeanPret <- function(df,
     ethnicity <- df$ethnicity
     if (any(ethnicity>5)) {
       ethnicity[which(ethnicity>5)] <- 1
-      warning("Ethnicity value not valid for spriometry equations, setting some ethnicity values to default of 1")
+      warning("Ethnicity value not valid for spriometry equations,
+              setting some ethnicity values to default of 1")
     }
   } else {
     ethinicity <- rep(1, length(df$age))
@@ -462,7 +469,8 @@ calculateMeanPret <- function(df,
   if (ref == "NHANES3") {
     if (any(ethnicity>3)) {
       ethnicity[which(ethnicity>3)] <- 1
-      warning("Ethnicity value not valid for NHANES3 equations, setting ethnicity to default of 1")
+      warning("Ethnicity value not valid for NHANES3 equations,
+              setting some ethnicity values to default of 1")
     }
     return(rspiro::pred_NHANES3(age=age,
                                 height=height,

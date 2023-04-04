@@ -37,7 +37,8 @@ viewNumerical <- function(df,
 
   # makes ggplot graph
 
-  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]])) + geom_point()
+  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]]))
+                + geom_point()
 
   if (includeBestFit) {
     outputGraph = outputGraph + geom_smooth(method = "lm")
@@ -134,7 +135,8 @@ compareNumerical <- function(df,
 
   # makes ggplot graph (mostly a scatterplot)
 
-  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]])) + geom_point()
+  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]]))
+                + geom_point()
 
   if(!is.null(delim)) {
     # grep for inequality operator
@@ -195,11 +197,15 @@ compareNumerical <- function(df,
 
   # if there is a secondDelim but its category doesn't match secondParamIsNumeric
   if(!is.null(secondDelim)) {
-    if((grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d", secondDelim)) & !secondParamIsNumeric){
+    if((grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d",
+                                                   secondDelim)) &
+                                                  !secondParamIsNumeric){
       stop("secondDelim parameter and secondParamIsNumeric
          parameter in compareNumerical does not match up")
 
-    } else if(!(grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d", secondDelim)) & secondParamIsNumeric){
+    } else if(!(grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d",
+                                                           secondDelim)) &
+                                                           secondParamIsNumeric){
       stop("secondDelim parameter and secondParamIsNumeric
          parameter in compareNumerical does not match up
          or invalid formatting of secondDelim")

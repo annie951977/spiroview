@@ -72,11 +72,15 @@ summarizeAllByCategory <- function(df,
     stop("Missing inputs for summarizeAllByCategory")
   }
 
-  if((grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim)) & !delimIsNumeric){
-    stop("delim parameter and delimIsNumeric parameter in summarizeAllByCategory does not match up")
+  if((grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim)) &
+     !delimIsNumeric){
+    stop("delim parameter and delimIsNumeric parameter in summarizeAllByCategory
+         does not match up")
 
-  } else if(!(grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim)) & delimIsNumeric){
-    stop("delim parameter and delimIsNumeric parameter in summarizeAllByCategory does not match up")
+  } else if(!(grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim))
+            & delimIsNumeric){
+    stop("delim parameter and delimIsNumeric parameter in summarizeAllByCategory
+         does not match up")
   }
 
   results <- data.frame()
