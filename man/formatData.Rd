@@ -48,7 +48,7 @@ resultDB
 # Example 2: Read in a file with a different label
 \dontrun{
 examplePath <- system.file("extdata",
-                            "example_dataset_1.csv",
+                            "example_dataset_4.csv",
                             package="spiroview")
 resultDB <- formatData(path=examplePath,
                        ageLabel= "A")
