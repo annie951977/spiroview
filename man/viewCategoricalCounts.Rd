@@ -4,17 +4,14 @@
 \alias{viewCategoricalCounts}
 \title{Produces graphs that show the number of samples per demographic category.}
 \usage{
-viewCategoricalCounts(df, demParam, secondParam = NULL, type = "pie")
+viewCategoricalCounts(df, demParam, type = "pie")
 }
 \arguments{
 \item{df}{Data that is being analyzed}
 
 \item{demParam}{A categorical demographic variable}
 
-\item{secondParam}{A second categorical demographic variable to further
-stratify the plot}
-
-\item{type}{The type of graph desired, options include: pie, doughnut, bar.
+\item{type}{The type of graph desired, options include: pie, bar.
 Default is pie}
 }
 \value{
@@ -28,17 +25,17 @@ categorical demographic variable.
 plotData <- GLIData
 # Example 1: One categorical variable
 \dontrun{
-plot <- viewCategorical(df=plotData,
+plot <- viewCategoricalCounts(df=plotData,
                         demParam="ethnicity",
                         secondParam=NULL,
                         type="pie")
 }
 # Example 2: Two categorical variables
 \dontrun{
-plot <- viewCategorical(df=plotData,
-                        demParam="ethnicity",
-                        secondParam="gender",
-                        type="pie")
+plot <- viewCategoricalCounts(df=plotData,
+                              demParam="ethnicity",
+                              secondParam="gender",
+                              type="pie")
 }
 }
 \references{

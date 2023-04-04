@@ -45,10 +45,9 @@ viewCategorical <- function(df,
   }
 
   # takes the data frames with the categorical data and the value that you want to see
-  plotData <- df %>%
-    dplyr::select(demParam, spiroParam)
 
-  outputGraph <- ggplot(plotData, aes(x=demParam, y=spiroParam))
+  outputGraph <- ggplot(df, aes(x=sapply(.data[[demParam]], as.character), y=.data[[spiroParam]])) +
+    labs(y=spiroParam, x=demParam)
 
   # makes ggplot graph based on the type of distribution graph you're looking for
 
@@ -71,26 +70,24 @@ viewCategorical <- function(df,
 #'
 #' @param df Data that is being analyzed
 #' @param demParam A categorical demographic variable
-#' @param secondParam A second categorical demographic variable to further
-#' stratify the plot
-#' @param type The type of graph desired, options include: pie, doughnut, bar.
+#' @param type The type of graph desired, options include: pie, bar.
 #'             Default is pie
 #' @return an output graph
 #' @examples
 #' plotData <- GLIData
 #' # Example 1: One categorical variable
 #' \dontrun{
-#' plot <- viewCategorical(df=plotData,
+#' plot <- viewCategoricalCounts(df=plotData,
 #'                         demParam="ethnicity",
 #'                         secondParam=NULL,
 #'                         type="pie")
 #' }
 #' # Example 2: Two categorical variables
 #' \dontrun{
-#' plot <- viewCategorical(df=plotData,
-#'                         demParam="ethnicity",
-#'                         secondParam="gender",
-#'                         type="pie")
+#' plot <- viewCategoricalCounts(df=plotData,
+#'                               demParam="ethnicity",
+#'                               secondParam="gender",
+#'                               type="pie")
 #' }
 #' @references
 #' Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
@@ -101,38 +98,36 @@ viewCategorical <- function(df,
 
 viewCategoricalCounts <- function(df,
                                   demParam,
-                                  secondParam=NULL,
                                   type="pie") {
   if (!is.data.frame(df) || !is.character(demParam)) {
     stop("Please provide the proper parameters for viewCategoricalCounts")
   }
 
-  graphTypes <- c("pie", "bar", "doughnut")
+  graphTypes <- c("pie", "bar")
 
   if(!(type %in% graphTypes)) {
     stop("Requested graph type not supported")
   }
 
-  outputGraph <- ggplot(df)
+  outputGraph <- ggplot(df, aes(x=sapply(.data[[demParam]], as.character))) +
+    labs(x=demParam)
 
   if(type == "bar") {
-    outputGraph <- outputGraph + geom_bar(aes(x=demParam))
+    outputGraph <- outputGraph +
+      geom_bar()
 
   } else if(type == "pie") {
-    outputGraph <- outputGraph +
-      geom_col(aes(x = 1, y = n, fill = demParam), position = "fill") +
+    countDF <- data.frame()
+    cat <- unique(df[[demParam]])
+    for(i in seq_along(cat)) {
+      total <- sum(df[[demParam]] == cat[i])
+      countDF <- rbind(countDF, list(cat[i], total))
+    }
+    colnames(countDF) <-c("demParam", "n")
+    outputGraph <- ggplot(countDF, aes(x="", y=n, fill=demParam)) +
+      geom_bar(stat="identity", width=1) +
       coord_polar("y", start=0)
-
-  } else if(type == "doughnut") {
-    outputGraph <- outputGraph +
-      geom_bar(aes(x=demParam)) +
-      coord_polar("y", start=0) + xlim(0, 1.5)
   }
-
-  if(!is.null(secondParam)) {
-    outGraph <- outputGraph + facet_wrap(~ secondParam)
-  }
-
   return(outputGraph)
 
 }
