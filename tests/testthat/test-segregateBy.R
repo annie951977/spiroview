@@ -51,6 +51,18 @@ test_that("tests numeric deliminter", {
                                  segBy = ">1.80",
                                  segIsNumeric = TRUE)[[1]]), TRUE)
 
+ # mismatch of segIsNumeric and segBy
+
+ expect_error(segregateBy(df=testDF,
+                          demParam = "gender",
+                          segBy = "1",
+                          segIsNumeric = TRUE))
+
+ expect_error(segregateBy(df=testDF,
+                          demParam = "height",
+                          segBy = ">1.8",
+                          segIsNumeric = FALSE))
+
 
 })
 

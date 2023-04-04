@@ -87,34 +87,34 @@ segregateBy <- function(df,
     # filter for the param
     if (op == "<") {
 
-      containsDF <- (df[which(df[demParam] < numBy),])
-      otherDF <- (df[which(df[demParam] >= numBy),])
+      containsDF <- (df[which(sapply(df[demParam], as.numeric) < numBy),])
+      otherDF <- (df[which(sapply(df[demParam], as.numeric) >= numBy),])
 
 
     } else if(op == "<=") {
 
-      containsDF <- (df[which(df[demParam] < numBy),])
-      otherDF <- (df[which(df[demParam] >= numBy),])
+      containsDF <- (df[which(sapply(df[demParam], as.numeric) < numBy),])
+      otherDF <- (df[which(sapply(df[demParam], as.numeric) >= numBy),])
 
     } else if(op == ">") {
 
-      containsDF <- (df[which(df[demParam] > numBy),])
-      otherDF <- (df[which(df[demParam] <= numBy),])
+      containsDF <- (df[which(sapply(df[demParam], as.numeric) > numBy),])
+      otherDF <- (df[which(sapply(df[demParam], as.numeric) <= numBy),])
 
     } else if(op == ">=") {
 
-      containsDF <- (df[which(df[demParam] >= numBy,)])
-      otherDF <- (df[which(df[demParam] < numBy),])
+      containsDF <- (df[which(sapply(df[demParam], as.numeric) >= numBy,)])
+      otherDF <- (df[which(sapply(df[demParam], as.numeric) < numBy),])
 
     } else if(op == "==") {
 
-      containsDF <- (df[which(df[demParam] == numBy),])
-      otherDF <- (df[which(df[demParam] != numBy),])
+      containsDF <- (df[which(sapply(df[demParam], as.numeric) == numBy),])
+      otherDF <- (df[which(sapply(df[demParam], as.numeric) != numBy),])
 
     } else if(op == "!="){
 
-      containsDF <- (df[which(df[demParam] != numBy),])
-      otherDF <- (df[which(df[demParam] == numBy),])
+      containsDF <- (df[which(sapply(df[demParam], as.numeric) != numBy),])
+      otherDF <- (df[which(sapply(df[demParam], as.numeric) == numBy),])
 
     }
     return(list(
@@ -127,8 +127,8 @@ segregateBy <- function(df,
     if (!is.vector(segBy)) {
       segBy = c(segBy)
     }
-    containsDF <- (df[which(df[demParam] %in% segBy),])
-    otherDF <- (df[!(df[demParam] %in% segBy),])
+    containsDF <- (df[which(sapply(df[demParam], as.character) %in% segBy),])
+    otherDF <- (df[which(!(sapply(df[demParam], as.character) %in% segBy)),])
 
     return(list(
       contains = containsDF,
