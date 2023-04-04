@@ -9,11 +9,9 @@ compareNumerical(
   demParam,
   spiroParam,
   delim = NULL,
-  delimColor = "red",
   secondParam = NULL,
   secondDelim = NULL,
   secondParamIsNumeric = FALSE,
-  secondColor = "purple",
   includeBestFit = FALSE
 )
 }
@@ -29,9 +27,6 @@ one mean spirometric value}
 the convention of "operator numeric" for example "<10".
 Default is NULL}
 
-\item{delimColor}{The color to color the points meeting delim on the graph.
-Default is "red"}
-
 \item{secondParam}{An additional demographic variable of interest that can be
 either a numeric or categorical value.}
 
@@ -41,9 +36,6 @@ Default is NULL}
 
 \item{secondParamIsNumeric}{States whether secondParam is a numeric or
 categorical variable}
-
-\item{secondColor}{The color to color the points meeting secondDelim
-on the graph. Default is "purple"}
 
 \item{includeBestFit}{A boolean stating if a the line of best fit should be
 included in the plot}
@@ -64,7 +56,7 @@ exists within the domain of secondParam
 plotData <- GLIData
 # Example 1: compareNumerical with one numeric variable
 \dontrun{
-plot <- compareNumerical(df=plotdata,
+plot <- compareNumerical(df=plotData,
                         demParam="height",
                         delim=">1.40",
                         spiroParam="FEV1",
@@ -73,7 +65,7 @@ plot
 }
 # Example 2: compareNumerical with a categorical variable
 \dontrun{
-plot <- compareNumerical(df=plotdata,
+plot <- compareNumerical(df=plotData,
                         demParam="height",
                         delim=">1.40",
                         secondParam= "smoking",
@@ -92,4 +84,8 @@ https://ggplot2.tidyverse.org.
 Wickham H, François R, Henry L, Müller K, Vaughan D (2023).
 dplyr: A Grammar of Data Manipulation. https://dplyr.tidyverse.org,
 https://github.com/tidyverse/dplyr.
+
+Wickham H (2022). stringr: Simple, Consistent Wrappers for
+Common String Operations. https://stringr.tidyverse.org,
+https://github.com/tidyverse/stringr.
 }

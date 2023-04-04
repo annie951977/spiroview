@@ -14,7 +14,7 @@
 #' # Example 1: Basic numeric plot with viewNumerical
 #' \dontrun{
 #' plotData <- GLIData
-#' plot <- viewNumerical(df=plotdata,
+#' plot <- viewNumerical(df=plotData,
 #'                       demParam="height",
 #'                       spiroParam="FEV1",
 #'                       includeBestFit=FALSE)
@@ -37,7 +37,7 @@ viewNumerical <- function(df,
 
   # makes ggplot graph
 
-  outputGraph <- ggplot(df, aes(x=demParam, y=spiroParam)) + geom_point()
+  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]])) + geom_point()
 
   if (includeBestFit) {
     outputGraph = outputGraph + geom_smooth(method = "lm")
@@ -62,8 +62,6 @@ viewNumerical <- function(df,
 #' @param delim An delineation of demParam, must follow
 #'  the convention of "operator numeric" for example "<10".
 #'  Default is NULL
-#' @param delimColor The color to color the points meeting delim on the graph.
-#'  Default is "red"
 #' @param secondParam An additional demographic variable of interest that can be
 #'  either a numeric or categorical value.
 #' @param secondDelim A delineation of secondParam. If it is a numerical variable
@@ -71,8 +69,6 @@ viewNumerical <- function(df,
 #'  Default is NULL
 #' @param secondParamIsNumeric States whether secondParam is a numeric or
 #'  categorical variable
-#' @param secondColor The color to color the points meeting secondDelim
-#'  on the graph. Default is "purple"
 #' @param includeBestFit A boolean stating if a the line of best fit should be
 #' included in the plot
 #' @return A basic ggplot scatterplot that can be built upon as needed
@@ -80,7 +76,7 @@ viewNumerical <- function(df,
 #' plotData <- GLIData
 #' # Example 1: compareNumerical with one numeric variable
 #' \dontrun{
-#' plot <- compareNumerical(df=plotdata,
+#' plot <- compareNumerical(df=plotData,
 #'                         demParam="height",
 #'                         delim=">1.40",
 #'                         spiroParam="FEV1",
@@ -89,7 +85,7 @@ viewNumerical <- function(df,
 #' }
 #' # Example 2: compareNumerical with a categorical variable
 #' \dontrun{
-#' plot <- compareNumerical(df=plotdata,
+#' plot <- compareNumerical(df=plotData,
 #'                         demParam="height",
 #'                         delim=">1.40",
 #'                         secondParam= "smoking",
@@ -107,18 +103,22 @@ viewNumerical <- function(df,
 #' Wickham H, François R, Henry L, Müller K, Vaughan D (2023).
 #' dplyr: A Grammar of Data Manipulation. https://dplyr.tidyverse.org,
 #' https://github.com/tidyverse/dplyr.
+#'
+#' Wickham H (2022). stringr: Simple, Consistent Wrappers for
+#' Common String Operations. https://stringr.tidyverse.org,
+#' https://github.com/tidyverse/stringr.
+#'
 #' @export
 #' @import ggplot2
 #' @import dplyr
+#' @import stringr
 compareNumerical <- function(df,
                              demParam,
                              spiroParam,
                              delim=NULL,
-                             delimColor= "red",
                              secondParam = NULL,
                              secondDelim= NULL,
                              secondParamIsNumeric=FALSE,
-                             secondColor= "purple",
                              includeBestFit=FALSE) {
 
   if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)){
@@ -134,50 +134,63 @@ compareNumerical <- function(df,
 
   # makes ggplot graph (mostly a scatterplot)
 
-  outputGraph <- ggplot(df, aes(x=df$demParam, y=df$spiroParam)) + geom_point()
+  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]])) + geom_point()
 
   if(!is.null(delim)) {
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
 
-    opIndices <- str_locate(delim, operators)
+    opIndices <- as.data.frame(stringr::str_locate(delim, operators))
 
     # get the ending index
-    opIndex <- opIndices[1,2]
+    opRow <- dplyr::filter(opIndices, .data$start == 1)
+    opIndex <- opRow[,"end"]
     # get the numeric value
     op <- substring(delim, 1, opIndex)
-    numBy <- as.numeric(substring(delim, opIndex + 1, length(delim)))
+    numBy <- as.numeric(substring(delim, opIndex + 1, nchar(delim)))
 
     # filter for the param
     if (op == "<") {
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam < numBy),
-                                            color=delimColor)
+      highLight <- dplyr::filter(df, df[[demParam]] < numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  color=.data[[demParam]]))
     } else if(op == "<=") {
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam <= numBy),
-                                              color=delimColor)
+      highLight <- dplyr::filter(df, df[[demParam]] <= numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  color=.data[[demParam]]))
     } else if(op == ">") {
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam > numBy),
-                                              color=delimColor)
+      highLight <- dplyr::filter(df, df[[demParam]] > numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  color=.data[[demParam]]))
 
     } else if(op == ">=") {
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam >= numBy),
-                                              color=delimColor)
+      highLight <- dplyr::filter(df, df[[demParam]] >= numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  color=.data[[demParam]]))
 
     } else if(op == "==") {
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam == numBy),
-                                              color=delimColor)
+      highLight <- dplyr::filter(df, df[[demParam]] == numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  color=.data[[demParam]]))
 
     } else if(op == "!="){
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$demParam != numBy),
-                                              color=delimColor)
+      highLight <- dplyr::filter(df, df[[demParam]] != numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  color=.data[[demParam]]))
     }
 
-  }
-
-
-  # defensive programming for second dem
-  if (!is.null(secondParam) & !is.null(secondDelim) & !secondParamIsNumeric) {
-    outputGraph <- outputGraph + geom_point(aes(shape = factor(df$secondParam)))
   }
 
   # if there is a secondDelim but its category doesn't match secondParamIsNumeric
@@ -192,6 +205,16 @@ compareNumerical <- function(df,
          or invalid formatting of secondDelim")
     }
   }
+
+  # defensive programming for second dem
+  if(!is.null(secondParam) & !is.null(secondDelim) & !secondParamIsNumeric) {
+    outputGraph <- outputGraph + geom_point(data=df,
+                                            aes(x=.data[[demParam]],
+                                                y=.data[[spiroParam]],
+                                                shape=factor(.data[[secondParam]])))
+
+  }
+
 
   if(!is.null(secondParam) & !is.null(secondDelim) & secondParamIsNumeric) {
     # grep for inequality operator
@@ -208,31 +231,48 @@ compareNumerical <- function(df,
 
     # filter for the param
     if (op == "<") {
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$secondParam < numBy),
-                                              color=secondColor)
+      highLight <- dplyr::filter(df, df[[secondParam]] < numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  shape=25))
 
     } else if(op == "<=") {
-
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$secondParam <= numBy),
-                                              color=secondColor)
+      highLight <- dplyr::filter(df, df[[secondParam]] <= numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  shape=25))
 
     } else if(op == ">") {
+      highLight <- dplyr::filter(df, df[[secondParam]] > numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]]),
+                                                  shape=25)
 
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$secondParam > numBy),
-                                              color=secondColor)
+
     } else if(op == ">=") {
+      highLight <- dplyr::filter(df, df[[secondParam]] >= numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  shape=25))
 
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$secondParam >= numBy),
-                                              color=secondColor)
     } else if(op == "==") {
+      highLight <- dplyr::filter(df, df[[secondParam]] == numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  shape=25))
 
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$secondParam == numBy),
-                                              color=secondColor)
 
     } else if(op == "!="){
-
-      outputGraph <- outputGraph + geom_point(df %>% filter(df$secondParam != numBy),
-                                              color=secondColor)
+      highLight <- dplyr::filter(df, df[[secondParam]] != numBy)
+      outputGraph <- outputGraph + geom_point(data=highLight,
+                                              aes(x=.data[[demParam]],
+                                                  y=.data[[spiroParam]],
+                                                  shape=25))
     }
 
   }

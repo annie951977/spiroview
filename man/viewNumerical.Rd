@@ -28,7 +28,7 @@ numeric variable to a spirometric value of interest.
 # Example 1: Basic numeric plot with viewNumerical
 \dontrun{
 plotData <- GLIData
-plot <- viewNumerical(df=plotdata,
+plot <- viewNumerical(df=plotData,
                       demParam="height",
                       spiroParam="FEV1",
                       includeBestFit=FALSE)
