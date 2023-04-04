@@ -3,6 +3,9 @@
 #' A helper function that reads in a csv or tsv and reformats it to be easily
 #' used with the other functions in this package.
 #'
+#' Assumption: sex is either denoted as a binary (1, 2 for a MALE column)
+#' where 1 is male or in descriptive terms ("female", "male")
+#'
 #' @param path The character path to the dataframe. Expects a csv or tsv file
 #' @param heightLabel A character string that represents the height column name
 #'  in the dataset. Default is NULL
@@ -57,7 +60,7 @@ formatData <- function(path,
   if(grepl("\\.csv$", path)) {
       df <- read.csv(path, header= TRUE)
     } else if(grepl("\\.tsv$", path)) {
-     df <- readr::read_tsv(path, col_names = TRUE)
+     df <- as.data.frame(readr::read_tsv(path, col_names = TRUE))
     } else {
     stop("Input file type not supported")
    }
@@ -77,8 +80,7 @@ formatData <- function(path,
 
   # sex or gender, female or male
 
-  ## Assumption: sex is either denoted as a binary (1, 2 for a MALE column) where 1 is male
-  # or in descriptive terms ("female", "male")
+
   if(!is.null(genderLabel)) {
     colnames(df)[colnames(df) == genderLabel] <- "gender"
 
