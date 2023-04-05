@@ -34,6 +34,10 @@ dataframe containing reformated data
 A helper function that reads in a csv or tsv and reformats it to be easily
 used with the other functions in this package.
 }
+\details{
+Assumption: sex is either denoted as a binary (1, 2 for a MALE column)
+where 1 is male or in descriptive terms ("female", "male")
+}
 \examples{
 \dontrun{
 # Example 1: Read in a file
