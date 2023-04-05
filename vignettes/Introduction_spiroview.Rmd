@@ -1,19 +1,282 @@
 ---
-title: "Introduction_spiroview"
-output: rmarkdown::html_vignette
+title: "A view of spiroview"
+author: "Annie Liu"
+date: "`r format(Sys.time(), '%d %b %Y')`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+    number_sections: false
 vignette: >
   %\VignetteIndexEntry{Introduction_spiroview}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(fig.align = "center", 
+               out.width = "90%",
+               fig.width = 6, fig.height = 5.5,
+               dev.args=list(pointsize=10),
+               par = TRUE, # needed for setting hook 
+               collapse = TRUE, # collapse input & ouput code in chunks
+               warning = FALSE)
+knit_hooks$set(par = function(before, options, envir)
+  { if(before && options$fig.show != "none") 
+       par(family = "sans", mar=c(4.1,4.1,1.1,1.1), mgp=c(3,1,0), tcl=-0.5)
+})
+set.seed(1) # for exact reproducibility
 ```
 
-```{r setup}
-library(spiroview)
+
+## Introduction
+`spiroview` is an R package developed to provide the tools to allow for easy exploration and visualization of spirometry data in demographic studies. This package is targeted for researchers interested in answering questions in the field of respirology using spirometry but may not have an extensive coding background. The functions in `spiroview` allow for data extraction, calculations of expected spirometric values, and simple data visualization. 
+
+**This document gives a tour of spiroview (version 0.1.0)**. It was written in R Markdown, using the [knitr](https://cran.r-project.org/package=knitr) package for production. See `help(package = "spiroview")` for further details. 
+
+``` r
+require("devtools")
+devtools::install_github("annie951977/spiroview")
+library("spiroview")
+```
+
+To list all sample functions available in the package:
+``` r
+ls("package:spiroview")
+```
+
+To list all sample datasets available in the package:
+``` r
+data(package = "spiroview")
+```
+
+<br>
+
+
+## Brief Tutorial 
+
+Here, we give a brief tutorial on how to use `spiroview` with the provided dataset.
+
+``` r
+exampleDB <- GLIData
+```
+
+### Reading in a dataset 
+Alternatively, a user may load a dataset.
+
+If your dataset already follows the conventions defined in `formatData`, a user 
+may choose to simply read in a dataset with the following function.
+
+``` r
+# path to the dataset
+examplePath <- system.file("extdata",
+                           "example_dataset_1.csv",
+                            package="spiroview")
+                            
+                            
+readInDB <- read.csv(exmaplePath, headers=TRUE)
+
+head(readInDB)
+```
+
+Otherwise, a user may choose to use `formatData` to format key headers for other
+functions. Here, we format an example dataset, passing in the column name for age
+that already existed in the dataset.
+
+``` r
+
+examplePath <- system.file("extdata",
+                           "example_dataset_4.csv",
+                            package="spiroview")
+
+
+formattedDB <- spiroview::formatData(path=examplePath,
+                                    ageLabel= "A")
+                                    
+head(formattedDB)
+```
+
+See `?spiroview::formatData` for more information on how to use this function.
+
+
+### Calculating predicted spirometry values and summary statistics
+
+To calculate a column for the predicted lower limit of normal for each row in
+your dataset, call `calculateLLNPret` and input the spirometric parameter and 
+reference equation of interest.
+
+``` r
+
+ predictedFEV1LLN <- calculateLLNPret(
+                     df=exampleDB,
+                     param="FEV1",
+                     ref="GLI")
+```
+
+To add the new predicted column, use the base R function `cbind` which takes a 
+existing dataframe and adds another dataframe as a column.
+
+```
+ cbind(exampleDB, predictedFEV1LLN)
+```
+
+To summarize data of patients meeting a certain threshold:
+
+```
+ categoricalSummary <- summarizeAllByCategory(df=exampleDB,
+                                             demParam="gender",
+                                             delim="1",
+                                             delimIsNumeric = FALSE,
+                                             spiroParam="FEV1")
+                                             
+ categoricalSummary
+
+```
+
+### Segregating Dataset
+
+To segregate by a categorical variable, add the name of the variable and the 
+value of the variable you wish to extract. 
+
+``` r
+ segregateCategorical <- segregateBy(df=exampleDB,
+                                      demParam = "gender",
+                                      segBy = "1",
+                                      segIsNumeric = FALSE)
+
+ segregateCategorical$contains # dataframe that matches demographic threshold
+ 
+ segregateCategorical$other # dataframe not matching thresold
+```
+
+To segregate by a numerical variable, add the name of the variable set a rule
+for what value of that numerical variable you wish to extract. Set the parameter
+`segIsNumeric` to `TRUE`.
+
+``` r
+ segregateNumerical <- segregateBy(df=exampleDB,
+                                    demParam = "height",
+                                    segBy = ">1.80",
+                                    segIsNumeric = TRUE)
+
+ segregateNumerical$contains # dataframe that matches demographic threshold
+ 
+ segregateNumerical$other # dataframe not matching thresold
+```
+
+### Visualization of Data
+
+To get a basic graph comparing a categorical variable to a spirometric variable:
+
+``` r
+ categoricalPlot <- viewCategorical(df=exampleDB,
+                                   demParam="ethnicity",
+                                   spiroParam="FEV1",
+                                   type="box",
+                                   title="Ethinicity to FEV1")
+ 
+
+ categoricalPlot
+```
+
+To view the counts of each categorical variable:
+
+``` r
+ countsPlot <- viewCategoricalCounts(df=exampleDB,
+                                     demParam="ethnicity",
+                                     type="pie")
+ countsPlot
+```
+
+To get a basic graph comparing a numerical variable to a spirometric variable:
+
+```
+ numericalPlot <- viewNumerical(df=exampleDB,
+                               demParam="height",
+                               spiroParam="FEV1",
+                               includeBestFit=TRUE,
+                               title="Height to FEV1")
+                               
+ numericalPlot
+```
+
+To produce a graph that annotates a numerical variable by a colour:
+``` r
+ compareNumericalPlot <- compareNumerical(df=exampleDB,
+                                         demParam="height",
+                                         delim=">1.60",
+                                         spiroParam="FEV1",
+                                         includeBestFit=TRUE,
+                                         title="Height to FEV1")
+                                        
+ compareNumericalPlot
+```
+## Running Shiny 
+To launch the Shiny app:
+
+``` r
+spiroview::runspiroview()
+```
+
+## Citing spiroview
+
+Liu, A. (2023) spiroview: An R Package for the Exploration and Visualization of Demographic Spirometry Data.
+  Unpublished. URL https://github.com/annie951977/spiroview
+  
+<br>
+
+## References
+
+- Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Xie Y, Allen J,
+  McPherson J, Dipert A, Borges B (2023). shiny: Web Application
+  Framework for R. R package version 1.7.4.9002,
+  <https://shiny.rstudio.com/>.
+
+- Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
+  Carter, K. W., Thompson, B. R., Graham, B. L., Miller, M. R., Ruppel,
+  G., Henderson, J., Vaz Fragoso, C. A., & Stanojevic, S. (2017).The
+  Global Lung Function Initiative (GLI) Network: bringing the world’s
+  respiratory reference values together. Breathe (Sheffield, England),
+  13(3), e56–e64. <https://doi.org/10.1183/20734735.012717>
+
+- Grolemund, G. (2015). Learn Shiny - Video Tutorials.
+  URL:<https://shiny.rstudio.com/tutorial/>
+
+- Hankinson, J. L., Odencrantz, J. R., & Fedan, K. B. (1999).
+  Spirometric reference values from a sample of the general U.S.
+  population. American journal of respiratory and critical care
+  medicine, 159(1), 179–187.https://doi.org/10.1164/ajrccm.159.1.9712108
+
+- Lytras T (2020). *rspiro: Implementation of Spirometry Equations*. R
+  package version 0.2, <https://CRAN.R-project.org/package=rspiro>.
+
+- R Core Team (2021). R: A language and environment for statistical
+  computing. R Foundation for Statistical Computing, Vienna, Austria.
+  URL <https://www.R-project.org/>.
+
+- Silva, A. (2022) TestingPackage: An Example R Package For BCB410H.
+  Unpublished. URL <https://github.com/anjalisilva/TestingPackage>.”
+
+- Wickham, H. and Bryan, J. (2019). *R Packages* (2nd edition). Newton,
+  Massachusetts: O’Reilly Media. <https://r-pkgs.org/>
+
+- Wickham H, François R, Henry L, Müller K, Vaughan D (2023). dplyr: A
+  Grammar of Data Manipulation. <https://dplyr.tidyverse.org>,
+  <https://github.com/tidyverse/dplyr>.
+
+- Wickham H, Hester J, Bryan J (2023). readr: Read Rectangular Text
+  Data. <https://readr.tidyverse.org>,
+  <https://github.com/tidyverse/readr>.
+
+- Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
+  Springer-Verlag New York. ISBN 978-3-319-24277-4,
+  <https://ggplot2.tidyverse.org>.
+
+- Wickham H (2022). *stringr: Simple, Consistent Wrappers for Common
+  String Operations*. R package version 1.5.0,
+  <https://CRAN.R-project.org/package=stringr>.
+
+
+``` {r}
+sessionInfo()
 ```
