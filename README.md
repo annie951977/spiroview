@@ -18,46 +18,91 @@ coding background but wishes to use R for their research study. The
 
 ## Installation
 
-You can install the development version of spiroview from
-[GitHub](https://github.com/) with:
+To install the latest version of this package:
 
 ``` r
-install.packages("devtools")
+require("devtools")
 devtools::install_github("annie951977/spiroview")
 ```
 
-Overview
-
-This is a basic example which shows you how to solve a common problem:
+To run the Shiny app
 
 ``` r
-# library(spiroview)
-## basic example code
+spiroview::runspiroview()
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+# Overview
+
+spiroview at a glance:
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+ls("package:spiroview")
+data(package = "spiroview")
+browseVignettes("spiroview")
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+`spiroview` contains 10 functions:
+
+`formatData` is a helper function that reads a csv or tsv datafile and
+reformats the dataframe so that the dataframe can be easily read into
+other functions in this dataset.
+
+`segregateBy` splits a dataframe by a demographic value to allow for the
+extraction of data relating to a subset of interest.
+
+`calculateLLNPret` calculates the lower limit of normal for a
+spirometric measurement based off of inputted demographic variables such
+as height, age, and gender and the spirometry reference of interest.
+
+`calculatePctPret` calculates
+
+`calculateMeanPret` calculates the mean predicted value for a
+spirometric measurement based off of inputted demographic variables such
+as height, age, and gender.
+
+`summarizeAllByCategory` extracts datainputs matching a certain
+demographic threshold and outputs summary statistics on a spirometric
+measurement in the dataset.
+
+`viewCategorical` produces plots correlating a categorical variable to a
+spirometric measurement.
+
+`viewCategoricalCounts` produces plots that showcase the number of
+datapoints that exist in the dataset for a categorical variable of
+interest
+
+`viewNumerical` produces plots correlating a numerical variable to a
+spirometric measurement.
+
+`compareNumerical` produces plots correlating a numerical variable to a
+spirometric measurement annotated by other categorical or numerical
+demographic variables of interest.
 
 # Contributions
 
+- `formatData` uses packages `utils` and `readr` to handle file reading
+
+- `segregateBy` uses package `stringr` for string matching
+
+- `calculateLLNPret`, `calculatePctPret`, `calculateMeanPret` use
+  package `rspiro` for spirometric equations and calculations
+
+- `summarizeAllByCategory` uses package `stringr` for string matching
+  and package `dplyr` for filtering
+
+- `viewCategorical`,`viewCategoricalCounts`, and `viewNumerical` use
+  package `ggplot2` for generating plots
+
+- `compareNumerical` uses package `ggplot2` for generating plots. This
+  function also uses `stringr` for string matching and `dplyr` for
+  dataset filtering
+
 # References
+
+- Chang W, Cheng J, Allaire J, Sievert C, Schloerke B, Xie Y, Allen J,
+  McPherson J, Dipert A, Borges B (2023). shiny: Web Application
+  Framework for R. R package version 1.7.4.9002,
+  <https://shiny.rstudio.com/>.
 
 - Cooper, B. G., Stocks, J., Hall, G. L., Culver, B., Steenbruggen, I.,
   Carter, K. W., Thompson, B. R., Graham, B. L., Miller, M. R., Ruppel,
@@ -65,6 +110,9 @@ example workflow can be found here:
   Global Lung Function Initiative (GLI) Network: bringing the world’s
   respiratory reference values together. Breathe (Sheffield, England),
   13(3), e56–e64. <https://doi.org/10.1183/20734735.012717>
+
+- Grolemund, G. (2015). Learn Shiny - Video Tutorials.
+  URL:<https://shiny.rstudio.com/tutorial/>
 
 - Hankinson, J. L., Odencrantz, J. R., & Fedan, K. B. (1999).
   Spirometric reference values from a sample of the general U.S.
@@ -106,3 +154,66 @@ This package was developed as part of an assessment for 2022 BCB410H:
 Applied Bioinformatics course at the University of Toronto, Toronto,
 CANADA. `spiroview` welcomes issues, enhancement requests, and other
 contributions. To submit an issue, use the GitHub issues.
+
+# Package Structure
+
+The package tree structure is provided below.
+
+``` r
+- spiroview
+  ├── DESCRIPTION
+  ├── LICENSE
+  ├── LICENSE.md
+  ├── NAMESPACE
+  ├── R
+  │   ├── calculatedPredicted.R
+  │   ├── data.R
+  │   ├── formatData.R
+  │   ├── runspiroview.R    
+  │   ├── segregateBy.R
+  │   ├── summarize.R
+  │   ├── viewCategorical.R
+  │   └── viewNumerical.R
+  ├── README.Rmd
+  ├── README.md
+  ├── data
+  │   ├── GLIData.rda
+  │   └── NHANES3Data.rda
+  ├── inst
+  │   ├── CITATION
+  │   ├── extdata
+  │   │   ├── GLI_simulated_DB.csv
+  │   │   ├── NHANES3_simulated_DB.csv
+  │   │   ├── example_dataset_1.csv
+  │   │   ├── example_dataset_2.csv
+  │   │   ├── example_dataset_3.csv
+  │   │   └── example_dataset_4.csv
+  │   └── shiny-scripts
+  │       └── app.R
+  ├── man
+  │   ├── GLIData.Rd
+  │   ├── NHANES3Data.Rd
+  │   ├── calculateLLNPret.Rd
+  │   ├── calculateMeanPret.Rd
+  │   ├── calculatePctPret.Rd
+  │   ├── compareNumerical.Rd
+  │   ├── figures
+  │   ├── formatData.Rd
+  │   ├── segregateBy.Rd
+  │   ├── summarizeAllByCategory.Rd
+  │   ├── viewCategorical.Rd
+  │   ├── viewCategoricalCounts.Rd
+  │   └── viewNumerical.Rd
+  ├── spiroview.Rproj
+  ├── tests
+  │   ├── testthat
+  │   │   ├── test-calculatedPredicted.R
+  │   │   ├── test-formatData.R
+  │   │   ├── test-segregateBy.R
+  │   │   ├── test-summarize.R
+  │   │   ├── test-viewCategorical.R
+  │   │   └── test-viewNumerical.R
+  │   └── testthat.R
+  └── vignettes
+      └── Introduction_spiroview.Rmd
+```
