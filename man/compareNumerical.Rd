@@ -12,7 +12,8 @@ compareNumerical(
   secondParam = NULL,
   secondDelim = NULL,
   secondParamIsNumeric = FALSE,
-  includeBestFit = FALSE
+  includeBestFit = FALSE,
+  title = NULL
 )
 }
 \arguments{
@@ -39,6 +40,8 @@ categorical variable}
 
 \item{includeBestFit}{A boolean stating if a the line of best fit should be
 included in the plot}
+
+\item{title}{Title for the plot as a character string. Default is NULL}
 }
 \value{
 A basic ggplot scatterplot that can be built upon as needed

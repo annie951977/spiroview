@@ -4,7 +4,7 @@
 \alias{viewCategoricalCounts}
 \title{Produces graphs that show the number of samples per demographic category.}
 \usage{
-viewCategoricalCounts(df, demParam, type = "pie")
+viewCategoricalCounts(df, demParam, type = "pie", title = NULL)
 }
 \arguments{
 \item{df}{Data that is being analyzed}

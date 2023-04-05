@@ -4,7 +4,7 @@
 \alias{viewCategorical}
 \title{Produces a categorical plot based off of parameters given}
 \usage{
-viewCategorical(df, demParam, spiroParam, type = "box")
+viewCategorical(df, demParam, spiroParam, type = "box", title = NULL)
 }
 \arguments{
 \item{df}{Data that is being analyzed}
@@ -15,6 +15,8 @@ viewCategorical(df, demParam, spiroParam, type = "box")
 
 \item{type}{The type of graph desired, options include: box, strip, violin.
 Default is box.}
+
+\item{title}{Title for the plot as a character string. Default is NULL}
 }
 \value{
 A basic ggplot plot that can be built upon as needed

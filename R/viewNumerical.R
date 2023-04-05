@@ -9,6 +9,7 @@
 #' @param spiroParam The spirometric parameter of interest as a string
 #' @param includeBestFit A boolean stating if a the line of best fit should be
 #' included in the plot
+#' @param title Title for the plot as a character string. Default is NULL
 #' @return A basic ggplot scatterplot that can be built upon as needed
 #' @examples
 #' # Example 1: Basic numeric plot with viewNumerical
@@ -29,7 +30,8 @@
 viewNumerical <- function(df,
                           demParam,
                           spiroParam,
-                          includeBestFit=FALSE) {
+                          includeBestFit=FALSE,
+                          title=NULL) {
 
   if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)) {
     stop("Please provide the proper parameters for viewNumerical")
@@ -37,11 +39,17 @@ viewNumerical <- function(df,
 
   # makes ggplot graph
 
-  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]]))
-                + geom_point()
+  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]]))+ geom_point()
 
   if (includeBestFit) {
     outputGraph = outputGraph + geom_smooth(method = "lm")
+  }
+
+  if(!is.null(title)){
+    if(!is.character(title)){
+      warning("Inputted title is a not a character string, title not added")
+    }
+    outputGraph <- outputGraph + ggtitle(title)
   }
 
   return(outputGraph)
@@ -72,6 +80,7 @@ viewNumerical <- function(df,
 #'  categorical variable
 #' @param includeBestFit A boolean stating if a the line of best fit should be
 #' included in the plot
+#' @param title Title for the plot as a character string. Default is NULL
 #' @return A basic ggplot scatterplot that can be built upon as needed
 #' @examples
 #' plotData <- GLIData
@@ -120,7 +129,8 @@ compareNumerical <- function(df,
                              secondParam = NULL,
                              secondDelim= NULL,
                              secondParamIsNumeric=FALSE,
-                             includeBestFit=FALSE) {
+                             includeBestFit=FALSE,
+                             title=NULL) {
 
   if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)){
     stop("Please provide the proper parameters for compareNumerical")
@@ -135,8 +145,7 @@ compareNumerical <- function(df,
 
   # makes ggplot graph (mostly a scatterplot)
 
-  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]]))
-                + geom_point()
+  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]])) + geom_point()
 
   if(!is.null(delim)) {
     # grep for inequality operator
@@ -285,6 +294,13 @@ compareNumerical <- function(df,
 
   if (includeBestFit) {
     outputGraph = outputGraph + geom_smooth(method = "lm")
+  }
+
+  if(!is.null(title)){
+    if(!is.character(title)){
+      warning("Inputted title is a not a character string, title not added")
+    }
+    outputGraph <- outputGraph + ggtitle(title)
   }
 
   return(outputGraph)

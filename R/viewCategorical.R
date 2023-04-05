@@ -8,6 +8,7 @@
 #' @param spiroParam The spirometric parameter of interest as a string
 #' @param type The type of graph desired, options include: box, strip, violin.
 #'             Default is box.
+#' @param title Title for the plot as a character string. Default is NULL
 #' @return A basic ggplot plot that can be built upon as needed
 #' @examples
 #' plotData <- GLIData
@@ -27,7 +28,8 @@
 viewCategorical <- function(df,
                             demParam,
                             spiroParam,
-                            type="box") {
+                            type="box",
+                            title=NULL) {
 
   if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)) {
     stop("Please provide the proper parameters for compareNumerical")
@@ -54,6 +56,13 @@ viewCategorical <- function(df,
     outputGraph <- outputGraph + geom_jitter()
   }
 
+
+  if(!is.null(title)){
+    if(!is.character(title)){
+      warning("Inputted title is a not a character string, title not added")
+    }
+    outputGraph <- outputGraph + ggtitle(title)
+  }
   return(outputGraph)
 }
 
@@ -93,7 +102,8 @@ viewCategorical <- function(df,
 
 viewCategoricalCounts <- function(df,
                                   demParam,
-                                  type="pie") {
+                                  type="pie",
+                                  title=NULL) {
   if (!is.data.frame(df) || !is.character(demParam)) {
     stop("Please provide the proper parameters for viewCategoricalCounts")
   }
@@ -123,6 +133,14 @@ viewCategoricalCounts <- function(df,
       geom_bar(stat="identity", width=1) +
       coord_polar("y", start=0)
   }
+
+  if(!is.null(title)){
+    if(!is.character(title)){
+      warning("Inputted title is a not a character string, title not added")
+    }
+    outputGraph <- outputGraph + ggtitle(title)
+  }
+
   return(outputGraph)
 
 }
