@@ -123,6 +123,7 @@ ui <- navbarPage("spiroview",
 
 
                               br(),
+                              tags$p("Please state if your filter represents a numerical threshold"),
                               selectInput(inputId ="segIsNumeric", label = h3("Are you filtering by a numeric value?"),
                                           choices = list("No" = "No", "Yes" = "Yes"),
                                           selected = "No"),
@@ -160,6 +161,7 @@ ui <- navbarPage("spiroview",
                             sidebarPanel(
 
                               h2("Create summary statistics for a certain demographic variable value"),
+                              tags$p("Instructions: Calculate summary statistics for a spirometric value filtered by a thresholded demographic variable.If your demographic variable is a categorical variable, please input the variable value you're looking for. If your demographic variable is a numerical variable, please input an inequality operator and a number, for example >1.6. Please see the About page for additional defintions."),
                               textInput(inputId ="summaryDem", label = h3("Input a demographic variable. Enter your demographic variable exactly how it appears in dataset"), value = "gender"),
 
 
@@ -169,6 +171,7 @@ ui <- navbarPage("spiroview",
                                           selected = "FEV1"),
 
                               br(),
+                              tags$p("Please state if your filter represents a numerical threshold"),
                               selectInput(inputId ="summaryDemIsNumeric", label = h3("Are you filtering by a numeric value?"),
                                           choices = list("No" = "No", "Yes" = "Yes"),
                                           selected = "No"),
@@ -195,9 +198,9 @@ ui <- navbarPage("spiroview",
                               sidebarPanel(
                                 h2("Plot numeric variable"),
 
-                                textInput(inputId ="viewNumDem", label = h3("Input a demographic variable,Enter your demographic variable exactly how it appears in dataset"), value = "height"),
+                                textInput(inputId ="viewNumDem", label = h3("Input a demographic variable. Enter your demographic variable exactly how it appears in dataset"), value = "height"),
 
-                                textInput(inputId ="viewNumSpiro", label = h3("Input a spirometric variable, Enter your spirometric variable exactly how it appears in dataset"), value = "FEV1"),
+                                textInput(inputId ="viewNumSpiro", label = h3("Input a spirometric variable. Enter your spirometric variable exactly how it appears in dataset"), value = "FEV1"),
 
                                 textInput(inputId ="viewNumTitle", label = h3("Input a title"), value = ""),
                                 selectInput(inputId ="numIncludeBestFit", label = h3("Include a line of best fit?"),
