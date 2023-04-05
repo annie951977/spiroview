@@ -29,12 +29,16 @@ ui <- navbarPage("spiroview",
                               p("- Visualize correlation between demographc variables and spirometric measurements"),
                               p("- Calculate predicted spirometric values based off of inputted metrics"),
                               br(),
+                              h2("Key defintions and clarifications:"),
+                              p("- A categorical demographic variable is a demographic variable that can be discretely categorized like male and female"),
+                              p("- A numeric demographic variable is a demographic variable that can be described by a continuous range of numbers, such as height"),
+                              p("- When filtering a categorical variable, input the value of the variable you're looking for"),
+                              p("- When filtering a numeric variable, input an inequality operator and a number following a format like: >1.6"),
+                              br(),
                               h2("To get started, use one of our example datasets or upload your file:"),
                               # input
                               br(),
 
-
-                              h4("Use simulated databases"),
                               selectInput(inputId ="inputDatabase", label = h3("Pick database"),
                                           choices = list("GLI"= "GLI", "NHANES3" = "NHANES3", "Upload"= "Upload"),
                                           selected = "GLI"),
@@ -55,10 +59,13 @@ ui <- navbarPage("spiroview",
 
                  ),tabPanel("Calculate",
                             sidebarLayout(
+
+
                               sidebarPanel(
-                                h2("Pick reference equation"),
-                                radioButtons(inputId ="references", label = h3("Reference Equations"),
-                                             choices = list("Global Lung Function Initiative (GLI)"= "GLI", "National Health and Nutrition Examination Survey III" = "NHANES3" ),
+                                h2("Calculate expected spirometric values"),
+                                tags$p("Instructions: Calculate predicted spirometry values based on the demographic variables in your datatable."),
+                                radioButtons(inputId ="references", label = h3("Pick reference equation"),
+                                             choices = list("Global Lung Function Initiative (GLI)"= "GLI", "National Health and Nutrition Examination Survey III (NHANES3)" = "NHANES3" ),
                                              selected = "GLI"),
                                 br(),
 
@@ -66,6 +73,7 @@ ui <- navbarPage("spiroview",
                                 selectInput(inputId = "calculateOptions", label = h3("Pick what you would like to calculate"),
                                             choices = list("Lower Limit of Normal" = "calculateLLNPret", "Percent Predicted" = "calculatePctPret", "Predicted Mean" = "calculateMeanPret"),
                                             selected = "calculateLLNPret"),
+                                tags$p("Note: Percent Predicted assumes that the spirometry measure you selected exists in your dataset."),
 
                                 br(),
                                 selectInput(inputId ="spirometryValues", label = h3("Pick the spirometry value you would like to calculate"),
@@ -89,7 +97,7 @@ ui <- navbarPage("spiroview",
                                 br(),
 
 
-                                h3("Download your calculated dataset"),
+                                h3("Download your dataset with your calculated column"),
                                 downloadButton("downloadCalcData", "Download")
 
                               ),
@@ -107,6 +115,7 @@ ui <- navbarPage("spiroview",
                             sidebarPanel(
 
                               h2("Segregate dataset"),
+                              tags$p("Instructions: Segregate your data based on threshold set on a demographic variable. If your demographic variable is a categorical variable, please input the variable value you're looking for. If your demographic variable is a numerical variable, please input an inequality operator and a number, for example >1.6. Please see the About page for additional defintions."),
                               textInput(inputId ="segDem", label = h3("Enter your demographic variable exactly how it appears in dataset"), value = "gender"),
 
 
@@ -115,8 +124,8 @@ ui <- navbarPage("spiroview",
 
                               br(),
                               selectInput(inputId ="segIsNumeric", label = h3("Are you filtering by a numeric value?"),
-                                          choices = list("No" = FALSE, "Yes" = TRUE),
-                                          selected = FALSE),
+                                          choices = list("No" = "No", "Yes" = "Yes"),
+                                          selected = "No"),
 
                               # calculate
                               actionButton(inputId = "segregateButton",
@@ -127,10 +136,19 @@ ui <- navbarPage("spiroview",
 
                             mainPanel(
                               h2("Please select a dataset in the About tab"),
+                              br(),
 
+                              h3("The following table meets your threshold. First 6 rows are shown."),
                               tableOutput("containsTable"),
+                              h3("Download this dataset"),
+                              downloadButton("downloadContains", "Download"),
 
+                              br(),
+                              br(),
+                              h3("The following table does not meet your threshold. First 6 rows are shown."),
                               tableOutput("otherTable"),
+                              h3("Download this dataset"),
+                              downloadButton("downloadOther", "Download"),
 
                             )
 
@@ -152,8 +170,8 @@ ui <- navbarPage("spiroview",
 
                               br(),
                               selectInput(inputId ="summaryDemIsNumeric", label = h3("Are you filtering by a numeric value?"),
-                                          choices = list("No" = FALSE, "Yes" = TRUE),
-                                          selected = FALSE),
+                                          choices = list("No" = "No", "Yes" = "Yes"),
+                                          selected = "No"),
 
                               # summarize
                               actionButton(inputId = "summarizeButton",
@@ -295,7 +313,7 @@ server <- function(input, output) {
   })
 
   output$workingDB <- renderTable({
-    currentDB()
+    head(currentDB())
   })
 
 
@@ -332,13 +350,19 @@ server <- function(input, output) {
   )
 
   # Segregate Tab
+  segIsNumeric <- eventReactive(input$segregateButton, {
+
+    switch(input$segIsNumeric,
+           "No" = FALSE,
+           "Yes"= TRUE)
+  })
 
 
   containsResult<- eventReactive(input$segregateButton, {
     l <- spiroview::segregateBy(df=currentDB(),
                                 demParam = input$segDem,
                                 segBy = input$segBy,
-                                segIsNumeric = input$segIsNumeric)
+                                segIsNumeric = segIsNumeric())
     return(l$contains)
   })
 
@@ -346,25 +370,53 @@ server <- function(input, output) {
     l <- spiroview::segregateBy(df=currentDB(),
                                 demParam = input$segDem,
                                 segBy = input$segBy,
-                                segIsNumeric = input$segIsNumeric)
+                                segIsNumeric = segIsNumeric())
     return(l$other)
   })
 
   output$containsTable <- renderTable({
-    containsResult()
+    head(containsResult())
   })
 
   output$otherTable <- renderTable({
-    otherResult()
+    head(otherResult())
   })
 
+  output$downloadContains <- downloadHandler(
+    filename = function() {
+      paste("contains", ".csv", sep = "")
+    },
+    content = function(file) {
+      write.csv(containsResult(), file, row.names = FALSE)
+    }
+  )
+
+
+  output$downloadOther <- downloadHandler(
+    filename = function() {
+      paste("other", ".csv", sep = "")
+    },
+    content = function(file) {
+      write.csv(otherResult(), file, row.names = FALSE)
+    }
+  )
   # Summarize Tab
 
+  summaryIsNumeric <- eventReactive(input$summarizeButton, {
+
+    switch(input$summaryDemIsNumeric,
+           "No" = FALSE,
+           "Yes"= TRUE)
+  })
+
   summaryResults <- eventReactive(input$summarizeButton, {
+
+
+
     results <- spiroview::summarizeAllByCategory(df=currentDB(),
                                                 demParam = input$summaryDem,
                                                 delim= input$summaryDelim,
-                                                delimIsNumeric = input$summaryDemIsNumeric,
+                                                delimIsNumeric =summaryIsNumeric(),
                                                 spiroParam = input$summarySpiro)
 
     return(results)
