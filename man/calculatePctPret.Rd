@@ -9,6 +9,7 @@ Assumptions:
 of the patient
 \item gender is denoted as 1 or 2 for male or female respectively
 \item ethnicity is denoted as a value between 1 to 5
+\item height is assumed to be in meters
 }}
 \usage{
 calculatePctPret(df, param = "FEV1", ref = "GLI")
@@ -34,6 +35,7 @@ Assumptions:
 of the patient
 \item gender is denoted as 1 or 2 for male or female respectively
 \item ethnicity is denoted as a value between 1 to 5
+\item height is assumed to be in meters
 }
 }
 \examples{

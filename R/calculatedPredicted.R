@@ -8,6 +8,7 @@
 #' of the patient
 #' - gender is denoted as 1 or 2 for male or female respectively
 #' - ethnicity is denoted as a value between 1 to 5
+#' - height is assumed to be in meters
 #'
 #' @param df A dataframe containing colnames age and height at the minimum
 #' @param param The spirometric metric of interest: "FEV1", "FVC", "FEV1FVC",
@@ -123,6 +124,7 @@ calculateLLNPret <- function(df,
 #' of the patient
 #' - gender is denoted as 1 or 2 for male or female respectively
 #' - ethnicity is denoted as a value between 1 to 5
+#' - height is assumed to be in meters
 #'
 #' @param df A dataframe containing colnames age and height and a spirometric column
 #' matching param at the minimum
@@ -384,6 +386,7 @@ calculatePctPret <- function(df,
 #' of the patient
 #' - gender is denoted as 1 or 2 for male or female respectively
 #' - ethnicity is denoted as a value between 1 to 5
+#' - height is assumed to be in meters
 #'
 #' @param df A dataframe containing colnames age and height at the minimum
 #' @param param The spirometric metric of interest: "FEV1", "FVC", "FEV1FVC",
