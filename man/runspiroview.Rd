@@ -10,7 +10,14 @@ runspiroview()
 No return value but open up a Shiny page.
 }
 \description{
-Launch Shiny App for spiroview
+A function that launches the Shiny app for spiroview.
+The code has been placed in \code{./inst/shiny-scripts}.
+}
+\examples{
+\dontrun{
+sprioview::runspiroview()
+}
+
 }
 \references{
 Silva, A. (2022) TestingPackage: An Example R Package For BCB410H.
