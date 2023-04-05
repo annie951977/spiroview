@@ -32,7 +32,7 @@ ui <- navbarPage("spiroview",
                               h2("To get started, use one of our example datasets or upload your file:"),
                               # input
                               br(),
-                              shinyalert::useShinyalert(force = TRUE),  # Set up shinyalert
+
 
                               h4("Use simulated databases"),
                               selectInput(inputId ="inputDatabase", label = h3("Pick database"),
@@ -132,13 +132,6 @@ ui <- navbarPage("spiroview",
 
                               tableOutput("otherTable"),
 
-
-                              # Input: Choose dataset ----
-                              selectInput("segregateDB", "Choose a dataset:",
-                                          choices = c("contains", "other")),
-
-                              # Button
-                              downloadButton("downloadData", "Download")
                             )
 
                           )
@@ -172,7 +165,7 @@ ui <- navbarPage("spiroview",
                             mainPanel(
                               h2("Please select a dataset in the About tab"),
 
-                              dataTableOutput("summaryTable"),
+                              tableOutput("summaryTable"),
 
 
                             )
@@ -340,30 +333,46 @@ server <- function(input, output) {
 
   # Segregate Tab
 
-  segregateResults <- eventReactive(input$segregateButton, {
-    return(spiroview::segregateBy(df=currentDB(),
-                           demParam = input$segDem,
-                           segBy = input$segBy,
-                           segIsNumeric = input$segIsNumeric))
+
+  containsResult<- eventReactive(input$segregateButton, {
+    l <- spiroview::segregateBy(df=currentDB(),
+                                demParam = input$segDem,
+                                segBy = input$segBy,
+                                segIsNumeric = input$segIsNumeric)
+    return(l$contains)
   })
+
+  otherResult <- eventReactive(input$segregateButton, {
+    l <- spiroview::segregateBy(df=currentDB(),
+                                demParam = input$segDem,
+                                segBy = input$segBy,
+                                segIsNumeric = input$segIsNumeric)
+    return(l$other)
+  })
+
   output$containsTable <- renderTable({
-    segregateResults()$containsDF
+    containsResult()
   })
+
   output$otherTable <- renderTable({
-    segregateResults()$otherDF
+    otherResult()
   })
 
   # Summarize Tab
 
-  summarize <- eventReactive(input$summarizeButton, {
-    output$summaryTable <- renderDataTable({
-      spiroview::summarizeAllByCategory(df=currentDB(),
-                                        demParam = input$summaryDem,
-                                        delim= input$summaryDelim,
-                                        delimIsNumeric = input$summaryDemIsNumeric,
-                                        spiroParam = input$summarySpiro)
-    })
+  summaryResults <- eventReactive(input$summarizeButton, {
+    results <- spiroview::summarizeAllByCategory(df=currentDB(),
+                                                demParam = input$summaryDem,
+                                                delim= input$summaryDelim,
+                                                delimIsNumeric = input$summaryDemIsNumeric,
+                                                spiroParam = input$summarySpiro)
 
+    return(results)
+
+  })
+
+  output$summaryTable <- renderTable({
+    summaryResults()
   })
 
 
