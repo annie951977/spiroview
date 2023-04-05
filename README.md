@@ -30,6 +30,9 @@ To run the Shiny app
 ``` r
 spiroview::runspiroview()
 ```
+![spiroview_screenshot](https://user-images.githubusercontent.com/56055607/230213105-91e823b3-ee97-4859-8971-c4865eb92844.png)
+
+
 
 # Overview
 
@@ -54,7 +57,7 @@ extraction of data relating to a subset of interest.
 spirometric measurement based off of inputted demographic variables such
 as height, age, and gender and the spirometry reference of interest.
 
-`calculatePctPret` calculates
+`calculatePctPret` calculates the percent predicted of a spirometry value in your dataset
 
 `calculateMeanPret` calculates the mean predicted value for a
 spirometric measurement based off of inputted demographic variables such
