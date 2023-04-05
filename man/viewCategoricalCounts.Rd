@@ -13,6 +13,8 @@ viewCategoricalCounts(df, demParam, type = "pie", title = NULL)
 
 \item{type}{The type of graph desired, options include: pie, bar.
 Default is pie}
+
+\item{title}{Title for the plot as a character string. Default is NULL}
 }
 \value{
 an output graph
@@ -26,16 +28,8 @@ plotData <- GLIData
 # Example 1: One categorical variable
 \dontrun{
 plot <- viewCategoricalCounts(df=plotData,
-                        demParam="ethnicity",
-                        secondParam=NULL,
+                        demParam="ethnicity"
                         type="pie")
-}
-# Example 2: Two categorical variables
-\dontrun{
-plot <- viewCategoricalCounts(df=plotData,
-                              demParam="ethnicity",
-                              secondParam="gender",
-                              type="pie")
 }
 }
 \references{

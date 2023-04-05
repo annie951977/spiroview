@@ -76,23 +76,17 @@ viewCategorical <- function(df,
 #' @param demParam A categorical demographic variable
 #' @param type The type of graph desired, options include: pie, bar.
 #'             Default is pie
+#' @param title Title for the plot as a character string. Default is NULL
 #' @return an output graph
 #' @examples
 #' plotData <- GLIData
 #' # Example 1: One categorical variable
 #' \dontrun{
 #' plot <- viewCategoricalCounts(df=plotData,
-#'                         demParam="ethnicity",
-#'                         secondParam=NULL,
+#'                         demParam="ethnicity"
 #'                         type="pie")
 #' }
-#' # Example 2: Two categorical variables
-#' \dontrun{
-#' plot <- viewCategoricalCounts(df=plotData,
-#'                               demParam="ethnicity",
-#'                               secondParam="gender",
-#'                               type="pie")
-#' }
+
 #' @references
 #' Wickham H (2016). ggplot2: Elegant Graphics for Data Analysis.
 #' Springer-Verlag New York. ISBN 978-3-319-24277-4,
