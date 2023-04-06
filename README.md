@@ -31,6 +31,9 @@ To run the Shiny app
 spiroview::runspiroview()
 ```
 
+![image](https://user-images.githubusercontent.com/56055607/230361243-d92ddce9-02b3-4b77-941d-cf6e15cf20d2.png)
+
+
 # Overview
 
 spiroview at a glance:
