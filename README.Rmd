@@ -67,6 +67,12 @@ browseVignettes("spiroview")
 
 `compareNumerical` produces plots correlating a numerical variable to a spirometric measurement annotated by other categorical or numerical demographic variables of interest. 
 
+A work flow of the package can be seen below:
+![](./inst/extdata/spiroview_overview.png)
+
+For more information on each function, refer to the respective help documentation. For a brief tutorial on how to use the package, view the provided vignette with the function `browseVignettes("spiroview")`.
+
+
 # Contributions 
 
 - `formatData` uses packages `utils` and `readr` to handle file reading 
@@ -143,7 +149,8 @@ The package tree structure is provided below.
   │   │   ├── example_dataset_1.csv
   │   │   ├── example_dataset_2.csv
   │   │   ├── example_dataset_3.csv
-  │   │   └── example_dataset_4.csv
+  │   │   ├── example_dataset_4.csv
+  │   │   └── spiroview_overview.png
   │   └── shiny-scripts
   │       └── app.R
   ├── man
