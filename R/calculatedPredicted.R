@@ -60,31 +60,31 @@ calculateLLNPret <- function(df,
                              ref = "GLI") {
 
   # check that there's a dataframe
-  if(!is.data.frame(df)) {
+  if (!is.data.frame(df)) {
     stop("Please input a dataframe into calculateLLNPret")
   }
 
   spiroOptions <- c("FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6")
 
-  if(!(param %in% spiroOptions)){
+  if (!(param %in% spiroOptions)) {
     stop("Please enter a valid spirometry metric in calculatePctPret")
   }
 
   # if the df has age, height, gender
-  if(is.null(df$age) || is.null(df$height)){
+  if (is.null(df$age) || is.null(df$height)) {
     stop("Not enough demographic parameters to calculate mean predicted")
   }
 
   age <- sapply(df$age, as.numeric)
   height <- sapply(df$height, as.numeric)
 
-  if(!is.null(df$gender)){
+  if (!is.null(df$gender)) {
     gender <- sapply(df$gender, as.numeric)
   } else {
     gender <- rep(1, length(df$age))
   }
 
-  if(!is.null(df$ethnicity)){
+  if (!is.null(df$ethnicity)) {
     ethnicity <- sapply(df$ethnicity, as.numeric)
     if (any(ethnicity>5)) {
       ethnicity[which(ethnicity>5)] <- 1
@@ -106,7 +106,7 @@ calculateLLNPret <- function(df,
                                gender=gender,
                                ethnicity=ethnicity,
                                param=param))
-  } else if (ref == "GLI"){
+  } else if (ref == "GLI") {
 
     return(rspiro::LLN_GLI(age=age,
                            height=height,
@@ -175,35 +175,35 @@ calculatePctPret <- function(df,
                              param = "FEV1",
                              ref = "GLI") {
   # check that there's a dataframe
-  if(!is.data.frame(df)) {
+  if (!is.data.frame(df)) {
     stop("Please input a dataframe into calculatePctPret")
   }
 
   spiroOptions <- c("FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6")
 
-  if(!(param %in% spiroOptions)){
+  if (!(param %in% spiroOptions)) {
     stop("Please enter a valid spirometry metric in calculatePctPret")
   }
 
-  if(is.null(df[[param]])){
+  if (is.null(df[[param]])) {
     stop("Dataframe must contain spirometry parameter in calculatePctPret")
   }
 
   # if the df has age, height, gender
-  if(is.null(df$age) || is.null(df$height)){
+  if (is.null(df$age) || is.null(df$height)) {
     stop("Not enough demographic parameters to calculate percent predicted")
   }
 
   age <- as.numeric(df$age)
   height <- as.numeric(df$height)
 
-  if(!is.null(df$gender)){
+  if (!is.null(df$gender)) {
     gender <- sapply(df$gender, as.numeric)
   } else {
     gender <- rep(1, length(df$age))
   }
 
-  if(!is.null(df$ethnicity)){
+  if (!is.null(df$ethnicity)) {
     ethnicity <- as.numeric(df$ethnicity)
     if (any(ethnicity>5)) {
       ethnicity[which(ethnicity>5)] <- 1
@@ -214,7 +214,7 @@ calculatePctPret <- function(df,
     ethinicity <- rep(1, length(df$age))
   }
 
-  if(param == "FEV1") {
+  if (param == "FEV1") {
 
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
@@ -237,7 +237,7 @@ calculatePctPret <- function(df,
       stop("Please select NHANES3 or GLI")
     }
 
-  } else if(param == "FVC") {
+  } else if (param == "FVC") {
 
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
@@ -260,7 +260,7 @@ calculatePctPret <- function(df,
       stop("Please select NHANES3 or GLI")
     }
 
-  } else if(param == "FEV1FVC") {
+  } else if (param == "FEV1FVC") {
 
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
@@ -283,7 +283,7 @@ calculatePctPret <- function(df,
       stop("Please select NHANES3 or GLI")
     }
 
-  } else if(param == "PEF") {
+  } else if (param == "PEF") {
 
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
@@ -302,7 +302,7 @@ calculatePctPret <- function(df,
       stop("Please select NHANES3 or GLI")
     }
 
-  } else if(param == "FEF2575") {
+  } else if (param == "FEF2575") {
 
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
@@ -325,7 +325,7 @@ calculatePctPret <- function(df,
       stop("Please select NHANES3 or GLI")
     }
 
-  } else if(param == "FEV6") {
+  } else if (param == "FEV6") {
 
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
@@ -348,7 +348,7 @@ calculatePctPret <- function(df,
       stop("Please select NHANES3 or GLI")
     }
 
-  } else if(param == "FEV1FEV6") {
+  } else if (param == "FEV1FEV6") {
 
     if (ref == "NHANES3") {
       if (any(ethnicity>3)) {
@@ -434,31 +434,31 @@ calculateMeanPret <- function(df,
                               param = "FEV1",
                               ref = "GLI") {
   # check that there's a dataframe
-  if(!is.data.frame(df)) {
+  if (!is.data.frame(df)) {
     stop("Please input a dataframe into calculateMeanPret")
   }
 
   spiroOptions <- c("FEV1", "FVC", "FEV1FVC", "PEF", "FEF2575", "FEV6", "FEV1FEV6")
 
-  if(!(param %in% spiroOptions)){
+  if (!(param %in% spiroOptions)) {
     stop("Please enter a valid spirometry metric in calculatePctPret")
   }
 
   # if the df has age, height, gender
-  if(is.null(df$age) || is.null(df$height)){
+  if (is.null(df$age) || is.null(df$height)) {
     stop("Not enough demographic parameters to calculate mean predicted")
   }
 
   age <- as.numeric(df$age)
   height <- as.numeric(df$height)
 
-  if(!is.null(df$gender)){
+  if (!is.null(df$gender)) {
     gender <- df$gender
   } else {
     gender <- rep(1, length(df$age))
   }
 
-  if(!is.null(df$ethnicity)){
+  if (!is.null(df$ethnicity)) {
     ethnicity <- df$ethnicity
     if (any(ethnicity>5)) {
       ethnicity[which(ethnicity>5)] <- 1

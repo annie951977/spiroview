@@ -14,7 +14,7 @@ ui <- navbarPage("spiroview",
                               p("spiroview is available on GitHub and can be installed on your R console with the following lines of code:"),
                               code('require("devtools")'),
                               br(),
-                              code('devtools::install_github("annie951977/spiroview")'),
+                              code('devtools::install_github("annie951977/spiroview", build_vignettes = TRUE)'),
                               br(),
                               br(),
                               br(),
@@ -54,13 +54,9 @@ ui <- navbarPage("spiroview",
                               tableOutput("workingDB"),
 
                             )
-                          )
-
-
-                 ),tabPanel("Calculate",
+                          )),
+                          tabPanel("Calculate",
                             sidebarLayout(
-
-
                               sidebarPanel(
                                 h2("Calculate expected spirometric values"),
                                 tags$p("Instructions: Calculate predicted spirometry values based on the demographic variables in your datatable."),
@@ -80,13 +76,6 @@ ui <- navbarPage("spiroview",
                                             choices = list("FEV1" = "FEV1", "FVC" = "FVC", "FEV1FVC" = "FEV1FVC", "PEF" = "PEF", "FEF2575" = "FEF2575", "FEV6"= "FEV6", "FEV1FEV6"= "FEV1FEV6"),
                                             selected = "FEV1"),
 
-                                br(),
-
-                                selectInput(inputId ="addToDataset", label = h3("Add calculated result to your dataset"),
-                                            choices = list("No" = FALSE, "Yes" = TRUE),
-                                            selected = FALSE),
-
-                                br(),
                                 br(),
 
                                 # calculate
@@ -161,7 +150,7 @@ ui <- navbarPage("spiroview",
                             sidebarPanel(
 
                               h2("Create summary statistics for a certain demographic variable value"),
-                              tags$p("Instructions: Calculate summary statistics for a spirometric value filtered by a thresholded demographic variable.If your demographic variable is a categorical variable, please input the variable value you're looking for. If your demographic variable is a numerical variable, please input an inequality operator and a number, for example >1.6. Please see the About page for additional defintions."),
+                              tags$p("Instructions: Calculate summary statistics for a spirometric value filtered by a thresholded demographic variable. If your demographic variable is a categorical variable, please input the variable value you're looking for. If your demographic variable is a numerical variable, please input an inequality operator and a number, for example >1.6. Please see the About page for additional defintions."),
                               textInput(inputId ="summaryDem", label = h3("Input a demographic variable. Enter your demographic variable exactly how it appears in dataset"), value = "gender"),
 
 
@@ -179,18 +168,12 @@ ui <- navbarPage("spiroview",
                               # summarize
                               actionButton(inputId = "summarizeButton",
                                            label = "Summarize"),
-
-
                             ),
 
                             mainPanel(
                               h2("Please select a dataset in the About tab"),
-
                               tableOutput("summaryTable"),
-
-
                             )
-
                           )
 
                  ),tabPanel("Plot a numeric variable",
@@ -230,8 +213,6 @@ ui <- navbarPage("spiroview",
                                 actionButton(inputId = "viewNumComparePlot",
                                              label = "Plot"),
                                 br(),
-
-
                               ),
 
                               mainPanel(
@@ -241,8 +222,8 @@ ui <- navbarPage("spiroview",
                                 plotOutput("viewNumComparePlot"),
                               )
                             ),
-
-                 ),tabPanel("Plot a categorical variable",
+                            ),
+                    tabPanel("Plot a categorical variable",
                             sidebarLayout(
                               sidebarPanel(
                                 h2("Plot categorical variable"),
@@ -296,7 +277,7 @@ server <- function(input, output) {
 
   ## About page
   currentDB <- eventReactive(input$selectDB, {
-    if(!is.null(input$file1)) {
+    if (!is.null(input$file1)) {
       readInDatabase <- spiroview::formatData(path = input$file1$datapath)
     }
     switch(input$inputDatabase,
@@ -304,12 +285,12 @@ server <- function(input, output) {
            "NHANES3"= spiroview::NHANES3Data,
            "Upload" = readInDatabase)
 
-    if(input$inputDatabase == "GLI"){
+    if (input$inputDatabase == "GLI") {
       currentDB <- spiroview::GLIData
     } else if (input$inputDatabase == "NHANES3") {
       currentDB <- spiroview::NHANES3Data
     } else {
-      if(!is.null(input$file1)) {
+      if (!is.null(input$file1)) {
         currentDB <- spiroview::formatData(path = input$file1$datapath)
       }
     }
@@ -323,16 +304,16 @@ server <- function(input, output) {
   ## Calculate Tab
 
   calculateTable <- eventReactive(input$calculateButton, {
-    if(input$calculateOptions == "calculateLLNPret") {
+    if (input$calculateOptions == "calculateLLNPret") {
       spiroview::calculateLLNPret(df=currentDB(),
                                   param =input$spirometryValues,
                                   ref=input$references)
-    } else if(input$calculateOptions == "calculatePctPret") {
+    } else if (input$calculateOptions == "calculatePctPret") {
       spiroview::calculatePctPret(df=currentDB(),
                                   param =input$spirometryValues,
                                   ref=input$references)
 
-    } else if(input$calculateOptions == "calculateMeanPret") {
+    } else if (input$calculateOptions == "calculateMeanPret") {
       spiroview::calculateMeanPret(df=currentDB(),
                                   param =input$spirometryValues,
                                   ref=input$references)
@@ -429,11 +410,6 @@ server <- function(input, output) {
   output$summaryTable <- renderTable({
     summaryResults()
   })
-
-
-
-
-
 
   # Plot numeric tab
 

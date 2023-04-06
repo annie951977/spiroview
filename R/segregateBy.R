@@ -55,24 +55,24 @@ segregateBy <- function(df,
                         segBy,
                         segIsNumeric = FALSE) {
 
-  if(!is.data.frame(df) || !is.character(demParam) || !is.character(segBy)){
+  if (!is.data.frame(df) || !is.character(demParam) || !is.character(segBy)) {
     stop("Missing necessary parameters in segregateBy function")
   }
 
-  if((grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy)) &
-     !segIsNumeric){
+  if ((grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy)) &
+     !segIsNumeric) {
     stop("segBy parameter and delimIsNumeric
          parameter in segregateBy does not match up")
 
-  } else if(!(grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy))
-            & segIsNumeric){
+  } else if (!(grepl("^[<>]{1}\\d", segBy) || grepl("^[><=]{1}[=]{1}\\d", segBy))
+            & segIsNumeric) {
     stop("segBy parameter and delimIsNumeric
          parameter in segregateBy does not match up
          or invalid formatting of segBy")
   }
 
 
-  if(segIsNumeric == TRUE) {
+  if (segIsNumeric == TRUE) {
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
 
@@ -93,27 +93,27 @@ segregateBy <- function(df,
       otherDF <- (df[which(sapply(df[demParam], as.numeric) >= numBy),])
 
 
-    } else if(op == "<=") {
+    } else if (op == "<=") {
 
       containsDF <- (df[which(sapply(df[demParam], as.numeric) < numBy),])
       otherDF <- (df[which(sapply(df[demParam], as.numeric) >= numBy),])
 
-    } else if(op == ">") {
+    } else if (op == ">") {
 
       containsDF <- (df[which(sapply(df[demParam], as.numeric) > numBy),])
       otherDF <- (df[which(sapply(df[demParam], as.numeric) <= numBy),])
 
-    } else if(op == ">=") {
+    } else if (op == ">=") {
 
       containsDF <- (df[which(sapply(df[demParam], as.numeric) >= numBy,)])
       otherDF <- (df[which(sapply(df[demParam], as.numeric) < numBy),])
 
-    } else if(op == "==") {
+    } else if (op == "==") {
 
       containsDF <- (df[which(sapply(df[demParam], as.numeric) == numBy),])
       otherDF <- (df[which(sapply(df[demParam], as.numeric) != numBy),])
 
-    } else if(op == "!="){
+    } else if (op == "!=") {
 
       containsDF <- (df[which(sapply(df[demParam], as.numeric) != numBy),])
       otherDF <- (df[which(sapply(df[demParam], as.numeric) == numBy),])

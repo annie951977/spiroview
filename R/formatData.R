@@ -51,15 +51,15 @@ formatData <- function(path,
                        ethLabel=NULL) {
 
   # check if path exists
-  if(!file.exists(path)){
+  if (!file.exists(path)) {
     stop("Path passed into formatData does not exist")
   }
 
   # check if the file is tsv or csv
 
-  if(grepl("\\.csv$", path)) {
+  if (grepl("\\.csv$", path)) {
       df <- read.csv(path, header= TRUE)
-    } else if(grepl("\\.tsv$", path)) {
+    } else if (grepl("\\.tsv$", path)) {
      df <- as.data.frame(readr::read_tsv(path, col_names = TRUE))
     } else {
     stop("Input file type not supported")
@@ -69,7 +69,7 @@ formatData <- function(path,
   # then format using a rename
 
   # height, HT
-  if (!is.null(heightLabel)){
+  if (!is.null(heightLabel)) {
     colnames(df)[colnames(df) == heightLabel] <- "height"
 
   } else if (any(grepl("HEIGHT|height|HT", colnames(df)))) {
@@ -81,7 +81,7 @@ formatData <- function(path,
   # sex or gender, female or male
 
 
-  if(!is.null(genderLabel)) {
+  if (!is.null(genderLabel)) {
     colnames(df)[colnames(df) == genderLabel] <- "gender"
 
   } else if (any(grepl("sex|SEX|gender|GENDER", colnames(df)))) {
@@ -89,13 +89,13 @@ formatData <- function(path,
     # if all the values in gender are numeric values then we just need to rename,
     # suppress warnings because if the values aren't numeric, then we know this
     # check wasn't passed
-    if(suppressWarnings(any(!is.na(sapply(df[[grep("sex|SEX|gender|GENDER",
-                                              colnames(df))]], as.numeric))))){
+    if (suppressWarnings(any(!is.na(sapply(df[[grep("sex|SEX|gender|GENDER",
+                                              colnames(df))]], as.numeric))))) {
       colnames(df)[grep("sex|SEX|gender|GENDER", colnames(df))] <- "gender"
     } else {
       sex_options <- unique(df[,grep("sex|SEX|gender|GENDER", colnames(df))])
       colnames(df)[grep("sex|SEX|gender|GENDER", colnames(df))] <- "gender"
-      if(any(grepl("^m|^M|^male|^MALE", sex_options))){
+      if (any(grepl("^m|^M|^male|^MALE", sex_options))) {
         maleTag <- sex_options[grep("^m|^M|^male|^MALE", sex_options)][1]
         df$gender[which(!(df$gender == maleTag))] <- "2"
         df$gender[which(df$gender == maleTag)] <- "1"
@@ -104,7 +104,7 @@ formatData <- function(path,
       }
     }
 
-  } else if(any(grepl("^m|^M|^male|^MALE", colnames(df)))) {
+  } else if (any(grepl("^m|^M|^male|^MALE", colnames(df)))) {
     # rename column to male
     colnames(df)[grep("^m|^M|^male|^MALE", colnames(df))] <- "gender"
     df$gender[which(df$gender == "1")] <- "1"
@@ -119,7 +119,7 @@ formatData <- function(path,
   }
 
   # age
-  if (!is.null(ageLabel)){
+  if (!is.null(ageLabel)) {
     colnames(df)[colnames(df) == ageLabel] <- "age"
 
   } else if (any(grepl("age|AGE", colnames(df)))) {
@@ -130,10 +130,10 @@ formatData <- function(path,
 
   # ethnicity
 
-  if (!is.null(ethLabel)){
+  if (!is.null(ethLabel)) {
     colnames(df)[colnames(df) == ethLabel] <- "ethnicity"
 
-  } else if (any(grepl("ethnicity|ETHNICITY ", colnames(df)))) {
+  } else if (any(grepl("ethnicity|ETHNICITY", colnames(df)))) {
     colnames(df)[grep("ethnicity|ETHNICITY", colnames(df))] <- "ethnicity"
   } else {
     warning("Ethnicity data not found")

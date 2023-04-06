@@ -67,25 +67,25 @@ summarizeAllByCategory <- function(df,
                                    delimIsNumeric=FALSE,
                                    spiroParam) {
 
-  if(!is.data.frame(df) || !is.character(demParam) ||
-     !is.character(delim) || !is.vector(spiroParam)){
+  if (!is.data.frame(df) || !is.character(demParam) ||
+     !is.character(delim) || !is.vector(spiroParam)) {
     stop("Missing inputs for summarizeAllByCategory")
   }
 
-  if((grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim)) &
-     !delimIsNumeric){
+  if ((grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim)) &
+     !delimIsNumeric) {
     stop("delim parameter and delimIsNumeric parameter in summarizeAllByCategory
          does not match up")
 
-  } else if(!(grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim))
-            & delimIsNumeric){
+  } else if (!(grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim))
+            & delimIsNumeric) {
     stop("delim parameter and delimIsNumeric parameter in summarizeAllByCategory
          does not match up")
   }
 
   results <- data.frame()
 
-  if(delimIsNumeric == TRUE) {
+  if (delimIsNumeric == TRUE) {
 
     # obtain the operator value
 
@@ -123,7 +123,7 @@ summarizeAllByCategory <- function(df,
 
       results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
-    } else if(op == "<=") {
+    } else if (op == "<=") {
 
       sel <- df[df[demParam] <= numBy,]
 
@@ -144,7 +144,7 @@ summarizeAllByCategory <- function(df,
 
       results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
-    } else if(op == ">") {
+    } else if (op == ">") {
 
       sel <- df[df[demParam] > numBy,]
 
@@ -165,7 +165,7 @@ summarizeAllByCategory <- function(df,
 
       results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
-    } else if(op == ">=") {
+    } else if (op == ">=") {
 
 
       sel <- df[df[demParam] >= numBy,]
@@ -188,7 +188,7 @@ summarizeAllByCategory <- function(df,
       results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
 
-    } else if(op == "==") {
+    } else if (op == "==") {
 
       sel <- df[df[demParam] == numBy,]
 
@@ -209,7 +209,7 @@ summarizeAllByCategory <- function(df,
 
       results <- rbind(results, list(count, spiroMean, spiroSD, spiroMin, spiroMax))
 
-    } else if(op == "!="){
+    } else if (op == "!=") {
 
 
       sel <- df[df[demParam] != numBy,]

@@ -57,7 +57,7 @@ data(package = "spiroview")
 
 ## Brief Tutorial 
 
-Here, we give a brief tutorial on how to use `spiroview` with the provided dataset.
+Here, we give a brief tutorial on how to use `spiroview` with one of the provided datasets.
 
 ``` r
 exampleDB <- GLIData

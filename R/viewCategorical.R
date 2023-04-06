@@ -37,31 +37,31 @@ viewCategorical <- function(df,
 
   graphTypes <- c("box", "strip", "violin")
 
-  if(!(type %in% graphTypes)) {
+  if (!(type %in% graphTypes)) {
     stop("Requested graph type not supported")
   }
 
   # takes the data frames with the categorical data and the value that you want to see
 
-  outputGraph <- ggplot(df, aes(x=sapply(.data[[demParam]], as.character), y=.data[[spiroParam]])) +
-    labs(y=spiroParam, x=demParam)
+  outputGraph <- ggplot2::ggplot(df, ggplot2::aes(x=sapply(.data[[demParam]], as.character), y=.data[[spiroParam]])) +
+    ggplot2::labs(y=spiroParam, x=demParam)
 
   # makes ggplot graph based on the type of distribution graph you're looking for
 
   if (type == "box") {
-    outputGraph <- outputGraph + geom_boxplot()
+    outputGraph <- outputGraph + ggplot2::geom_boxplot()
   } else if (type == "violin") {
-    outputGraph <- outputGraph + geom_violin()
+    outputGraph <- outputGraph + ggplot2::geom_violin()
   } else if (type == "strip") {
-    outputGraph <- outputGraph + geom_jitter()
+    outputGraph <- outputGraph + ggplot2::geom_jitter()
   }
 
 
-  if(!is.null(title)){
-    if(!is.character(title)){
+  if (!is.null(title)) {
+    if (!is.character(title)) {
       warning("Inputted title is a not a character string, title not added")
     }
-    outputGraph <- outputGraph + ggtitle(title)
+    outputGraph <- outputGraph + ggplot2::ggtitle(title)
   }
   return(outputGraph)
 }
@@ -104,18 +104,18 @@ viewCategoricalCounts <- function(df,
 
   graphTypes <- c("pie", "bar")
 
-  if(!(type %in% graphTypes)) {
+  if (!(type %in% graphTypes)) {
     stop("Requested graph type not supported")
   }
 
-  outputGraph <- ggplot(df, aes(x=sapply(.data[[demParam]], as.character))) +
-    labs(x=demParam)
+  outputGraph <- ggplot2::ggplot(df, ggplot2::aes(x=sapply(.data[[demParam]], as.character))) +
+    ggplot2::labs(x=demParam)
 
-  if(type == "bar") {
+  if (type == "bar") {
     outputGraph <- outputGraph +
-      geom_bar()
+      ggplot2::geom_bar()
 
-  } else if(type == "pie") {
+  } else if (type == "pie") {
     countDF <- data.frame()
     cat <- unique(df[[demParam]])
     for(i in seq_along(cat)) {
@@ -123,16 +123,16 @@ viewCategoricalCounts <- function(df,
       countDF <- rbind(countDF, list(cat[i], total))
     }
     colnames(countDF) <-c("demParam", "n")
-    outputGraph <- ggplot(countDF, aes(x="", y=n, fill=demParam)) +
-      geom_bar(stat="identity", width=1) +
+    outputGraph <- ggplot2::ggplot(countDF, ggplot2::aes(x="", y=n, fill=demParam)) +
+      ggplot2::geom_bar(stat="identity", width=1) +
       coord_polar("y", start=0)
   }
 
-  if(!is.null(title)){
-    if(!is.character(title)){
+  if (!is.null(title)) {
+    if (!is.character(title)) {
       warning("Inputted title is a not a character string, title not added")
     }
-    outputGraph <- outputGraph + ggtitle(title)
+    outputGraph <- outputGraph + ggplot2::ggtitle(title)
   }
 
   return(outputGraph)

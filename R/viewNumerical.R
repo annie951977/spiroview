@@ -39,17 +39,17 @@ viewNumerical <- function(df,
 
   # makes ggplot graph
 
-  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]]))+ geom_point()
+  outputGraph <- ggplot2::ggplot(df, ggplot2::aes(x=.data[[demParam]], y=.data[[spiroParam]]))+ ggplot2::geom_point()
 
   if (includeBestFit) {
-    outputGraph = outputGraph + geom_smooth(method = "lm")
+    outputGraph = outputGraph + ggplot2::geom_smooth(method = "lm")
   }
 
-  if(!is.null(title)){
-    if(!is.character(title)){
+  if (!is.null(title)) {
+    if (!is.character(title)) {
       warning("Inputted title is a not a character string, title not added")
     }
-    outputGraph <- outputGraph + ggtitle(title)
+    outputGraph <- outputGraph + ggplot2::ggtitle(title)
   }
 
   return(outputGraph)
@@ -132,12 +132,12 @@ compareNumerical <- function(df,
                              includeBestFit=FALSE,
                              title=NULL) {
 
-  if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)){
+  if (!is.data.frame(df) || !is.character(demParam) || !is.character(spiroParam)) {
     stop("Please provide the proper parameters for compareNumerical")
   }
 
-  if(!is.null(delim)){
-    if(!(grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim))){
+  if (!is.null(delim)) {
+    if (!(grepl("^[<>]{1}\\d", delim) || grepl("^[><=]{1}[=]{1}\\d", delim))) {
       stop("delim parameter in compareNumerical is expected to be numeric")
     }
   }
@@ -145,9 +145,9 @@ compareNumerical <- function(df,
 
   # makes ggplot graph (mostly a scatterplot)
 
-  outputGraph <- ggplot(df, aes(x=.data[[demParam]], y=.data[[spiroParam]])) + geom_point()
+  outputGraph <- ggplot2::ggplot(df, ggplot2::aes(x=.data[[demParam]], y=.data[[spiroParam]])) + ggplot2::geom_point()
 
-  if(!is.null(delim)) {
+  if (!is.null(delim)) {
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
 
@@ -163,41 +163,41 @@ compareNumerical <- function(df,
     # filter for the param
     if (op == "<") {
       highLight <- dplyr::filter(df, df[[demParam]] < numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   color=.data[[demParam]]))
-    } else if(op == "<=") {
+    } else if (op == "<=") {
       highLight <- dplyr::filter(df, df[[demParam]] <= numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   color=.data[[demParam]]))
-    } else if(op == ">") {
+    } else if (op == ">") {
       highLight <- dplyr::filter(df, df[[demParam]] > numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   color=.data[[demParam]]))
 
-    } else if(op == ">=") {
+    } else if (op == ">=") {
       highLight <- dplyr::filter(df, df[[demParam]] >= numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   color=.data[[demParam]]))
 
-    } else if(op == "==") {
+    } else if (op == "==") {
       highLight <- dplyr::filter(df, df[[demParam]] == numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   color=.data[[demParam]]))
 
-    } else if(op == "!="){
+    } else if (op == "!=") {
       highLight <- dplyr::filter(df, df[[demParam]] != numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   color=.data[[demParam]]))
     }
@@ -205,16 +205,16 @@ compareNumerical <- function(df,
   }
 
   # if there is a secondDelim but its category doesn't match secondParamIsNumeric
-  if(!is.null(secondDelim)) {
-    if((grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d",
+  if (!is.null(secondDelim)) {
+    if ((grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d",
                                                    secondDelim)) &
-                                                  !secondParamIsNumeric){
+                                                  !secondParamIsNumeric) {
       stop("secondDelim parameter and secondParamIsNumeric
          parameter in compareNumerical does not match up")
 
-    } else if(!(grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d",
+    } else if (!(grepl("^[<>]{1}\\d", secondDelim) || grepl("^[><=]{1}[=]{1}\\d",
                                                            secondDelim)) &
-                                                           secondParamIsNumeric){
+                                                           secondParamIsNumeric) {
       stop("secondDelim parameter and secondParamIsNumeric
          parameter in compareNumerical does not match up
          or invalid formatting of secondDelim")
@@ -222,16 +222,16 @@ compareNumerical <- function(df,
   }
 
   # defensive programming for second dem
-  if(!is.null(secondParam) & !is.null(secondDelim) & !secondParamIsNumeric) {
-    outputGraph <- outputGraph + geom_point(data=df,
-                                            aes(x=.data[[demParam]],
+  if (!is.null(secondParam) & !is.null(secondDelim) & !secondParamIsNumeric) {
+    outputGraph <- outputGraph + ggplot2::geom_point(data=df,
+                                            ggplot2::aes(x=.data[[demParam]],
                                                 y=.data[[spiroParam]],
                                                 shape=factor(.data[[secondParam]])))
 
   }
 
 
-  if(!is.null(secondParam) & !is.null(secondDelim) & secondParamIsNumeric) {
+  if (!is.null(secondParam) & !is.null(secondDelim) & secondParamIsNumeric) {
     # grep for inequality operator
     operators <- c("<", "<=", ">", ">=", "==", "!=")
 
@@ -247,45 +247,45 @@ compareNumerical <- function(df,
     # filter for the param
     if (op == "<") {
       highLight <- dplyr::filter(df, df[[secondParam]] < numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   shape=25))
 
-    } else if(op == "<=") {
+    } else if (op == "<=") {
       highLight <- dplyr::filter(df, df[[secondParam]] <= numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   shape=25))
 
-    } else if(op == ">") {
+    } else if (op == ">") {
       highLight <- dplyr::filter(df, df[[secondParam]] > numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]]),
                                                   shape=25)
 
 
-    } else if(op == ">=") {
+    } else if (op == ">=") {
       highLight <- dplyr::filter(df, df[[secondParam]] >= numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   shape=25))
 
-    } else if(op == "==") {
+    } else if (op == "==") {
       highLight <- dplyr::filter(df, df[[secondParam]] == numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   shape=25))
 
 
-    } else if(op == "!="){
+    } else if (op == "!=") {
       highLight <- dplyr::filter(df, df[[secondParam]] != numBy)
-      outputGraph <- outputGraph + geom_point(data=highLight,
-                                              aes(x=.data[[demParam]],
+      outputGraph <- outputGraph + ggplot2::geom_point(data=highLight,
+                                              ggplot2::aes(x=.data[[demParam]],
                                                   y=.data[[spiroParam]],
                                                   shape=25))
     }
@@ -293,14 +293,14 @@ compareNumerical <- function(df,
   }
 
   if (includeBestFit) {
-    outputGraph = outputGraph + geom_smooth(method = "lm")
+    outputGraph = outputGraph + ggplot2::geom_smooth(method = "lm")
   }
 
-  if(!is.null(title)){
-    if(!is.character(title)){
+  if (!is.null(title)) {
+    if (!is.character(title)) {
       warning("Inputted title is a not a character string, title not added")
     }
-    outputGraph <- outputGraph + ggtitle(title)
+    outputGraph <- outputGraph + ggplot2::ggtitle(title)
   }
 
   return(outputGraph)

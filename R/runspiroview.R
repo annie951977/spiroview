@@ -7,7 +7,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' sprioview::runspiroview()
+#' spiroview::runspiroview()
 #' }
 #'
 #' @references

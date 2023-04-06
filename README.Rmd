@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 To install the latest version of this package:
 ``` r
 require("devtools")
-devtools::install_github("annie951977/spiroview")
+devtools::install_github("annie951977/spiroview", build_vignettes = TRUE)
 ```
 
 To run the Shiny app
@@ -53,7 +53,7 @@ browseVignettes("spiroview")
 
 `calculateLLNPret` calculates the lower limit of normal for a spirometric measurement based off of inputted demographic variables such as height, age, and gender and the spirometry reference of interest.
 
-`calculatePctPret` calculates 
+`calculatePctPret` calculates the percent predicted of a spirometry value in your dataset. 
 
 `calculateMeanPret` calculates the mean predicted value for a spirometric measurement based off of inputted demographic variables such as height, age, and gender.
 

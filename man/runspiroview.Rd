@@ -15,7 +15,7 @@ The code has been placed in \code{./inst/shiny-scripts}.
 }
 \examples{
 \dontrun{
-sprioview::runspiroview()
+spiroview::runspiroview()
 }
 
 }

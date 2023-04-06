@@ -11,6 +11,7 @@ A CSV file with 50 observation of 8 variables
 \item{id}{Simulated patient id using 4 digits}
 \item{gender}{Gender denoted by 1 for male, 2 for female}
 \item{age}{Simulated age of patient}
+\item{height}{Simulated height of patient}
 \item{ethnicity}{Ethnicity of patient, denoted by 1 = Caucasian,
 2 = African-American, 3 = NE Asian, 4 = SE Asian, 5 = Other/mixed}
 \item{smoking}{Whether or not patient is a smoker, denoted by 1 for
