@@ -16,6 +16,7 @@
 #' Silva, A. (2022) TestingPackage: An Example R Package For BCB410H.
 #' Unpublished. URL https://github.com/anjalisilva/TestingPackage.
 #'
+#' @export
 #' @importFrom shiny runApp
 
 runspiroview <- function() {
